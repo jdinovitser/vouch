@@ -640,3 +640,23 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
   .guardian:hover .wink-eye { animation: none; opacity: 0; }
   .victory-lap { left: 50%; animation: none; transform: translateX(-50%); }
 }
+
+/* Keep the enlarged Knight artwork prominent without crowding adjacent copy. */
+.knight-tier-card { min-height: 390px; }
+.knight-tier-card .authority-knight { min-height: 270px; }
+.autonomy-step { min-height: 210px; }
+.authority-knight .knight-artwork { width: 185px; }
+.authority-knight-small .knight-artwork { width: 92px; }
+.guardian-halo .authority-knight .knight-artwork { width: 165px; }
+.stage-graphic > .authority-knight .knight-artwork { width: 203px; }
+.demo-hero-heading { min-height: 280px; }
+.demo-stage-card { min-height: 330px; grid-template-columns: 250px 1fr; }
+.stage-graphic { min-height: 245px; }
+.stage-ring { width: 190px; height: 190px; }
+
+@media (max-width: 760px) {
+  .knight-tier-card { min-height: 350px; }
+  .demo-hero-heading { min-height: 250px; }
+  .demo-stage-card { grid-template-columns: 1fr; }
+  .stage-graphic { min-height: 230px; }
+}
