@@ -34,7 +34,7 @@ function AuthorityArtwork({ level, state }: { level: AutonomyLevel; state: Exclu
   const armed = level === "T3" || level === "T4";
   const mounted = level === "T4";
   const pose = state === "verified" ? "translate(0 -4)" : state === "blocked" ? "rotate(-4 90 110)" : state === "approval" ? "rotate(3 90 110)" : "";
-  const riderTransform = mounted ? `translate(90 98) scale(.88) translate(-90 -98) translate(-1 -3) ${pose}` : `${level === "T1" ? "translate(90 98) scale(.76) translate(-90 -98)" : level === "T2" ? "translate(90 98) scale(.93) translate(-90 -98)" : ""} ${pose}`;
+  const riderTransform = mounted ? `translate(27 32) scale(.72) ${pose}` : `${level === "T1" ? "translate(90 98) scale(.76) translate(-90 -98)" : level === "T2" ? "translate(90 98) scale(.93) translate(-90 -98)" : ""} ${pose}`;
 
   return <svg className={`knight-artwork knight-authority-artwork knight-authority-${level}`} viewBox="0 0 200 220" role="img" aria-label={`${authorityKnightLabels[level].label} VOUCH Knight`}>
     <defs>
