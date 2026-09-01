@@ -1,0 +1,796 @@
+VOUCH — PRODUCT EVOLUTION: EARNED AUTONOMY
+
+We are making a major conceptual refinement to VOUCH.
+
+Do not treat this as a cosmetic redesign.
+
+The goal is to make VOUCH substantially more distinctive and memorable as a hackathon product while preserving the real technical foundation that already exists.
+
+THE NEW CORE IDEA
+
+VOUCH is an earned-autonomy system for AI agents.
+
+The central thesis is:
+
+AI agents don't need unlimited autonomy. They need a way to earn it.
+
+The core product promise is:
+
+VOUCH gives AI agents a verifiable authority that changes based on what they prove they can do.
+
+The fundamental loop is:
+
+ACTION → OUTCOME → EVIDENCE → TRUST → AUTHORITY → ACTION
+
+An agent can:
+
+earn autonomy
+exercise autonomy
+have autonomy reduced after failure
+regain autonomy through demonstrated successful behavior
+
+Human approval is an important safety mechanism, but it is not the primary product concept.
+
+The primary concept is:
+
+Dynamic authority based on demonstrated performance.
+
+PRODUCT DIFFERENTIATION
+
+VOUCH should NOT feel like a generic:
+
+AI safety dashboard
+approval workflow
+risk dashboard
+human-in-the-loop product
+AI copilot with guardrails
+static permissions system
+
+Those mechanisms can exist underneath the product, but the visible product story must be:
+
+EARNED AUTONOMY
+
+The judge should understand that VOUCH is different because an agent's history affects what it is permitted to do next.
+
+The important conceptual distinction is:
+
+Static permissions
+
+This agent is configured to perform X.
+
+VOUCH
+
+This agent has demonstrated that it can perform X reliably enough to earn that authority.
+
+And importantly:
+
+Authority can be lost.
+
+And:
+
+Authority can be earned back.
+
+PRESERVE THE REAL TECHNICAL FOUNDATION
+
+Before changing anything, inspect the existing codebase and understand the current implementation.
+
+The existing project already contains important technical work including:
+
+Strands Agents integration
+Amazon Bedrock adapter
+deterministic VOUCH authority/policy engine
+server-side authorization
+evidence handling
+verification
+trust state
+autonomy levels
+approval flow
+audit records
+session state
+regression tests
+
+Do not throw this away.
+
+Do not replace the deterministic authority layer with an LLM.
+
+The architectural boundary should remain:
+
+Strands agent reasons/recommends → VOUCH independently determines authority → action occurs only when authorized → outcome is verified → evidence updates trust → trust can change future authority.
+
+The agent MUST NOT be able to grant itself authority.
+
+VOUCH's authority decision must remain independently enforced server-side.
+
+AWS / STRANDS INTEGRATION
+
+AWS credentials are configured in Replit Secrets:
+
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+AWS_REGION
+
+Region:
+
+us-east-1
+
+The existing configuration/template specifies:
+
+amazon.nova-lite-v1:0
+
+AWS account verification is currently in progress.
+
+Therefore:
+
+Do NOT fake successful Bedrock inference.
+Do NOT create fake AWS responses.
+Do NOT label deterministic fallback behavior as AWS LIVE.
+Do NOT modify the AWS integration simply to make the demo appear live.
+
+When AWS becomes available:
+
+AWS LIVE must mean an actual successful Strands → Bedrock invocation.
+
+The application must remain functional in deterministic/demo mode when live AWS inference is unavailable.
+
+AUTONOMY MODEL
+
+Create a clear conceptual model around four autonomy levels.
+
+T1 — OBSERVE
+
+The agent can observe and analyze.
+
+It cannot act autonomously.
+
+T2 — RECOMMEND
+
+The agent can recommend actions.
+
+A human or higher authority must authorize consequential actions.
+
+T3 — ACT
+
+The agent can autonomously perform actions within its earned authority.
+
+T4 — DELEGATE
+
+The agent has demonstrated enough reliability to operate with broader delegated authority.
+
+The exact implementation can use existing autonomy terminology if it already has a coherent equivalent, but preserve the fundamental progression:
+
+Observe → Recommend → Act → Delegate
+
+The critical concept is:
+
+Authority is earned, not permanently assigned.
+THE MOST IMPORTANT PRODUCT MECHANIC
+
+Trust must NOT merely be a number displayed on a dashboard.
+
+Trust must have consequences.
+
+For example:
+
+An agent begins:
+
+T2 — RECOMMEND
+
+It demonstrates successful verified behavior.
+
+Its authority increases:
+
+T2 → T3
+
+Then a consequential action fails verification.
+
+VOUCH visibly changes the agent's authority:
+
+T3 → T2
+
+Display:
+
+AUTONOMY REDUCED
+
+Then explain:
+
+Verification failed. This agent is no longer trusted to perform this action autonomously.
+
+The agent is not permanently punished.
+
+Successful verified behavior can eventually restore authority.
+
+This creates the core lifecycle:
+
+EARN → ACT → VERIFY → LOSE → RECOVER
+
+That lifecycle should become the heart of the product.
+
+THE DEMO MUST CHANGE
+
+The demo should no longer feel like a generic sequence of safety stages.
+
+It should feel like:
+
+WATCH AN AI AGENT EARN THE RIGHT TO ACT
+
+The judge should understand the concept within seconds.
+
+DEMO STORY
+
+Start with a specific AI agent.
+
+Example:
+
+CLAIMS RESOLUTION AGENT
+
+Show an authority credential/card containing:
+
+Current autonomy
+Current authority
+Authorized action types
+Verified actions
+Successful outcomes
+Recent failures
+Trust/reputation
+Last authority change
+
+The exact domain can remain whatever best fits the existing implementation, but it should be immediately understandable.
+
+MOMENT 1 — THE AGENT PROVES ITSELF
+
+The agent makes a recommendation.
+
+VOUCH evaluates the request.
+
+The action is within the agent's earned authority.
+
+The action executes.
+
+The outcome is verified.
+
+Display prominently:
+
+VERIFIED
+
+Then show the progression:
+
+T2 → T3
+
+With language such as:
+
+Authority earned
+
+Successful verified behavior expanded this agent's autonomy.
+
+This should feel like a meaningful product event.
+
+MOMENT 2 — THE AGENT FAILS
+
+Create a deliberately controlled verification failure.
+
+The failure must be deterministic and safe for the demo.
+
+The point is NOT that the AI was "hacked."
+
+The point is that:
+
+VOUCH observed the outcome and changed the agent's authority.
+
+Show:
+
+EXPECTED OUTCOME
+
+versus
+
+ACTUAL OUTCOME
+
+Then:
+
+AUTONOMY REDUCED
+
+T3 → T2
+
+Explain:
+
+VOUCH reduced this agent's authority because its action could not be verified.
+
+This is the signature moment.
+
+MOMENT 3 — THE AGENT TRIES AGAIN
+
+The agent encounters another consequential action.
+
+Because its authority has changed, the same class of action that previously could execute autonomously now requires additional authorization.
+
+Show:
+
+APPROVAL REQUIRED
+
+The important thing is that the approval is not arbitrary.
+
+It happened because:
+
+the agent's history changed its authority.
+
+MOMENT 4 — RECOVERY
+
+Show successful verified actions rebuilding the agent's standing.
+
+Then:
+
+T2 → T3
+
+Display:
+
+AUTHORITY RESTORED
+
+The agent demonstrated successful verified behavior and regained autonomous authority.
+
+This creates a complete lifecycle.
+
+THE WOW MOMENT
+
+The judge should see:
+
+SAME AGENT
+SAME KIND OF ACTION
+
+Before failure:
+
+T3 — ACT
+
+→ executes automatically
+
+After failure:
+
+T2 — RECOMMEND
+
+→ approval required
+
+After recovery:
+
+T3 — ACT
+
+→ autonomous execution restored
+
+The core insight should be unmistakable:
+
+The agent's past behavior changes what it is allowed to do next.
+HOMEPAGE
+
+Rewrite the homepage around earned autonomy.
+
+Primary headline:
+
+AI agents don't need unlimited autonomy. They need a way to earn it.
+
+Supporting copy:
+
+VOUCH gives AI agents a verifiable authority that changes with what they prove they can do.
+
+Immediately show the loop:
+
+PROVE → EARN → ACT → VERIFY → ADJUST
+
+Do NOT lead with generic language such as:
+
+"AI safety platform"
+"trust-based autonomy layer"
+"human-in-the-loop AI"
+"secure AI orchestration"
+
+Those can appear lower on the page if useful.
+
+The first screen should make a judge curious.
+
+VISUAL DIRECTION
+
+Keep the premium enterprise SaaS quality.
+
+Introduce a distinctive visual language around:
+
+authority / credentials / earned permissions / progression
+
+Useful visual concepts include:
+
+digital authority card
+autonomy badge
+trust trajectory
+earned permissions
+verified achievements
+authority history
+promotion events
+demotion events
+recovery events
+clear visual state changes
+
+Do NOT turn the interface into a video game.
+
+It should still look like serious enterprise infrastructure.
+
+THE KNIGHT MASCOT
+
+Keep the knight, but give it a meaningful product role.
+
+The knight represents the agent's earned authority.
+
+It should communicate state rather than simply decorate the interface.
+
+Possible states:
+
+T1: observing
+T2: recommending
+T3: ready to act
+T4: delegated
+failure: shield lowered / concerned
+approval required: waiting with shield
+verified success: confident / victorious
+
+The knight should remain:
+
+cute
+recognizable
+friendly
+small
+confident
+visibly armored
+shield-bearing
+face visible
+
+Do NOT make it childish, scary, generic, or fantasy-RPG-like.
+
+Do not spend significant effort on complex mascot animation.
+
+No elaborate animation systems.
+
+The mascot should reinforce the earned-autonomy concept.
+
+CONTROL CENTER
+
+Redesign the Control Center so the most important question is:
+
+WHAT IS THIS AGENT CURRENTLY TRUSTED TO DO?
+
+Prominently display:
+
+Agent
+Current autonomy level
+Current authority
+Trust/reputation
+Actions currently allowed
+Actions requiring approval
+Actions blocked
+Recent verified outcomes
+Recent failures
+Authority changes
+
+The page should answer immediately:
+
+What is this agent allowed to do right now, and why?
+
+HISTORY / AUDIT
+
+Make the history view tell the story of earned authority.
+
+Examples:
+
+AUTHORITY EARNED
+
+T2 → T3
+
+Reason:
+
+Successful verified outcomes.
+
+AUTONOMY REDUCED
+
+T3 → T2
+
+Reason:
+
+Verification failure.
+
+APPROVAL REQUIRED
+
+Reason:
+
+Current authority does not permit autonomous execution.
+
+AUTHORITY RESTORED
+
+T2 → T3
+
+Reason:
+
+Successful verified behavior.
+
+The audit trail should make the relationship between:
+
+outcome → trust → authority
+
+easy to understand.
+
+WHY VOUCH
+
+Rewrite this page around the conceptual problem.
+
+The problem:
+
+Today's AI agents are generally given permissions up front.
+
+Then:
+
+A configuration can say what an agent MAY do.
+It cannot tell you whether the agent has EARNED the right to keep doing it.
+
+VOUCH introduces:
+
+Authority that responds to demonstrated behavior.
+
+Use a clear comparison:
+
+Traditional permissions
+→ static
+
+VOUCH authority
+→ adaptive
+
+Traditional trust
+→ configured or subjective
+
+VOUCH trust
+→ tied to verified outcomes
+
+Do not claim that VOUCH mathematically proves an agent is trustworthy.
+
+Use precise language:
+
+earned authority
+verified behavior
+authority changes
+evidence-based adjustment
+demonstrated reliability
+HOW IT WORKS
+
+Make the lifecycle clear:
+
+REQUEST
+Agent proposes an action.
+
+↓
+
+EVIDENCE
+VOUCH evaluates the available evidence.
+
+↓
+
+AUTHORITY
+VOUCH determines whether the agent's current authority permits the action.
+
+↓
+
+ACTION
+Only authorized actions execute.
+
+↓
+
+VERIFICATION
+The system checks expected outcome against observed outcome.
+
+↓
+
+TRUST
+Verified behavior updates the agent's standing.
+
+↓
+
+AUTONOMY
+The agent's future authority can increase, decrease, or require additional authorization.
+
+Then visually loop:
+
+AUTONOMY → future AUTHORITY decisions
+
+The feedback loop is essential.
+
+This is an evolving relationship, not a one-time approval.
+
+JUDGES PAGE
+
+Rewrite the Judges page so it does NOT feel like a generic feature tour.
+
+Open with:
+
+Watch an AI agent earn the right to act — then lose it.
+
+Then tell the judge exactly what to watch for:
+
+The agent begins with limited authority.
+Verified success expands its autonomy.
+A failed outcome reduces its authority.
+The same class of action now requires approval.
+Successful verified behavior can restore authority.
+
+Then provide a concise technical snapshot:
+
+Agent reasoning
+Strands Agents SDK + Amazon Bedrock
+
+Authority
+Server-side deterministic VOUCH policy engine
+
+Evidence
+Typed evidence and action context
+
+Verification
+Expected vs actual outcome
+
+Trust
+Server-side trust state
+
+Autonomy
+Authority changes based on verified outcomes
+
+Audit
+Recorded authority and outcome transitions
+
+Be completely honest about which components are deterministic demo behavior versus live AWS inference.
+
+ARCHITECTURE PAGE
+
+The architecture should make the separation extremely obvious:
+
+USER / EVENT
+↓
+STRANDS AGENT
+↓
+RECOMMENDATION
+↓
+VOUCH AUTHORITY ENGINE
+↓
+ALLOW / APPROVAL / BLOCK
+↓
+ACTION
+↓
+VERIFICATION
+↓
+TRUST UPDATE
+↓
+AUTONOMY UPDATE
+↓
+AUDIT
+
+Then show a feedback loop:
+
+AUTONOMY UPDATE → future AUTHORITY decisions
+
+This feedback loop is the key conceptual feature.
+
+TECHNICAL REQUIREMENTS
+
+Preserve or strengthen:
+
+server-side authorization
+no client-controlled authorization bypasses
+session-scoped state
+evidence binding
+action binding
+verification
+trust updates
+autonomy updates
+approval gating
+regression tests
+honest AWS/live/fallback reporting
+
+Add or refine tests as necessary to prove:
+
+Test 1
+
+Successful verified action can increase authority when policy permits.
+
+Test 2
+
+Verification failure decreases authority.
+
+Test 3
+
+After demotion, an action previously permitted autonomously now requires approval or is blocked according to policy.
+
+Test 4
+
+Successful verified recovery can restore authority.
+
+Test 5
+
+Client input cannot directly grant authority.
+
+Test 6
+
+Client input cannot directly mark an action as successfully resolved.
+
+Test 7
+
+Stale or cross-action evidence cannot authorize a new action.
+
+Test 8
+
+AWS LIVE is only reported after an actual successful Strands → Bedrock invocation.
+
+Do not weaken the deterministic authority boundary to make tests pass.
+
+DO NOT FAKE THE NEW CONCEPT
+
+Do not simply change labels from "risk" to "trust."
+
+The product behavior must visibly demonstrate:
+
+trust → authority → future behavior
+
+If the existing implementation does not fully support this lifecycle, implement the smallest clean server-side changes necessary.
+
+Do not build unnecessary infrastructure.
+
+Do not add databases, queues, microservices, or additional AWS services merely for appearance.
+
+DO NOT OVERBUILD
+
+Prioritize:
+
+Distinctive product concept
+Working earned-autonomy lifecycle
+Real technical boundary
+Excellent demo
+Clear visual communication
+Honest AWS/Strands integration
+
+Do NOT spend time on:
+
+unnecessary integrations
+fake enterprise logos
+fake customers
+fake metrics
+elaborate animations
+complex mascot mechanics
+unnecessary dashboards
+decorative features
+speculative edge cases
+IMPLEMENTATION PROCESS
+
+Before changing code:
+
+Inspect the current architecture.
+Identify which existing components already support earned autonomy.
+Identify the minimum changes needed to make the new product story truthful.
+Preserve working functionality.
+Implement the smallest coherent set of changes.
+Run the full test suite.
+Run the production build.
+Verify every route.
+Verify the complete demo lifecycle.
+Report exactly what changed.
+
+Do not rewrite the project from scratch.
+
+Do not remove working AWS/Strands code.
+
+Do not change dependencies unless required.
+
+Do not create credential files.
+
+Do not expose secrets.
+
+FINAL SUCCESS CRITERIA
+
+When finished, a judge who spends only 10 seconds on VOUCH should understand:
+
+VOUCH lets AI agents earn autonomy based on verified behavior.
+
+After watching the demo, the judge should remember:
+
+"That was the AI agent that earned permission, lost it when it failed, and had to earn it back."
+
+That is the product.
+
+That is the differentiator.
+
+Optimize for making this one idea unmistakable rather than adding more features.
