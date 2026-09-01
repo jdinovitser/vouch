@@ -39,8 +39,6 @@ export function KnightArtwork({ state }: { state: KnightState }) {
       <path d="M176 79l43-30" stroke="#e2f4ff" strokeWidth="6" strokeLinecap="round"/>
       <path d="M214 46l9 3-8 7z" fill="#ff606d"/>
       <path d="M176 79l10 9" stroke="#315d8b" strokeWidth="8" strokeLinecap="round"/>
-      <path d="M45 91c17 4 31 15 37 30-2 27-16 45-37 54-19-12-29-30-26-55z" fill="#2d76bd" stroke="#eef8ff" strokeWidth="4"/>
-      <path d="m33 121 12 25 16-25h-9l-7 11-5-11z" fill="#fff"/>
       <path d="M27 181h72" stroke="#ff606d" strokeWidth="3" strokeLinecap="round"/>
     </g>}
 

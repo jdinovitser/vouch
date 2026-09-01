@@ -133,7 +133,7 @@ function HeroVisual() {
 }
 
 function Guardian({ state = "default", size = "normal" }: { state?: KnightState; size?: "normal" | "small" }) {
-  return <div className={`guardian guardian-${state} guardian-${size}`}><div className="guardian-art"><KnightArtwork state={state} /><span className="wink-eye" aria-hidden="true" /></div><span className="guardian-state">{knightLabels[state]}</span></div>;
+  return <div className={`guardian guardian-${state} guardian-${size}`}><div className="guardian-art">{state === "default" ? <img className="canonical-knight" src="/vouch-mascot.svg" alt="VOUCH Knight ready" /> : <KnightArtwork state={state} />}<span className="wink-eye" aria-hidden="true" /></div><span className="guardian-state">{knightLabels[state]}</span></div>;
 }
 
 function Principle({ number, title, text, icon }: { number: string; title: string; text: string; icon: ReactNode }) {

@@ -80,7 +80,7 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .guardian-card { position: relative; width: 265px; padding: 28px 26px 22px; text-align: center; border: 1px solid #263c55; border-radius: 14px; background: linear-gradient(145deg, rgba(18,37,59,.98), rgba(8,19,33,.98)); box-shadow: 0 30px 80px rgba(0,0,0,.42), inset 0 1px rgba(255,255,255,.03); }
 .guardian-card:before { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(92,169,255,.08); border-radius: 10px; pointer-events: none; }
 .guardian-halo { width: 126px; height: 126px; margin: 0 auto 14px; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle, rgba(92,169,255,.22), rgba(92,169,255,.02) 65%); }
-.guardian-halo .knight-artwork { width: 118px; filter: drop-shadow(0 10px 20px rgba(0,0,0,.45)); }
+.guardian-halo .canonical-knight { width: 118px; filter: drop-shadow(0 10px 20px rgba(0,0,0,.45)); }
 .guardian-label { color: var(--blue-bright); font: 500 8px var(--mono); letter-spacing: .15em; }
 .guardian-card > b { display: block; margin: 10px 0 21px; font: 700 22px/1.25 var(--display); letter-spacing: -.03em; }
 .guardian-scan { padding-top: 14px; border-top: 1px solid var(--line); text-align: left; color: var(--muted); font: 500 8px var(--mono); text-transform: uppercase; }
@@ -376,9 +376,11 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .story-hero h1 { margin: 22px 0 21px; font: 700 clamp(50px, 6vw, 76px)/1 var(--display); letter-spacing: -.06em; }
 .story-hero p { max-width: 560px; margin: 0; color: #9aabbe; font-size: 15px; line-height: 1.8; }
 .story-hero .button { margin-top: 30px; }
-.story-hero-visual { position: relative; min-height: 375px; display: grid; place-items: center; }
+.story-hero-visual { position: relative; min-height: 375px; display: grid; place-items: center; isolation: isolate; }
+.story-hero-visual:before { content: ""; position: absolute; width: min(390px, 92%); height: 285px; border: 1px solid #203b57; border-radius: 10px; background: linear-gradient(145deg, rgba(17,38,61,.78), rgba(7,17,29,.72)), repeating-linear-gradient(90deg, transparent 0 44px, rgba(92,169,255,.045) 45px), repeating-linear-gradient(0deg, transparent 0 44px, rgba(92,169,255,.045) 45px); box-shadow: inset 0 1px rgba(255,255,255,.04), 0 25px 70px rgba(0,0,0,.24); z-index: -1; }
+.story-hero-visual:after { content: "TRUST BOUNDARY  /  POLICY ONLINE"; position: absolute; left: 12%; top: 8%; color: #4c7193; font: 500 7px var(--mono); letter-spacing: .14em; z-index: 1; }
 .story-hero-visual .orbit-a { width: 320px; height: 320px; }
-.story-hero-visual .guardian { transform: scale(1.4); }
+.story-hero-visual .guardian { transform: scale(1.4); z-index: 2; }
 .hero-state-card { position: absolute; right: 5%; bottom: 8%; width: 210px; padding: 15px; border: 1px solid var(--line); border-radius: 6px; background: #0c1c2c; box-shadow: 0 20px 45px rgba(0,0,0,.3); }
 .hero-state-card b { display: block; margin: 9px 0 5px; color: var(--text); font-size: 12px; }
 .hero-state-card small { color: var(--muted); font-size: 9px; line-height: 1.5; }
@@ -452,8 +454,9 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 /* Guardian states */
 .guardian { position: relative; display: inline-flex; flex-direction: column; align-items: center; transition: transform .35s, filter .35s; }
 .guardian-art { position: relative; display: inline-flex; }
-.knight-artwork { width: 108px; display: block; overflow: visible; filter: drop-shadow(0 12px 18px rgba(0,0,0,.4)); }
-.guardian-small .knight-artwork { width: 48px; }.guardian-small .guardian-state { font-size: 6px; }
+.canonical-knight { width: 108px; display: block; filter: drop-shadow(0 12px 18px rgba(0,0,0,.4)); }
+.knight-artwork { width: 200px; display: block; overflow: visible; filter: drop-shadow(0 12px 18px rgba(0,0,0,.4)); }
+.guardian-small .canonical-knight { width: 48px; }.guardian-small .knight-artwork { width: 92px; }.guardian-small .guardian-state { font-size: 6px; }
 .wink-eye { position: absolute; left: 54%; top: 34%; width: 8px; height: 3px; border-bottom: 2px solid #17334e; border-radius: 50%; opacity: 0; transform: rotate(8deg) scaleX(.1); transform-origin: center; pointer-events: none; }
 .guardian:hover .wink-eye { animation: wink .55s ease both; }
 @keyframes wink { 0%, 15% { opacity: 0; transform: rotate(8deg) scaleX(.1); } 25%, 72% { opacity: 1; transform: rotate(8deg) scaleX(1); } 86%, 100% { opacity: 0; transform: rotate(8deg) scaleX(.1); } }
