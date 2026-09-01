@@ -187,7 +187,7 @@ function DemoExperience({ scenarios, runScenario, loading, navigate, judgeMode =
     if (!shouldScheduleVictoryLap({ stage: demo.stage, stageCount: demoStages.length, playing: demo.playing, loading, alreadyScheduled: victoryScheduled.current })) return;
     victoryScheduled.current = true;
     const reveal = window.setTimeout(() => setVictoryLapVisible(true), 1200);
-    const hide = window.setTimeout(() => setVictoryLapVisible(false), 3800);
+    const hide = window.setTimeout(() => setVictoryLapVisible(false), 7600);
     victoryTimers.current.push(reveal, hide);
   }, [demo.stage, demo.playing, loading]);
   const restartDemo = () => {

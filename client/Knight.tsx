@@ -88,14 +88,14 @@ export function KnightArtwork({ state }: { state: Exclude<KnightState, "default"
       <path d="M79 104h26l9 40c-13 7-31 7-44 0z" fill="#4f8bc4" stroke="#cce8ff" strokeWidth="2"/>
       <path d="M92 103v48M77 122h30" stroke="#d5ecff" strokeWidth="2" opacity=".58"/>
 
-      <g transform={pose.leftArm}>
+      <g transform={pose.leftArm}><g className={state === "verified" ? "celebrate-arm-left" : undefined}>
         <path d="M68 101c-13-2-23 6-25 19l16 7 14-21z" fill={`url(#${darkSteel})`} stroke="#d9efff" strokeWidth="3"/>
         <path d="M47 115c-6 8-8 19-4 31l11-2 7-22z" fill="#2d679f" stroke="#b8ddfa" strokeWidth="2.5"/>
         <path d="M44 111c13 2 23 10 28 21-2 18-11 31-26 38-14-9-21-23-19-42z" fill={`url(#${shield})`} stroke="#e3f3ff" strokeWidth="3.5" strokeLinejoin="round"/>
         <path d="m37 130 10 19 12-19h-7l-5 8-4-8z" fill="#f0f8ff"/>
-      </g>
+      </g></g>
 
-      <g transform={pose.rightArm}>
+      <g transform={pose.rightArm}><g className={state === "verified" ? "celebrate-arm-right" : undefined}>
         <path d="M117 101c13-2 23 6 25 19l-16 7-14-21z" fill={`url(#${darkSteel})`} stroke="#d9efff" strokeWidth="3"/>
         <path d="M136 116c6 8 8 19 4 31l-11-2-7-22z" fill="#2d679f" stroke="#b8ddfa" strokeWidth="2.5"/>
         <path d="M125 121l10 26M126 143h18" stroke="#dcefff" strokeWidth="4.5" strokeLinecap="round"/>
@@ -115,7 +115,7 @@ export function KnightArtwork({ state }: { state: Exclude<KnightState, "default"
           <path d="M140 126h31v40h-31z" fill="#162c42" stroke="#8ec5ff" strokeWidth="2.5" transform="rotate(4 155 146)"/>
           <path d="M148 138h15M147 147h16M146 156h13" stroke="#8ec5ff" strokeWidth="2" strokeLinecap="round" transform="rotate(4 155 146)"/>
         </g>}
-      </g>
+      </g></g>
 
       <path d="M54 78C55 39 70 17 92 17s37 22 39 61l-15 6-49-1z" fill={`url(#${steel})`} stroke="#e0f2ff" strokeWidth="3.5"/>
       <path d="M68 48c5-16 13-23 24-23 12 0 21 8 25 24l-12-5-13 6-13-6z" fill="#4a87c2"/>
