@@ -86,6 +86,19 @@ Without AWS credentials the complete prototype runs in deterministic demo mode. 
 - Untrusted instruction / prompt injection
 - Verification failure and trust demotion
 
+The guided demo supports play, pause, resume, restart, single-step navigation, previous-stage navigation, and inspection of completed stages. Presentation controls never alter the deterministic backend decision.
+
+## Product routes
+
+- `/` — enterprise product landing page
+- `/why-vouch` — business problem, value, and ROI mechanics
+- `/how-it-works` — lifecycle and graduated autonomy
+- `/demo` — guided interactive experience
+- `/judges` — purpose-built 90-second judging path
+- `/architecture` — technical control boundary
+- `/control` — live product control center
+- `/history` — operational audit record
+
 ## Running locally
 
 ```bash

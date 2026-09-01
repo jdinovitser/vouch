@@ -1,28 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title">
-  <title id="title">VOUCH guardian mascot</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 190" role="img" aria-labelledby="title desc">
+  <title id="title">VOUCH guardian knight</title>
+  <desc id="desc">A compact friendly knight in polished blue armor with a visible face and shield.</desc>
   <defs>
-    <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b9ddff"/><stop offset="1" stop-color="#4d8dd0"/></linearGradient>
-    <linearGradient id="shield" x1=".2" y1="0" x2=".8" y2="1"><stop stop-color="#78bcff"/><stop offset="1" stop-color="#2c6db2"/></linearGradient>
+    <linearGradient id="steel" x1=".15" y1=".1" x2=".85" y2=".95"><stop stop-color="#d9eeff"/><stop offset=".48" stop-color="#83b8e9"/><stop offset="1" stop-color="#3d79b8"/></linearGradient>
+    <linearGradient id="darkSteel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#79b9ef"/><stop offset="1" stop-color="#255a91"/></linearGradient>
+    <linearGradient id="shield" x1=".25" y1="0" x2=".8" y2="1"><stop stop-color="#8ac9ff"/><stop offset="1" stop-color="#286db0"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#04101c" flood-opacity=".45"/></filter>
   </defs>
-  <ellipse cx="91" cy="158" rx="49" ry="8" fill="#001325" opacity=".25"/>
-  <path d="M55 92c-11 9-17 24-14 40l12-2 7-30z" fill="#3d74ac"/>
-  <path d="M119 91c13 8 19 21 18 37l-14 2-10-29z" fill="#3d74ac"/>
-  <path d="M55 91c7-17 22-26 37-26s30 9 37 26l-6 45c-8 12-20 18-32 18s-25-6-32-18z" fill="url(#armor)" stroke="#d9efff" stroke-width="3"/>
-  <path d="M57 87c2-36 16-56 36-56 21 0 34 20 37 56l-16-7-44 1z" fill="#5f9ede" stroke="#d9efff" stroke-width="3"/>
-  <path d="M67 63c6-16 15-23 26-23 12 0 21 8 27 24l-12-3-16 8-14-7z" fill="#c6e5ff"/>
-  <path d="M67 76c4-17 14-26 26-26s22 9 27 26l-7 25c-5 9-12 14-21 14s-17-5-22-14z" fill="#ffd7bd" stroke="#7b98b5" stroke-width="3"/>
-  <path d="M66 76l12-14 14 6 16-7 12 15-2-25-50 1z" fill="#80b8ec"/>
-  <ellipse cx="82" cy="83" rx="4.5" ry="6" fill="#17324d"/>
-  <ellipse cx="103" cy="83" rx="4.5" ry="6" fill="#17324d"/>
-  <circle cx="80.5" cy="81" r="1.3" fill="#fff"/>
-  <circle cx="101.5" cy="81" r="1.3" fill="#fff"/>
-  <path d="M86 97c4 3 9 3 13 0" fill="none" stroke="#a95f5f" stroke-width="2.4" stroke-linecap="round"/>
-  <circle cx="74" cy="94" r="4" fill="#f2a7a5" opacity=".45"/>
-  <circle cx="111" cy="94" r="4" fill="#f2a7a5" opacity=".45"/>
-  <path d="M93 31V18" stroke="#d9efff" stroke-width="4" stroke-linecap="round"/>
-  <path d="M82 25c6-10 16-11 23-3-6 1-10 5-12 10z" fill="#63b6ff"/>
-  <path d="M58 118c9 4 16 13 17 25l-12 8c-11-8-17-19-16-34z" fill="url(#shield)" stroke="#d9efff" stroke-width="3"/>
-  <path d="M55 126l8 12 8-12" fill="none" stroke="#eaf6ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M115 121l10 20" stroke="#d9efff" stroke-width="5" stroke-linecap="round"/>
-  <path d="M118 137h14" stroke="#d9efff" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="91" cy="175" rx="54" ry="8" fill="#03111f" opacity=".35"/>
+  <g filter="url(#shadow)">
+    <!-- armored legs and boots -->
+    <path d="M72 144v23l-17 3c-3 1-4-5-1-8l10-10z" fill="#356b9f" stroke="#d2ebff" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M111 144v23l17 3c3 1 4-5 1-8l-10-10z" fill="#356b9f" stroke="#d2ebff" stroke-width="3" stroke-linejoin="round"/>
+    <!-- compact torso -->
+    <path d="M65 104c7-10 17-15 27-15 11 0 21 5 29 15l5 45c-9 9-20 14-34 14-13 0-25-5-33-14z" fill="url(#steel)" stroke="#e0f2ff" stroke-width="3.5"/>
+    <path d="M79 104h26l9 40c-13 7-31 7-44 0z" fill="#4f8bc4" stroke="#cce8ff" stroke-width="2"/>
+    <path d="M92 103v48" stroke="#d5ecff" stroke-width="2" opacity=".65"/>
+    <path d="M77 122h30" stroke="#d5ecff" stroke-width="2" opacity=".5"/>
+    <!-- shoulder pauldrons make the silhouette knight-first -->
+    <path d="M68 101c-13-2-23 6-25 19l16 7 14-21z" fill="url(#darkSteel)" stroke="#d9efff" stroke-width="3"/>
+    <path d="M117 101c13-2 23 6 25 19l-16 7-14-21z" fill="url(#darkSteel)" stroke="#d9efff" stroke-width="3"/>
+    <path d="M47 115c-6 8-8 19-4 31l11-2 7-22z" fill="#2d679f" stroke="#b8ddfa" stroke-width="2.5"/>
+    <path d="M136 116c6 8 8 19 4 31l-11-2-7-22z" fill="#2d679f" stroke="#b8ddfa" stroke-width="2.5"/>
+    <!-- open-faced helmet -->
+    <path d="M54 78C55 39 70 17 92 17s37 22 39 61l-15 6-49-1z" fill="url(#steel)" stroke="#e0f2ff" stroke-width="3.5"/>
+    <path d="M68 48c5-16 13-23 24-23 12 0 21 8 25 24l-12-5-13 6-13-6z" fill="#4a87c2"/>
+    <path d="M66 66c4-18 14-27 26-27s22 9 27 27l-5 23c-5 11-13 17-22 17s-18-6-23-17z" fill="#f2c7a9" stroke="#7597b6" stroke-width="3"/>
+    <!-- helmet brow and cheek guards -->
+    <path d="M63 66l15-18 14 6 15-7 14 19-3-24-52-1z" fill="#6ea9de"/>
+    <path d="M66 69l8 4 2 21-8-5zM118 69l-8 4-2 21 8-5z" fill="#4d87bf" stroke="#cfeaff" stroke-width="2"/>
+    <path d="M82 65c3-2 6-2 9 0M99 65c3-2 6-2 9 0" fill="none" stroke="#6f4e42" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="86" cy="76" rx="3.8" ry="5" fill="#17334e"/><ellipse cx="103" cy="76" rx="3.8" ry="5" fill="#17334e"/>
+    <circle cx="84.8" cy="74.5" r="1.1" fill="#fff"/><circle cx="101.8" cy="74.5" r="1.1" fill="#fff"/>
+    <path d="M89 91c4 2 8 2 12 0" fill="none" stroke="#9c5a58" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- crest -->
+    <path d="M92 18V8" stroke="#d9efff" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M92 11c9-8 18-5 23 2-8-1-14 2-20 8z" fill="#62b6ff"/>
+    <!-- large readable shield -->
+    <path d="M44 111c13 2 23 10 28 21-2 18-11 31-26 38-14-9-21-23-19-42z" fill="url(#shield)" stroke="#e3f3ff" stroke-width="3.5" stroke-linejoin="round"/>
+    <path d="m37 130 10 19 12-19h-7l-5 8-4-8z" fill="#f0f8ff"/>
+    <path d="M125 121l10 26" stroke="#dcefff" stroke-width="5" stroke-linecap="round"/>
+    <path d="M126 143h18" stroke="#dcefff" stroke-width="4" stroke-linecap="round"/>
+  </g>
 </svg>
