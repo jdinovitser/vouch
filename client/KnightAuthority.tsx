@@ -1,6 +1,7 @@
 import { useId } from "react";
 import type { AutonomyLevel } from "../shared/types";
 import type { KnightState } from "./Knight";
+import horseAsset from "../attached_assets/generated_images/vouch-kawaii-horse.svg";
 
 export const authorityKnightLabels: Record<AutonomyLevel, { label: string; role: string }> = {
   T1: { label: "NOT TRUSTED", role: "OBSERVE" },
@@ -42,13 +43,7 @@ function AuthorityArtwork({ level, state }: { level: AutonomyLevel; state: Exclu
       <linearGradient id={shield} x1=".25" y1="0" x2=".8" y2="1"><stop stopColor="#8ac9ff"/><stop offset="1" stopColor="#286db0"/></linearGradient>
       <filter id={shadow}><feDropShadow dx="0" dy="7" stdDeviation="5" floodColor="#04101c" floodOpacity=".45"/></filter>
     </defs>
-    {mounted && <g className="knight-horse" aria-label="Delegated authority horse">
-      <ellipse cx="97" cy="164" rx="61" ry="26" fill="#2d679f" stroke="#c9e7ff" strokeWidth="3"/>
-      <path d="M133 159c4-30 16-53 34-60l16 11-6 39-18 18M151 105c12-10 26-9 31 1l-8 17-19-4M47 177l-6 30M78 181l-2 27M116 181l7 27M142 176l13 29" fill="none" stroke="#78afe0" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M146 112c11 10 18 14 29 16M53 151h70" fill="none" stroke="#1c466f" strokeWidth="7" strokeLinecap="round"/>
-      <path d="M55 148c17-8 47-8 70 2l-5 15c-21-7-44-7-65 0z" fill="#f5b942" stroke="#dcefff" strokeWidth="2"/>
-      <path d="M176 101l12-10M177 102l13 2" stroke="#d9efff" strokeWidth="3" strokeLinecap="round"/>
-    </g>}
+    {mounted && <image className="knight-horse" aria-label="Delegated authority horse" href={horseAsset} x="28" y="70" width="142" height="142" preserveAspectRatio="xMidYMid meet"/>}
     <ellipse cx="97" cy="211" rx={mounted ? 82 : level === "T1" ? 38 : 62} ry="7" fill="#03111f" opacity=".35"/>
     <g transform={riderTransform} filter={`url(#${shadow})`}>
       {level === "T1" ? <g className="knight-clothing">
