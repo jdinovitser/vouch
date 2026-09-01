@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 72" role="img" aria-labelledby="title">
+  <title id="title">VOUCH</title>
+  <g transform="translate(5 4) scale(.9)"><path d="M32 3 54 11v17c0 15-9 27-22 33C19 55 10 43 10 28V11z" fill="#0d2035" stroke="#78baff" stroke-width="3"/><path d="m20 22 12 21 12-21h-8l-4 8-4-8z" fill="#78baff"/></g>
+  <text x="76" y="47" fill="#ecf6ff" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="8">VOUCH</text>
+</svg>

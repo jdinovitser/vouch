@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-labelledby="title">
+  <title id="title">VOUCH guardian mascot</title>
+  <defs>
+    <linearGradient id="armor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b9ddff"/><stop offset="1" stop-color="#4d8dd0"/></linearGradient>
+    <linearGradient id="shield" x1=".2" y1="0" x2=".8" y2="1"><stop stop-color="#78bcff"/><stop offset="1" stop-color="#2c6db2"/></linearGradient>
+  </defs>
+  <ellipse cx="91" cy="158" rx="49" ry="8" fill="#001325" opacity=".25"/>
+  <path d="M55 92c-11 9-17 24-14 40l12-2 7-30z" fill="#3d74ac"/>
+  <path d="M119 91c13 8 19 21 18 37l-14 2-10-29z" fill="#3d74ac"/>
+  <path d="M55 91c7-17 22-26 37-26s30 9 37 26l-6 45c-8 12-20 18-32 18s-25-6-32-18z" fill="url(#armor)" stroke="#d9efff" stroke-width="3"/>
+  <path d="M57 87c2-36 16-56 36-56 21 0 34 20 37 56l-16-7-44 1z" fill="#5f9ede" stroke="#d9efff" stroke-width="3"/>
+  <path d="M67 63c6-16 15-23 26-23 12 0 21 8 27 24l-12-3-16 8-14-7z" fill="#c6e5ff"/>
+  <path d="M67 76c4-17 14-26 26-26s22 9 27 26l-7 25c-5 9-12 14-21 14s-17-5-22-14z" fill="#ffd7bd" stroke="#7b98b5" stroke-width="3"/>
+  <path d="M66 76l12-14 14 6 16-7 12 15-2-25-50 1z" fill="#80b8ec"/>
+  <ellipse cx="82" cy="83" rx="4.5" ry="6" fill="#17324d"/>
+  <ellipse cx="103" cy="83" rx="4.5" ry="6" fill="#17324d"/>
+  <circle cx="80.5" cy="81" r="1.3" fill="#fff"/>
+  <circle cx="101.5" cy="81" r="1.3" fill="#fff"/>
+  <path d="M86 97c4 3 9 3 13 0" fill="none" stroke="#a95f5f" stroke-width="2.4" stroke-linecap="round"/>
+  <circle cx="74" cy="94" r="4" fill="#f2a7a5" opacity=".45"/>
+  <circle cx="111" cy="94" r="4" fill="#f2a7a5" opacity=".45"/>
+  <path d="M93 31V18" stroke="#d9efff" stroke-width="4" stroke-linecap="round"/>
+  <path d="M82 25c6-10 16-11 23-3-6 1-10 5-12 10z" fill="#63b6ff"/>
+  <path d="M58 118c9 4 16 13 17 25l-12 8c-11-8-17-19-16-34z" fill="url(#shield)" stroke="#d9efff" stroke-width="3"/>
+  <path d="M55 126l8 12 8-12" fill="none" stroke="#eaf6ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M115 121l10 20" stroke="#d9efff" stroke-width="5" stroke-linecap="round"/>
+  <path d="M118 137h14" stroke="#d9efff" stroke-width="4" stroke-linecap="round"/>
+</svg>

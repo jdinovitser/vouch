@@ -1,0 +1,1 @@
+- [Deterministic demo policy](deterministic-demo-policy.md) — scripted safety outcomes are policy invariants; generic trust thresholds must not override them.
