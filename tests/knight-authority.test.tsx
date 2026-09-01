@@ -44,6 +44,10 @@ describe("Knight authority progression", () => {
   it("renders a fully equipped mounted knight only at T4", () => {
     const markup = renderToStaticMarkup(<KnightAuthority level="T4" />);
     expect(markup).toContain("FULL KNIGHT");
+    expect(markup).toContain("mounted-knight-art");
+    expect(markup).toContain("mounted-rider");
+    expect(markup).toContain("mounted-saddle");
+    expect(markup).toContain("mounted-sheathed-sword");
     expect(markup).toContain("knight-armor");
     expect(markup).toContain("knight-shield");
     expect(markup).toContain("knight-sword");

@@ -19,9 +19,38 @@ type Props = {
 export function KnightAuthority({ level, size = "normal", state = "deployment" }: Props) {
   const authority = authorityKnightLabels[level];
   return <div className={`authority-knight authority-knight-${level} authority-knight-${size}`} aria-label={`${authority.label} · ${authority.role}`}>
-    <AuthorityArtwork level={level} state={state} />
+    {level === "T4" ? <MountedKnightArtwork /> : <AuthorityArtwork level={level} state={state} />}
     <div className="authority-knight-caption"><b>{authority.label}</b><span>{authority.role}</span></div>
   </div>;
+}
+
+function MountedKnightArtwork() {
+  const uid = useId().replace(/:/g, "");
+  const horseUrl = horseAsset;
+  return <svg className="knight-artwork mounted-knight-art" viewBox="0 0 260 220" role="img" aria-label="Full VOUCH Knight seated on the kawaii horse">
+    <defs>
+      <clipPath id={`mountedHorseUpper-${uid}`}><rect x="35" y="0" width="210" height="151" /></clipPath>
+      <clipPath id={`mountedHorseHindOuter-${uid}`}><rect x="72" y="123" width="43" height="91" /></clipPath>
+      <clipPath id={`mountedHorseHindInner-${uid}`}><rect x="100" y="121" width="43" height="93" /></clipPath>
+      <clipPath id={`mountedHorseFrontInner-${uid}`}><rect x="139" y="119" width="39" height="95" /></clipPath>
+      <clipPath id={`mountedHorseFrontOuter-${uid}`}><rect x="167" y="116" width="44" height="98" /></clipPath>
+    </defs>
+    <ellipse cx="145" cy="214" rx="91" ry="6" fill="#03111f" opacity=".3" />
+    <g className="knight-horse" aria-label="Delegated authority horse">
+      <image href={horseUrl} x="35" y="3" width="210" height="210" clipPath={`url(#mountedHorseHindOuter-${uid})`} />
+      <image href={horseUrl} x="35" y="3" width="210" height="210" clipPath={`url(#mountedHorseHindInner-${uid})`} />
+      <image href={horseUrl} x="35" y="3" width="210" height="210" clipPath={`url(#mountedHorseFrontInner-${uid})`} />
+      <image href={horseUrl} x="35" y="3" width="210" height="210" clipPath={`url(#mountedHorseFrontOuter-${uid})`} />
+      <image href={horseUrl} x="35" y="3" width="210" height="210" clipPath={`url(#mountedHorseUpper-${uid})`} />
+    </g>
+    <path className="mounted-saddle" d="M108 105c14-7 31-7 46 1l-5 21h-38z" fill="#477eae" stroke="#d9efff" strokeWidth="2.4" strokeLinejoin="round" />
+    <path d="M116 111h31M113 118h35" stroke="#a9d8fa" strokeWidth="1.8" strokeLinecap="round" />
+    <image className="mounted-rider knight-armor knight-shield" href="/vouch-mascot.svg" x="101" y="18" width="96" height="103" />
+    <path className="knight-sword mounted-sheathed-sword" d="M186 83l27 44" fill="none" stroke="#d7eefe" strokeWidth="4" strokeLinecap="round" />
+    <path d="M181 80l11 7M184 77l-4 9" stroke="#dcae51" strokeWidth="3" strokeLinecap="round" />
+    <path d="M109 119c14 4 28 4 42 0l-2 10c-13 4-26 4-39 0z" fill="#255d91" stroke="#d9efff" strokeWidth="2" />
+    <path d="M149 113c10-6 19-9 28-7" fill="none" stroke="#d9efff" strokeWidth="2" strokeLinecap="round" />
+  </svg>;
 }
 
 function AuthorityArtwork({ level, state }: { level: AutonomyLevel; state: Exclude<KnightState, "default"> }) {
