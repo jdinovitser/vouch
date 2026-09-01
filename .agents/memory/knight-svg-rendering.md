@@ -8,3 +8,9 @@ Render composed VOUCH Knight poses inline in the document. Do not rely on an SVG
 **Why:** Browsers suppress the nested external SVG reference in image-document mode, which leaves only the pose props visible and makes the canonical knight disappear.
 
 **How to apply:** Extend the shared inline Knight renderer for new poses. Keep standalone SVG exports self-contained if they must also work as downloadable assets.
+
+State illustrations must change the Knight's actual stance by repositioning limbs, shield, and held objects. Do not add mounts, detached weapons, floating badges, or decorative props around an unchanged base character.
+
+**Why:** Prop-heavy compositions looked disconnected and amateurish; the mounted-action illustration was explicitly rejected.
+
+**How to apply:** Build new states from the canonical vector anatomy and attach any necessary tool to the relevant hand. Prefer body language over additional scene objects.

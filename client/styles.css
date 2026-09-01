@@ -455,8 +455,8 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .guardian { position: relative; display: inline-flex; flex-direction: column; align-items: center; transition: transform .35s, filter .35s; }
 .guardian-art { position: relative; display: inline-flex; }
 .canonical-knight { width: 108px; display: block; filter: drop-shadow(0 12px 18px rgba(0,0,0,.4)); }
-.knight-artwork { width: 200px; display: block; overflow: visible; filter: drop-shadow(0 12px 18px rgba(0,0,0,.4)); }
-.guardian-small .canonical-knight { width: 48px; }.guardian-small .knight-artwork { width: 92px; }.guardian-small .guardian-state { font-size: 6px; }
+.knight-artwork { width: 112px; display: block; overflow: visible; filter: drop-shadow(0 12px 18px rgba(0,0,0,.4)); }
+.guardian-small .canonical-knight { width: 48px; }.guardian-small .knight-artwork { width: 50px; }.guardian-small .guardian-state { font-size: 6px; }
 .wink-eye { position: absolute; left: 54%; top: 34%; width: 8px; height: 3px; border-bottom: 2px solid #17334e; border-radius: 50%; opacity: 0; transform: rotate(8deg) scaleX(.1); transform-origin: center; pointer-events: none; }
 .guardian:hover .wink-eye { animation: wink .55s ease both; }
 @keyframes wink { 0%, 15% { opacity: 0; transform: rotate(8deg) scaleX(.1); } 25%, 72% { opacity: 1; transform: rotate(8deg) scaleX(1); } 86%, 100% { opacity: 0; transform: rotate(8deg) scaleX(.1); } }
