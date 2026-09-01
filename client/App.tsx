@@ -9,7 +9,6 @@ import type { ActionRecord, AgentTrust, AutonomyLevel, DemoScenario, EvidenceIte
 import { demoControllerReducer, initialDemoController } from "./demo-controller";
 import { KnightArtwork, knightLabels, type KnightState } from "./Knight";
 import { CelebrationRide } from "./CelebrationRide";
-import { shouldScheduleVictoryLap } from "./victory-lap-controller";
 
 type View = "landing" | "why" | "how" | "demo" | "judges" | "architecture" | "control" | "history";
 type ApiState = { session: SessionState; scenarios: DemoScenario[] };
@@ -171,8 +170,6 @@ const demoStages: DemoStage[] = ["REQUEST", "EVIDENCE", "RISK", "AUTHORITY", "AC
 function DemoExperience({ scenarios, runScenario, loading, navigate, judgeMode = false }: { scenarios: DemoScenario[]; runScenario: (id: string, resolved?: boolean, stayOnDemo?: boolean) => Promise<void>; loading: boolean; navigate: (v: View) => void; judgeMode?: boolean }) {
   const [demo, dispatchDemo] = useReducer(demoControllerReducer, initialDemoController);
   const [scenarioId, setScenarioId] = useState("safe-review");
-  const [celebrationActive, setCelebrationActive] = useState(false);
-  const victoryScheduled = useRef(false);
   useEffect(() => {
     if (!demo.playing) return;
     const timer = window.setInterval(() => dispatchDemo({ type: "TICK" }), 900);
@@ -181,21 +178,10 @@ function DemoExperience({ scenarios, runScenario, loading, navigate, judgeMode =
   useEffect(() => {
     if (demo.stage === demoStages.length - 1 && demo.playing === false && !loading) void runScenario("safe-review", false, true);
   }, [demo.stage, demo.playing]);
-  useEffect(() => {
-    if (!shouldScheduleVictoryLap({ stage: demo.stage, stageCount: demoStages.length, playing: demo.playing, loading, alreadyScheduled: victoryScheduled.current })) return;
-    victoryScheduled.current = true;
-    setCelebrationActive(true);
-  }, [demo.stage, demo.playing, loading]);
   const restartDemo = () => {
-    victoryScheduled.current = false;
-    setCelebrationActive(false);
     dispatchDemo({ type: "RESTART" });
   };
   const playDemo = () => {
-    if (demo.stage === demoStages.length - 1) {
-      victoryScheduled.current = false;
-      setCelebrationActive(false);
-    }
     dispatchDemo({ type: demo.playing ? "PAUSE" : "PLAY" });
   };
   const state = demoStages[demo.inspected ?? demo.stage];
@@ -206,7 +192,7 @@ function DemoExperience({ scenarios, runScenario, loading, navigate, judgeMode =
     ACTION: ["ACTION EXECUTED", "Only an authorized action can cross this boundary."], VERIFY: ["VERIFYING OUTCOME", "An API response is not proof of success."], TRUST: ["TRUST UPDATED", "The outcome changes what the agent may do next."],
   };
   return <div className={`demo-experience content-width ${judgeMode ? "judge-demo" : ""}`}>
-     <div className="demo-hero-heading"><div><div className="eyebrow"><span className="eyebrow-line" />{judgeMode ? "THE 90-SECOND EXPERIENCE" : "INTERACTIVE PRODUCT DEMO"}</div><h1>{judgeMode ? <>Judge the<br /><em>agent.</em></> : <>See VOUCH make<br /><em>the decision.</em></>}</h1><p>Watch an AI agent investigate, evaluate, decide, act—or refuse to act.</p></div><div className="demo-hero-celebration">{celebrationActive && demoKnight[state] === "verified" ? <CelebrationRide /> : <Guardian state={demoKnight[state]} />}</div></div>
+     <div className="demo-hero-heading"><div><div className="eyebrow"><span className="eyebrow-line" />{judgeMode ? "THE 90-SECOND EXPERIENCE" : "INTERACTIVE PRODUCT DEMO"}</div><h1>{judgeMode ? <>Judge the<br /><em>agent.</em></> : <>See VOUCH make<br /><em>the decision.</em></>}</h1><p>Watch an AI agent investigate, evaluate, decide, act—or refuse to act.</p></div><div className="demo-hero-celebration"><CelebrationRide /></div></div>
     <section className="guided-demo"><div className="demo-topline"><div><span className="section-label">GUIDED EXPERIENCE</span><p>{stateCopy[state][0]} · {stateCopy[state][1]}</p></div><span className={demo.playing ? "demo-clock running" : "demo-clock"}><Clock3 size={14} /> {demo.playing ? "LIVE" : "PAUSED"} · 00:{String(Math.min(demo.stage * 10, 90)).padStart(2, "0")}</span></div><div className="demo-timeline">{demoStages.map((item, index) => <button className={`${index < demo.stage ? "complete" : ""} ${index === demo.stage ? "current" : ""} ${index > demo.stage ? "future" : ""}`} disabled={index > demo.stage} onClick={() => dispatchDemo({ type: "INSPECT", stage: index })} key={item}><span>{index < demo.stage ? <Check size={12} /> : String(index + 1).padStart(2, "0")}</span>{item}{index < demoStages.length - 1 && <i />}</button>)}</div><div className="demo-stage-card"><div className={`stage-graphic stage-${state.toLowerCase()}`}><div className="stage-ring" /><Guardian state={demoKnight[state]} /><span>{state}</span></div><div className="stage-copy"><span className="mini-label">{stateCopy[state][0]}</span><h2>{stateCopy[state][1]}</h2>{state === "AUTHORITY" ? <p>VOUCH does not reward the agent for always acting. It rewards the correct decision about whether it should.</p> : <p>Every stage is explicit, auditable, and enforced outside the model.</p>}<div className="stage-points"><span><Check size={13} /> Decision provenance</span><span><Check size={13} /> Server-side policy</span><span><Check size={13} /> Outcome verification</span></div></div></div><div className="demo-controls"><button className="control-button primary-control" onClick={playDemo} disabled={loading}>{demo.playing ? <><Pause size={15} />Pause</> : <><Play size={15} />{demo.stage === 0 ? "Play demo" : "Resume"}</>}</button><button className="control-button" onClick={restartDemo}><RefreshCw size={15} />Restart</button><button className="control-button" onClick={() => dispatchDemo({ type: "PREVIOUS" })} disabled={demo.stage === 0}><ArrowRight className="prev-icon" size={15} />Previous</button><button className="control-button" onClick={() => dispatchDemo({ type: "NEXT" })} disabled={demo.stage === demoStages.length - 1}><ArrowRight size={15} />Next step</button><span className="presenter-hint"><Command size={13} /> Presenter controls</span></div></section>
     <section className="demo-outcome"><div><span className="section-kicker">CHOOSE A DIFFERENT OUTCOME</span><h2>One system.<br /><em>Five honest answers.</em></h2><p>After the first experience, explore how VOUCH handles different evidence and authority conditions.</p></div><div className="scenario-rail">{scenarios.filter((scenario) => scenario.id !== "verification-failure" || true).map((scenario) => <button className={`scenario-mini ${scenario.accent} ${scenario.id === scenarioId ? "selected" : ""}`} onClick={() => { setScenarioId(scenario.id); void runScenario(scenario.id); }} disabled={loading} key={scenario.id}><span className="mini-label">{scenario.action.risk} RISK</span><b>{scenario.name}</b><small>{scenario.hasConflict ? "VOUCH stops" : scenario.id === "human-refund" ? "Human decides" : scenario.failVerification ? "Trust reduces" : "Agent acts"}</small><ArrowRight size={14} /></button>)}</div></section>
     {!judgeMode && <PageCta title="Want the technical boundary?" text="The model recommends. The VOUCH authorization layer decides." label="Explore architecture" onClick={() => navigate("architecture")} />}
