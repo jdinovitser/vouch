@@ -15,7 +15,7 @@ Workflow-state illustrations must change the Knight's actual stance by repositio
 
 **How to apply:** Build workflow states from the canonical vector anatomy and attach any necessary tool to the relevant hand. Prefer body language over additional scene objects.
 
-Authority-tier visuals are a separate progression and must derive only from the real server-provided autonomy level. T1/T2 have no sword, T3 introduces the sword, and T4 alone may include a static horse.
+Authority-tier visuals are a separate progression and must derive only from the real server-provided autonomy level. T1 is unarmored with no equipment; T2 adds substantial armor but no shield or sword; T3 adds shield and sword; T4 is fully armored and mounted on a static horse.
 
 **Why:** The Knight communicates current authority; a separate client-side level could drift from the authorization engine. The T4 horse is a credential marker, not an action animation.
 

@@ -296,6 +296,15 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .arch-stack-card { display: flex; gap: 12px; align-items: flex-start; min-height: 62px; margin-top: 9px; padding: 13px; border: 1px solid var(--line-soft); border-radius: 5px; background: #0b1928; }.arch-stack-card > svg, .cloud-icon { flex: 0 0 auto; color: var(--blue-bright); }.arch-agent-column .arch-stack-card:first-of-type > svg { color: #f08b4f; }.arch-stack-card b { display: block; color: #b8c8d9; font: 600 9px var(--mono); letter-spacing: .05em; }.arch-stack-card span:not(.cloud-icon) { display: block; margin-top: 6px; color: var(--muted); font-size: 9px; line-height: 1.4; }.arch-stack-card.key-node { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(92,169,255,.08); }
 .arch-callout { margin-top: 15px; padding: 12px 13px; border-left: 2px solid #f08b4f; background: rgba(240,139,79,.06); }.arch-callout span { color: #d98a57; font: 600 7px var(--mono); letter-spacing: .12em; }.arch-callout b { display: block; margin-top: 5px; color: var(--text); font-size: 11px; }.arch-callout small { display: block; margin-top: 4px; color: var(--muted); font-size: 9px; }
 .arch-boundary { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: var(--blue-bright); text-align: center; font: 600 7px/1.35 var(--mono); letter-spacing: .1em; }.arch-boundary svg:first-child { padding: 9px; width: 38px; height: 38px; border: 1px solid var(--blue); border-radius: 50%; background: rgba(92,169,255,.08); }.arch-boundary svg:last-child { color: #4b6d91; }
+.knight-progression { padding:70px 0; border-bottom:1px solid var(--line-soft); }
+.knight-progression-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:32px; }
+.knight-tier-card { min-height:285px; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding:18px; border:1px solid var(--line); border-radius:8px; background:linear-gradient(150deg,#0d1c2d,#091522); text-align:center; overflow:hidden; }
+.knight-tier-card .authority-knight { min-height:190px; justify-content:flex-end; }
+.knight-tier-card .authority-knight-caption { display:none; }
+.knight-tier-card > span { margin-top:8px; color:var(--blue-bright); font:700 18px var(--display); }
+.knight-tier-card > b { margin-top:5px; font:600 9px var(--mono); letter-spacing:.09em; }
+.knight-tier-card > small { margin-top:6px; color:var(--muted); font-size:8px; }
+.knight-tier-T1 { border-top-color:#64778a; }.knight-tier-T2 { border-top-color:var(--blue); }.knight-tier-T3 { border-top-color:var(--green); }.knight-tier-T4 { border-top-color:var(--authority); }
 .arch-control-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }.arch-control-grid .arch-stack-card { margin-top: 0; min-height: 88px; flex-direction: column; gap: 8px; }
 .arch-aws-strip, .arch-contest-proof { display: grid; grid-template-columns: .7fr 1.3fr; gap: 70px; margin-top: 55px; padding-top: 52px; border-top: 1px solid var(--line-soft); }.arch-section-heading h2 { margin: 13px 0 9px; font: 700 34px/1.1 var(--display); letter-spacing: -.04em; }.arch-section-heading h2 em { color: var(--blue-bright); font-style: normal; }.arch-section-heading p { max-width: 250px; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.65; }
 .arch-aws-grid, .arch-proof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }.arch-aws-grid > div, .arch-proof-grid > div { min-height: 110px; padding: 17px; border: 1px solid var(--line); border-radius: 6px; background: #0b1928; }.arch-aws-grid svg { color: var(--blue-bright); }.arch-aws-grid b, .arch-proof-grid b { display: block; margin-top: 15px; color: #b8c8d9; font: 600 9px var(--mono); letter-spacing: .05em; }.arch-aws-grid span { display: block; margin-top: 6px; color: var(--muted); font-size: 9px; line-height: 1.4; }
@@ -344,6 +353,7 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
   .arch-arrow { display: none; }
 }
 @media (max-width: 760px) {
+  .knight-progression-grid { grid-template-columns:1fr 1fr; }.knight-tier-card { min-height:250px; }
   .content-width { width: min(100% - 28px, 680px); }
   .topbar { grid-template-columns: 1fr auto; padding: 0 17px; }
   .mobile-menu { display: block; }

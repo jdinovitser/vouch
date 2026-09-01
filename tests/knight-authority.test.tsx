@@ -12,24 +12,54 @@ describe("Knight authority progression", () => {
     });
   });
 
-  it("renders training gear at T2 without a sword or horse", () => {
-    const markup = renderToStaticMarkup(<KnightAuthority level="T2" />);
-    expect(markup).toContain("IN TRAINING");
+  it("renders T1 as an unarmored person without equipment", () => {
+    const markup = renderToStaticMarkup(<KnightAuthority level="T1" />);
+    expect(markup).toContain("NOT TRUSTED");
+    expect(markup).toContain("knight-clothing");
+    expect(markup).not.toContain("knight-armor");
+    expect(markup).not.toContain("knight-shield");
     expect(markup).not.toContain("knight-sword");
     expect(markup).not.toContain("knight-horse");
   });
 
-  it("adds a real sword at T3 without adding the horse", () => {
+  it("renders substantial armor at T2 without a shield, sword, or horse", () => {
+    const markup = renderToStaticMarkup(<KnightAuthority level="T2" />);
+    expect(markup).toContain("IN TRAINING");
+    expect(markup).toContain("knight-armor");
+    expect(markup).toContain("knight-helmet");
+    expect(markup).not.toContain("knight-shield");
+    expect(markup).not.toContain("knight-sword");
+    expect(markup).not.toContain("knight-horse");
+  });
+
+  it("renders armor, shield, and sword at T3 without the horse", () => {
     const markup = renderToStaticMarkup(<KnightAuthority level="T3" />);
     expect(markup).toContain("SQUIRE");
+    expect(markup).toContain("knight-armor");
+    expect(markup).toContain("knight-shield");
     expect(markup).toContain("knight-sword");
     expect(markup).not.toContain("knight-horse");
   });
 
-  it("adds the static horse only at T4", () => {
+  it("renders a fully equipped mounted knight only at T4", () => {
     const markup = renderToStaticMarkup(<KnightAuthority level="T4" />);
     expect(markup).toContain("FULL KNIGHT");
+    expect(markup).toContain("knight-armor");
+    expect(markup).toContain("knight-shield");
     expect(markup).toContain("knight-sword");
     expect(markup).toContain("knight-horse");
+  });
+
+  it("removes higher-tier equipment when authority is demoted", () => {
+    const t4 = renderToStaticMarkup(<KnightAuthority level="T4" />);
+    const t3 = renderToStaticMarkup(<KnightAuthority level="T3" />);
+    const t2 = renderToStaticMarkup(<KnightAuthority level="T2" />);
+    const t1 = renderToStaticMarkup(<KnightAuthority level="T1" />);
+    expect(t4).toContain("knight-horse");
+    expect(t3).not.toContain("knight-horse");
+    expect(t3).toContain("knight-sword");
+    expect(t2).not.toContain("knight-sword");
+    expect(t2).toContain("knight-armor");
+    expect(t1).not.toContain("knight-armor");
   });
 });

@@ -1,0 +1,292 @@
+VOUCH KNIGHT VISUAL PROGRESSION — REDESIGN REQUIRED
+
+The current Knight system is not visually differentiated enough.
+
+Right now the progression mostly looks like the same character with a sword added/removed. That is not acceptable. The authority levels need to be visually obvious at a glance.
+
+Core requirement
+
+Redesign the Knight visual system so that each authority tier represents a major physical transformation, not a minor accessory change.
+
+The progression must be:
+
+T1 → T2 → T3 → T4
+
+UNARMORED PERSON → ARMORED APPRENTICE → ARMED SQUIRE → FULL KNIGHT ON HORSE
+
+The visual should communicate increasing authority even if the viewer never reads the tier label.
+
+T1 — NOT TRUSTED / OBSERVE
+
+This is the starting point.
+
+The character should have:
+
+NO ARMOR
+NO SHIELD
+NO SWORD
+Plain/simple clothing
+Small, slightly inexperienced/trainee appearance
+Same recognizable face and character identity used throughout the system
+Friendly and approachable expression
+
+The important visual message is:
+
+This agent has not earned authority yet.
+
+Do NOT give T1 armor, a shield, sword, helmet, or knight equipment.
+
+T1 should look dramatically different from T2.
+
+T2 — IN TRAINING / RECOMMEND
+
+This is the first meaningful upgrade.
+
+The character should now visibly gain:
+
+ARMOR
+Clearly recognizable chest/shoulder armor
+Some armored elements such as arm/leg protection
+Appropriate apprentice/trainee helmet or head protection if it fits the existing character design
+
+But:
+
+NO SWORD
+NO SHIELD
+
+The difference between T1 and T2 should be immediately obvious:
+
+T1 = ordinary/unarmored
+
+T2 = visibly armored apprentice
+
+The armor itself represents the first earned level of trust/authority.
+
+Do NOT make T2 look like T1 with a tiny decorative armor piece. The armor needs to be visually substantial.
+
+T3 — SQUIRE / BOUNDED ACTION
+
+This should be another major visual jump.
+
+T3 must have:
+
+Armor
+SWORD
+SHIELD
+Stronger/more complete armor than T2
+Confident stance
+Clear visual identity of a capable squire/guardian
+
+The progression must therefore be:
+
+T1: no equipment
+
+T2: armor
+
+T3: armor + sword + shield
+
+The sword represents earned authority.
+
+The shield represents policy protection.
+
+Keep those meanings consistent throughout the application.
+
+T4 — FULL KNIGHT / DELEGATED ACTION
+
+This needs to be the most dramatic transformation.
+
+T4 must show:
+
+FULL KNIGHT ARMOR
+SWORD
+SHIELD
+HORSE
+Knight MOUNTED ON THE HORSE
+
+Do NOT simply place a horse beside the existing T3 character.
+
+The character should be visually transformed into a full knight riding a horse.
+
+The silhouette should immediately distinguish T4 from T3.
+
+T3:
+
+armored squire standing on foot with sword + shield
+
+T4:
+
+fully armored knight mounted on a horse with sword + shield
+
+The horse is important because it represents:
+
+DELEGATED AUTHORITY
+
+The horse should therefore exist ONLY at T4.
+
+If authority drops below T4, the horse disappears.
+
+No horse at T1.
+
+No horse at T2.
+
+No horse at T3.
+
+Horse = T4 only.
+
+VERY IMPORTANT: DO NOT FAKE THE PROGRESSION
+
+The Knight must remain a visual rendering of the real server-side authority state.
+
+The Knight must NEVER determine authority.
+
+The server determines:
+
+trust
+autonomy tier
+authorization
+policy decision
+verification result
+
+The Knight simply renders that state.
+
+Preserve the existing architecture:
+
+SERVER AUTHORITY STATE → KNIGHT VISUAL
+
+Never:
+
+KNIGHT VISUAL → AUTHORITY
+
+Make the visual differences unmistakable
+
+Before considering this complete, compare the four states side-by-side.
+
+A judge should immediately be able to identify:
+
+T1
+
+👤 Plain person
+No armor
+No weapons
+No shield
+
+T2
+
+🛡️ Armored apprentice
+Armor
+No weapons
+No shield
+
+T3
+
+⚔️🛡️ Armed squire
+Armor
+Sword
+Shield
+On foot
+
+T4
+
+🐎⚔️🛡️ Full knight
+Full armor
+Sword
+Shield
+Mounted on horse
+
+If T1 and T2 still look nearly identical, the implementation is wrong.
+
+If T2 and T3 only differ by a small sword icon, the implementation is wrong.
+
+If T3 and T4 look like the same knight with a horse added beside them, the implementation is wrong.
+
+Preserve character consistency
+
+This is still ONE Knight character.
+
+Keep consistent:
+
+face
+eyes
+proportions
+general illustration style
+personality
+recognizable visual identity
+
+The character should feel like the same individual progressing through training, not four unrelated illustrations.
+
+Think:
+
+same character, increasingly earned equipment and responsibility.
+
+Horse requirements
+
+The horse should be part of the actual T4 composition.
+
+It should:
+
+be visually recognizable as a horse
+support the knight
+have a matching illustration style
+remain static
+require no animation
+have no game/RPG mechanics
+not become a distraction from the Knight
+
+A static mounted composition is completely sufficient.
+
+We do NOT need riding animation.
+
+Workflow poses vs authority tiers
+
+Do not confuse workflow state with authority tier.
+
+Authority tier controls the Knight's equipment and progression.
+
+Workflow state can control the Knight's pose/expression.
+
+For example:
+
+T2 + blocked → armored defensive pose, still no sword/shield
+T3 + blocked → armed defensive pose with sword/shield
+T3 + approval required → armed waiting/guarding pose
+T4 + verified → mounted confident knight
+T2 + verification failure → armored apprentice showing setback
+
+But the underlying equipment must ALWAYS correspond to the actual authority tier.
+
+Critical regression requirements
+
+Preserve all existing VOUCH functionality.
+
+Do NOT change:
+
+authorization logic
+trust calculations
+policy rules
+verification logic
+AWS/Strands integration
+approval logic
+audit behavior
+hard policy ceilings
+per-request authorization
+existing routes
+
+Only improve the Knight visual system and its rendering/integration.
+
+Update or add tests proving:
+
+T1 has no armor, sword, or shield
+T2 has armor but no sword or shield
+T3 has armor + sword + shield but no horse
+T4 has full armor + sword + shield + horse
+T4 horse disappears when authority drops below T4
+T3 sword/shield disappear when authority drops to T2
+T2 armor disappears when authority drops to T1
+
+Run the full test suite and production build after implementation.
+
+The final result should make the Knight progression one of the most visually memorable parts of VOUCH:
+
+No authority → Earned protection → Earned action → Delegated action
+
+Do not stop at “technically different.” The four Knight states need to be visually obvious and dramatically different.

@@ -14,13 +14,6 @@ export const knightLabels: Record<KnightState, string> = {
   audit: "RECORDED",
 };
 
-export const authorityKnightLabels: Record<AutonomyLevel, { label: string; role: string }> = {
-  T1: { label: "NOT TRUSTED", role: "OBSERVE" },
-  T2: { label: "IN TRAINING", role: "RECOMMEND" },
-  T3: { label: "SQUIRE", role: "BOUNDED ACTION" },
-  T4: { label: "FULL KNIGHT", role: "DELEGATED ACTION" },
-};
-
 type Pose = {
   body?: string;
   leftLeg?: string;
@@ -69,14 +62,6 @@ const poses: Record<Exclude<KnightState, "default">, Pose> = {
   },
 };
 
-export function KnightAuthority({ level, size = "normal", state = "deployment" }: { level: AutonomyLevel; size?: "normal" | "small"; state?: Exclude<KnightState, "default"> }) {
-  const authority = authorityKnightLabels[level];
-  return <div className={`authority-knight authority-knight-${level} authority-knight-${size}`} aria-label={`${authority.label} · ${authority.role}`}>
-    <KnightArtwork state={state} authorityLevel={level} />
-    <div className="authority-knight-caption"><b>{authority.label}</b><span>{authority.role}</span></div>
-  </div>;
-}
-
 export function KnightArtwork({ state, showShadow = true, authorityLevel }: { state: Exclude<KnightState, "default">; showShadow?: boolean; authorityLevel?: AutonomyLevel }) {
   const uid = useId().replace(/:/g, "");
   const pose = poses[state];
@@ -88,7 +73,7 @@ export function KnightArtwork({ state, showShadow = true, authorityLevel }: { st
   const shieldOpacity = authorityLevel === "T1" ? .3 : authorityLevel === "T2" ? .7 : 1;
   const transform = authorityLevel ? `translate(90 95) scale(${size}) translate(-90 -95) ${pose.body ?? ""}` : pose.body;
 
-  return <svg className={`knight-artwork ${authorityLevel ? `knight-authority-artwork knight-authority-${authorityLevel}` : ""}`} viewBox="0 0 180 190" role="img" aria-label={authorityLevel ? `${authorityKnightLabels[authorityLevel].label} VOUCH Knight` : `VOUCH Knight ${knightLabels[state].toLowerCase()}`}>
+  return <svg className={`knight-artwork ${authorityLevel ? `knight-authority-artwork knight-authority-${authorityLevel}` : ""}`} viewBox="0 0 180 190" role="img" aria-label={authorityLevel ? `${authorityLevel} VOUCH Knight` : `VOUCH Knight ${knightLabels[state].toLowerCase()}`}>
     <defs>
       <linearGradient id={steel} x1=".15" y1=".1" x2=".85" y2=".95"><stop stopColor="#d9eeff"/><stop offset=".48" stopColor="#83b8e9"/><stop offset="1" stopColor="#3d79b8"/></linearGradient>
       <linearGradient id={darkSteel} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#79b9ef"/><stop offset="1" stopColor="#255a91"/></linearGradient>
@@ -162,3 +147,5 @@ export function KnightArtwork({ state, showShadow = true, authorityLevel }: { st
     </g>
   </svg>;
 }
+
+export { KnightAuthority, authorityKnightLabels } from "./KnightAuthority";
