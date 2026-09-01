@@ -1,0 +1,496 @@
+VOUCH KNIGHT SYSTEM — SECOND REFINEMENT
+
+The core Knight Authority System is now in place. I want to extend it into a consistent visual language across VOUCH.
+
+This is a refinement of the existing implementation, NOT a rewrite.
+
+The central rule is:
+
+Every knight element should represent a real VOUCH product concept.
+
+The knight is the visual embodiment of the authority system. It is NOT a separate game layer and must never determine authorization.
+
+The source of truth remains the existing server-side authority/trust/policy/verification state.
+
+1. SHIELD = POLICY
+
+The knight's shield represents the policies that constrain the agent.
+
+The shield should remain present even at the highest authority level.
+
+This communicates:
+
+Trust never overrides policy.
+
+Where appropriate, show a subtle status such as:
+
+POLICY SHIELD
+Active
+
+When an action is blocked by policy, the knight should visually use the shield as the protective element.
+
+Possible supporting copy:
+
+Policy boundary held.
+or
+VOUCH blocked the action at the policy boundary.
+
+Do not overuse this copy. Keep the visual language clean.
+
+2. SWORD = EARNED AUTHORITY
+
+The sword represents earned authority.
+
+Use the existing knight progression:
+
+T1:
+No sword
+
+T2:
+No real sword / training equipment
+
+T3:
+Sword
+
+T4:
+Sword + full knight equipment
+
+This should make the authority progression visually obvious.
+
+When authority is reduced from T3/T4 to a lower level, the sword should disappear according to the existing knight state.
+
+Do not make this merely cosmetic.
+
+The displayed sword state must reflect the actual server-side authority level.
+
+3. HORSE = DELEGATED AUTHORITY
+
+Keep the horse.
+
+The horse should appear only at the highest authority level where the product permits significant delegated action.
+
+The horse represents:
+
+Delegated Authority
+
+It does NOT mean unlimited trust.
+
+It does NOT mean permanent permission.
+
+It does NOT bypass policy or per-request authorization.
+
+When the agent loses enough authority to leave the highest level, the horse should disappear as part of the visual state change.
+
+Do not build complex horse animation.
+
+A polished static/illustrated horse integrated into the T4 knight state is sufficient.
+
+4. LEDGER = VERIFIED EVIDENCE
+
+Introduce a small visual ledger/book associated with the knight where it helps the UI.
+
+The ledger represents the agent's verified history.
+
+Possible entries:
+
+✓ Action verified
+✓ Outcome confirmed
+⚠ Verification failed
+↑ Authority earned
+↓ Authority reduced
+↺ Authority restored
+
+This should connect visually to the existing History/Audit functionality.
+
+Do not invent fake history.
+
+Only show entries corresponding to actual application state/events.
+
+The conceptual relationship should be:
+
+Evidence → Outcome → Trust Change → Authority Change
+
+The ledger is simply the visual representation of that history.
+
+5. GATE = AUTHORIZATION BOUNDARY
+
+Introduce a subtle gate/boundary metaphor where appropriate, especially in the Demo and Architecture experience.
+
+Concept:
+
+AGENT → VOUCH GATE → ACTION
+
+The gate represents the VOUCH authorization boundary.
+
+It can visually communicate:
+
+🟢 ALLOW
+🟡 APPROVAL REQUIRED
+🔴 BLOCK
+
+Do not turn the entire interface into a medieval castle.
+
+Keep this sophisticated and minimal.
+
+The metaphor should support the enterprise product rather than dominate it.
+
+6. KNIGHT STATES / REACTIONS
+
+Use a small set of polished knight poses or states that correspond to real product states.
+
+Guarding
+
+Used for:
+
+blocked
+policy boundary
+protection
+
+Visual:
+Knight holding shield defensively.
+
+Investigating
+
+Used for:
+
+evidence evaluation
+verification
+authority evaluation
+
+Visual:
+Knight examining the ledger/evidence.
+
+Ready
+
+Used for:
+
+authorized action
+
+Visual:
+Knight standing confidently with sword.
+
+Approval Required
+
+Used when human authorization is needed.
+
+Visual:
+Knight pauses with sword lowered / waiting.
+
+Possible tiny supporting phrase:
+
+Your call.
+
+Verified Success
+
+Used after successful verification.
+
+Visual:
+Confident knight / successful posture.
+
+Possible phrase:
+
+Proven.
+
+Verification Failure
+
+Used when expected and actual outcomes differ.
+
+Visual:
+Knight examining failed evidence / concerned but not silly.
+
+Possible phrase:
+
+Authority reduced.
+
+Keep expressions subtle and professional.
+
+Do NOT create cartoon slapstick.
+
+7. IMPORTANT: NO CROWN
+
+Do not add a crown.
+
+The knight is not the king.
+
+The knight is the guardian/servant of the authority system.
+
+This reinforces that the AI agent is not the ultimate decision-maker.
+
+8. HUMAN APPROVAL
+
+Human approval should remain visually distinct from the knight.
+
+The knight can wait for the human.
+
+The knight does not make the human decision.
+
+Concept:
+
+Agent requests → VOUCH evaluates → Knight waits → Human decides
+
+This reinforces:
+
+Human judgment remains available when earned authority is insufficient.
+
+Do not make human approval the centerpiece of the product.
+
+The centerpiece is adaptive authority.
+
+9. DEMO STORY
+
+Use these visual transitions in the existing real demo lifecycle.
+
+START
+
+T2 — IN TRAINING
+
+Apprentice/squire.
+
+No sword.
+
+EARN
+
+Verified successful outcome.
+
+Knight progresses.
+
+T2 → T3
+
+Sword appears.
+
+ACT
+
+Agent performs bounded action.
+
+Knight is equipped.
+
+VERIFY
+
+Outcome is checked.
+
+FAIL
+
+Verification failure.
+
+Authority decreases.
+
+T3 → T2
+
+Sword disappears.
+
+Knight returns to training state.
+
+TRY AGAIN
+
+Same agent requests the same general class of action.
+
+VOUCH evaluates the new request using the new authority state.
+
+Result:
+
+APPROVAL REQUIRED
+
+This is critical.
+
+The demo must make it visually obvious that the previous failure changed what the agent is allowed to do next.
+
+RECOVER
+
+After new verified successful behavior:
+
+T2 → T3
+
+Sword returns.
+
+If the agent legitimately reaches the highest authority level:
+
+T4
+
+Full armor + sword + horse.
+
+This should feel like earned progression, not a game reward.
+
+10. CONTROL CENTER
+
+Refine the Control Center so the knight sits beside the actual authority information.
+
+The primary information should remain:
+
+CURRENT AUTHORITY
+
+Then:
+
+WHY
+
+verified history
+current evidence
+risk
+policy
+recent outcome
+
+Then:
+
+BOUNDARIES
+
+What the agent can currently do.
+
+What still requires approval.
+
+What is blocked.
+
+Then show the knight as the visual summary of that state.
+
+Do NOT make the trust score the primary visual.
+
+Authority is the primary concept.
+
+11. HISTORY / AUDIT
+
+Use the ledger metaphor here carefully.
+
+The history should visually tell the story:
+
+Verified Success
+↓
+Authority Earned
+↓
+Action Authorized
+↓
+Verification Failed
+↓
+Authority Reduced
+↓
+Approval Required
+↓
+Verified Success
+↓
+Authority Restored
+
+Only display events that actually occurred.
+
+12. ARCHITECTURE PAGE
+
+Add the visual metaphor subtly to the architecture diagram:
+
+AGENT
+↓
+VOUCH GATE
+↓
+AUTHORITY ENGINE
+↓
+ALLOW / APPROVAL / BLOCK
+↓
+ACTION
+↓
+VERIFICATION
+↓
+TRUST / RELIABILITY UPDATE
+↓
+AUTHORITY UPDATE
+
+Then show the feedback loop.
+
+The knight can visually sit at the VOUCH boundary as the guardian.
+
+Do not let the metaphor obscure the actual technical architecture.
+
+13. PRODUCT PRINCIPLE
+
+The entire implementation should reinforce these statements:
+
+Trust informs authority.
+
+Policy bounds authority.
+
+Every consequential action is evaluated again.
+
+Verified behavior can increase or reduce available authority.
+
+Past approval is not permanent permission.
+
+The agent never grants authority to itself.
+
+These are product principles, not merely marketing copy.
+
+14. DESIGN QUALITY BAR
+
+Keep VOUCH:
+
+premium
+polished
+enterprise-grade
+sophisticated
+visually distinctive
+slightly playful
+
+The knight should make the product memorable without making it feel childish.
+
+Think:
+
+serious security product + delightful visual metaphor
+
+NOT:
+
+medieval game disguised as enterprise software
+
+Avoid:
+
+elaborate game UI
+XP bars
+coins
+fantasy RPG terminology
+unnecessary animations
+complicated horse mechanics
+fake achievements
+decorative medieval clutter
+15. IMPLEMENTATION SAFETY
+
+Before making changes, inspect the existing Knight Authority implementation and current state model.
+
+Reuse existing components/state wherever possible.
+
+Do not create duplicate sources of truth.
+
+The flow must remain:
+
+SERVER AUTHORITY STATE
+→
+KNIGHT VISUAL STATE
+
+Never:
+
+KNIGHT STATE
+→
+SERVER AUTHORITY
+
+Run the existing tests after implementation.
+
+Add regression tests if needed to confirm:
+
+authority changes update knight state
+demotion removes appropriate equipment
+promotion restores appropriate equipment
+T4 displays horse
+client cannot manipulate knight/authority state
+policy still overrides trust
+per-request authorization still occurs
+past approval does not permanently authorize future actions
+
+Run:
+
+full test suite
+production build
+route checks
+complete demo lifecycle
+
+Do not spend significant implementation time on decorative animation. If something requires substantial new infrastructure or risks the working demo, use a simpler visual treatment.
+
+The goal is for a judge to understand the entire authority model almost without reading:
+
+No authority → training → sword → knight → horse
+
+and:
+
+failure → lose authority → lose equipment → approval required → earn it back
+
+That visual story should reinforce the real VOUCH security architecture rather than replace it.

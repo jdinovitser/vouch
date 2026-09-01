@@ -9,8 +9,14 @@ Render composed VOUCH Knight poses inline in the document. Do not rely on an SVG
 
 **How to apply:** Extend the shared inline Knight renderer for new poses. Keep standalone SVG exports self-contained if they must also work as downloadable assets.
 
-State illustrations must change the Knight's actual stance by repositioning limbs, shield, and held objects. Do not add mounts, detached weapons, floating badges, or decorative props around an unchanged base character.
+Workflow-state illustrations must change the Knight's actual stance by repositioning limbs, shield, and held objects. Avoid detached weapons, floating badges, or decorative props around an unchanged base character.
 
 **Why:** Prop-heavy compositions looked disconnected and amateurish; the mounted-action illustration was explicitly rejected.
 
-**How to apply:** Build new states from the canonical vector anatomy and attach any necessary tool to the relevant hand. Prefer body language over additional scene objects.
+**How to apply:** Build workflow states from the canonical vector anatomy and attach any necessary tool to the relevant hand. Prefer body language over additional scene objects.
+
+Authority-tier visuals are a separate progression and must derive only from the real server-provided autonomy level. T1/T2 have no sword, T3 introduces the sword, and T4 alone may include a static horse.
+
+**Why:** The Knight communicates current authority; a separate client-side level could drift from the authorization engine. The T4 horse is a credential marker, not an action animation.
+
+**How to apply:** Render tiers through the shared authority component using the session autonomy value. Never let Knight state determine or mutate authority, and do not add riding animation or game mechanics.

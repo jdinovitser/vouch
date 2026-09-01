@@ -1,4 +1,5 @@
 import { useId } from "react";
+import type { AutonomyLevel } from "../shared/types";
 
 export type KnightState = "default" | "investigating" | "blocked" | "approval" | "deployment" | "verified" | "reduced" | "audit";
 
@@ -11,6 +12,13 @@ export const knightLabels: Record<KnightState, string> = {
   verified: "VERIFIED",
   reduced: "CAUTIOUS",
   audit: "RECORDED",
+};
+
+export const authorityKnightLabels: Record<AutonomyLevel, { label: string; role: string }> = {
+  T1: { label: "NOT TRUSTED", role: "OBSERVE" },
+  T2: { label: "IN TRAINING", role: "RECOMMEND" },
+  T3: { label: "SQUIRE", role: "BOUNDED ACTION" },
+  T4: { label: "FULL KNIGHT", role: "DELEGATED ACTION" },
 };
 
 type Pose = {
@@ -61,14 +69,26 @@ const poses: Record<Exclude<KnightState, "default">, Pose> = {
   },
 };
 
-export function KnightArtwork({ state, showShadow = true }: { state: Exclude<KnightState, "default">; showShadow?: boolean }) {
+export function KnightAuthority({ level, size = "normal", state = "deployment" }: { level: AutonomyLevel; size?: "normal" | "small"; state?: Exclude<KnightState, "default"> }) {
+  const authority = authorityKnightLabels[level];
+  return <div className={`authority-knight authority-knight-${level} authority-knight-${size}`} aria-label={`${authority.label} · ${authority.role}`}>
+    <KnightArtwork state={state} authorityLevel={level} />
+    <div className="authority-knight-caption"><b>{authority.label}</b><span>{authority.role}</span></div>
+  </div>;
+}
+
+export function KnightArtwork({ state, showShadow = true, authorityLevel }: { state: Exclude<KnightState, "default">; showShadow?: boolean; authorityLevel?: AutonomyLevel }) {
   const uid = useId().replace(/:/g, "");
   const pose = poses[state];
   const steel = `steel-${uid}`;
   const darkSteel = `dark-steel-${uid}`;
   const shield = `shield-${uid}`;
+  const size = authorityLevel === "T1" ? .72 : authorityLevel === "T2" ? .88 : authorityLevel === "T4" ? 1.06 : 1;
+  const armorOpacity = authorityLevel === "T1" ? .3 : authorityLevel === "T2" ? .72 : 1;
+  const shieldOpacity = authorityLevel === "T1" ? .3 : authorityLevel === "T2" ? .7 : 1;
+  const transform = authorityLevel ? `translate(90 95) scale(${size}) translate(-90 -95) ${pose.body ?? ""}` : pose.body;
 
-  return <svg className="knight-artwork" viewBox="0 0 180 190" role="img" aria-label={`VOUCH Knight ${knightLabels[state].toLowerCase()}`}>
+  return <svg className={`knight-artwork ${authorityLevel ? `knight-authority-artwork knight-authority-${authorityLevel}` : ""}`} viewBox="0 0 180 190" role="img" aria-label={authorityLevel ? `${authorityKnightLabels[authorityLevel].label} VOUCH Knight` : `VOUCH Knight ${knightLabels[state].toLowerCase()}`}>
     <defs>
       <linearGradient id={steel} x1=".15" y1=".1" x2=".85" y2=".95"><stop stopColor="#d9eeff"/><stop offset=".48" stopColor="#83b8e9"/><stop offset="1" stopColor="#3d79b8"/></linearGradient>
       <linearGradient id={darkSteel} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#79b9ef"/><stop offset="1" stopColor="#255a91"/></linearGradient>
@@ -76,7 +96,12 @@ export function KnightArtwork({ state, showShadow = true }: { state: Exclude<Kni
       <filter id={`shadow-${uid}`}><feDropShadow dx="0" dy="7" stdDeviation="5" floodColor="#04101c" floodOpacity=".45"/></filter>
     </defs>
     {showShadow && <ellipse cx="91" cy="175" rx={state === "deployment" ? 62 : 54} ry="8" fill="#03111f" opacity=".35"/>}
-    <g transform={pose.body} filter={`url(#shadow-${uid})`}>
+    {authorityLevel === "T4" && <g className="knight-horse" aria-hidden="true">
+      <ellipse cx="145" cy="151" rx="27" ry="17" fill="#2d679f" stroke="#c9e7ff" strokeWidth="3"/>
+      <path d="M161 145c7-18 17-23 23-17l-2 23-13 8M128 157l-5 20M151 159l8 18M164 136l10-13" fill="none" stroke="#78afe0" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M171 126c4-4 9-5 13-2" fill="none" stroke="#d9efff" strokeWidth="3" strokeLinecap="round"/>
+    </g>}
+    <g transform={transform} filter={`url(#shadow-${uid})`}>
       <g transform={pose.leftLeg}>
         <path d="M72 144v23l-17 3c-3 1-4-5-1-8l10-10z" fill="#356b9f" stroke="#d2ebff" strokeWidth="3" strokeLinejoin="round"/>
       </g>
@@ -84,15 +109,15 @@ export function KnightArtwork({ state, showShadow = true }: { state: Exclude<Kni
         <path d="M111 144v23l17 3c3 1 4-5 1-8l-10-10z" fill="#356b9f" stroke="#d2ebff" strokeWidth="3" strokeLinejoin="round"/>
       </g>
 
-      <path d="M65 104c7-10 17-15 27-15 11 0 21 5 29 15l5 45c-9 9-20 14-34 14-13 0-25-5-33-14z" fill={`url(#${steel})`} stroke="#e0f2ff" strokeWidth="3.5"/>
-      <path d="M79 104h26l9 40c-13 7-31 7-44 0z" fill="#4f8bc4" stroke="#cce8ff" strokeWidth="2"/>
+      <path d="M65 104c7-10 17-15 27-15 11 0 21 5 29 15l5 45c-9 9-20 14-34 14-13 0-25-5-33-14z" fill={`url(#${steel})`} stroke="#e0f2ff" strokeWidth="3.5" opacity={armorOpacity}/>
+      <path d="M79 104h26l9 40c-13 7-31 7-44 0z" fill="#4f8bc4" stroke="#cce8ff" strokeWidth="2" opacity={armorOpacity}/>
       <path d="M92 103v48M77 122h30" stroke="#d5ecff" strokeWidth="2" opacity=".58"/>
 
       <g transform={pose.leftArm}><g className={state === "verified" ? "celebrate-arm-left" : undefined}>
         <path d="M68 101c-13-2-23 6-25 19l16 7 14-21z" fill={`url(#${darkSteel})`} stroke="#d9efff" strokeWidth="3"/>
         <path d="M47 115c-6 8-8 19-4 31l11-2 7-22z" fill="#2d679f" stroke="#b8ddfa" strokeWidth="2.5"/>
-        <path d="M44 111c13 2 23 10 28 21-2 18-11 31-26 38-14-9-21-23-19-42z" fill={`url(#${shield})`} stroke="#e3f3ff" strokeWidth="3.5" strokeLinejoin="round"/>
-        <path d="m37 130 10 19 12-19h-7l-5 8-4-8z" fill="#f0f8ff"/>
+        <path d="M44 111c13 2 23 10 28 21-2 18-11 31-26 38-14-9-21-23-19-42z" fill={`url(#${shield})`} stroke="#e3f3ff" strokeWidth="3.5" strokeLinejoin="round" opacity={shieldOpacity}/>
+        <path d="m37 130 10 19 12-19h-7l-5 8-4-8z" fill="#f0f8ff" opacity={shieldOpacity}/>
       </g></g>
 
       <g transform={pose.rightArm}><g className={state === "verified" ? "celebrate-arm-right" : undefined}>
@@ -115,13 +140,19 @@ export function KnightArtwork({ state, showShadow = true }: { state: Exclude<Kni
           <path d="M140 126h31v40h-31z" fill="#162c42" stroke="#8ec5ff" strokeWidth="2.5" transform="rotate(4 155 146)"/>
           <path d="M148 138h15M147 147h16M146 156h13" stroke="#8ec5ff" strokeWidth="2" strokeLinecap="round" transform="rotate(4 155 146)"/>
         </g>}
+        {authorityLevel && (authorityLevel === "T3" || authorityLevel === "T4") && <g className="knight-sword" aria-label="Sword">
+          <path d="M141 143 164 95" stroke="#e5f5ff" strokeWidth="5" strokeLinecap="round"/>
+          <path d="m160 96 8-12 1 15z" fill="#f5fbff"/>
+          <path d="M134 143h18" stroke="#f5b942" strokeWidth="4" strokeLinecap="round"/>
+          <path d="M143 138v10" stroke="#b8792d" strokeWidth="3" strokeLinecap="round"/>
+        </g>}
       </g></g>
 
-      <path d="M54 78C55 39 70 17 92 17s37 22 39 61l-15 6-49-1z" fill={`url(#${steel})`} stroke="#e0f2ff" strokeWidth="3.5"/>
+      <path d="M54 78C55 39 70 17 92 17s37 22 39 61l-15 6-49-1z" fill={`url(#${steel})`} stroke="#e0f2ff" strokeWidth="3.5" opacity={armorOpacity}/>
       <path d="M68 48c5-16 13-23 24-23 12 0 21 8 25 24l-12-5-13 6-13-6z" fill="#4a87c2"/>
       <path d="M66 66c4-18 14-27 26-27s22 9 27 27l-5 23c-5 11-13 17-22 17s-18-6-23-17z" fill="#f2c7a9" stroke="#7597b6" strokeWidth="3"/>
-      <path d="M63 66l15-18 14 6 15-7 14 19-3-24-52-1z" fill="#6ea9de"/>
-      <path d="M66 69l8 4 2 21-8-5zM118 69l-8 4-2 21 8-5z" fill="#4d87bf" stroke="#cfeaff" strokeWidth="2"/>
+      <path d="M63 66l15-18 14 6 15-7 14 19-3-24-52-1z" fill="#6ea9de" opacity={armorOpacity}/>
+      <path d="M66 69l8 4 2 21-8-5zM118 69l-8 4-2 21 8-5z" fill="#4d87bf" stroke="#cfeaff" strokeWidth="2" opacity={armorOpacity}/>
       <path d="M82 65c3-2 6-2 9 0M99 65c3-2 6-2 9 0" fill="none" stroke="#6f4e42" strokeWidth="2" strokeLinecap="round"/>
       <ellipse cx="86" cy="76" rx="3.8" ry="5" fill="#17334e"/><ellipse cx="103" cy="76" rx="3.8" ry="5" fill="#17334e"/>
       <circle cx="84.8" cy="74.5" r="1.1" fill="#fff"/><circle cx="101.8" cy="74.5" r="1.1" fill="#fff"/>
