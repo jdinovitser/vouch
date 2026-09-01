@@ -27,7 +27,7 @@ export function CelebrationRide() {
         </g>
         <image href={horseUrl} x="35" y="3" width="210" height="210" clipPath="url(#kawaiiHorseUpper)" />
       </svg>
-      <div className="celebration-rider"><KnightArtwork state="verified" /></div>
+      <div className="celebration-rider"><KnightArtwork state="verified" showShadow={false} /></div>
       <div className="celebration-saddle-front" aria-hidden="true" />
     </div>
     <span className="celebration-ride-label">VERIFIED · VICTORY LAP</span>

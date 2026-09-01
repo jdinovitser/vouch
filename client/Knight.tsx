@@ -61,7 +61,7 @@ const poses: Record<Exclude<KnightState, "default">, Pose> = {
   },
 };
 
-export function KnightArtwork({ state }: { state: Exclude<KnightState, "default"> }) {
+export function KnightArtwork({ state, showShadow = true }: { state: Exclude<KnightState, "default">; showShadow?: boolean }) {
   const uid = useId().replace(/:/g, "");
   const pose = poses[state];
   const steel = `steel-${uid}`;
@@ -75,7 +75,7 @@ export function KnightArtwork({ state }: { state: Exclude<KnightState, "default"
       <linearGradient id={shield} x1=".25" y1="0" x2=".8" y2="1"><stop stopColor="#8ac9ff"/><stop offset="1" stopColor="#286db0"/></linearGradient>
       <filter id={`shadow-${uid}`}><feDropShadow dx="0" dy="7" stdDeviation="5" floodColor="#04101c" floodOpacity=".45"/></filter>
     </defs>
-    <ellipse cx="91" cy="175" rx={state === "deployment" ? 62 : 54} ry="8" fill="#03111f" opacity=".35"/>
+    {showShadow && <ellipse cx="91" cy="175" rx={state === "deployment" ? 62 : 54} ry="8" fill="#03111f" opacity=".35"/>}
     <g transform={pose.body} filter={`url(#shadow-${uid})`}>
       <g transform={pose.leftLeg}>
         <path d="M72 144v23l-17 3c-3 1-4-5-1-8l10-10z" fill="#356b9f" stroke="#d2ebff" strokeWidth="3" strokeLinejoin="round"/>
