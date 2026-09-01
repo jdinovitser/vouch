@@ -1,0 +1,148 @@
+# VOUCH Knight — Demo Victory Lap
+
+Add one additional signature interaction to the existing VOUCH Knight visual system.
+
+## 🏇 THE VOUCH VICTORY LAP
+
+At the successful conclusion of the Judges Demo, after the final action has been executed and the outcome has been **VERIFIED**, trigger a short animated "victory lap."
+
+The sequence should feel charming, slightly silly, and highly memorable while still fitting the premium VOUCH product.
+
+### Sequence
+
+When the demo reaches its final VERIFIED state:
+
+1. Complete the normal verification UI first.
+2. Display the final verified result clearly.
+3. Pause briefly so the judge can absorb the result.
+4. Then trigger the VOUCH Knight riding across the **bottom of the demo area**.
+5. The Knight should be riding his small horse from one side of the demo screen to the other.
+6. He should exit the opposite side naturally.
+7. The final VERIFIED state remains visible after the animation finishes.
+
+The animation should happen **only after successful completion of the demo**, not continuously.
+
+### Character
+
+Use the SAME canonical VOUCH Knight already established elsewhere.
+
+Do not create a different mascot.
+
+For the victory lap:
+
+* Knight mounted on a small, cute but polished horse
+* sword safely sheathed
+* shield visible
+* confident/proud expression
+* determined little gallop
+* recognizable VOUCH armor
+* same illustration style as the rest of the Knight system
+
+The horse can have a little personality, but keep it tasteful.
+
+The humor should come from the contrast:
+
+**serious enterprise AI governance product + tiny knight riding triumphantly away after doing his job.**
+
+### Animation style
+
+Keep it:
+
+* smooth
+* short
+* lightweight
+* polished
+* charming
+* slightly silly
+
+Do NOT add:
+
+* explosions
+* excessive confetti
+* fireworks
+* flashing lights
+* giant particle effects
+* cartoon sound effects
+* obnoxious bouncing
+* anything that makes VOUCH look like a children's game
+
+The joke is simply:
+
+**The knight protected the system. Mission accomplished. He's riding off.**
+
+### Implementation
+
+Prefer the highest-quality lightweight web implementation rather than requiring a literal GIF if another format is better.
+
+Possible approaches include:
+
+* animated WebP
+* APNG
+* sprite/frame animation
+* lightweight CSS/HTML animation using a properly designed asset
+
+Choose the approach that provides the best visual quality and browser performance.
+
+The animation must:
+
+* work on desktop
+* work responsively on smaller screens
+* remain contained within the demo area
+* not cause horizontal page scrolling
+* not interfere with demo controls
+* not cover the important VERIFIED result
+* play once per completed demo run
+* replay when the demo is restarted and completed again
+
+### Reduced motion
+
+Respect `prefers-reduced-motion`.
+
+If reduced motion is enabled, replace the full riding animation with a simpler static or very short transition so the feature remains accessible.
+
+### Demo controls
+
+Do not break:
+
+* Play
+* Pause
+* Restart
+* Step-through behavior
+
+If the user manually steps through the final stage, the victory lap should still trigger when the demo reaches the completed VERIFIED state, provided it has not already played during that run.
+
+Avoid duplicate triggers.
+
+### Final polish
+
+The victory lap should feel like a deliberate VOUCH signature rather than a hackathon gimmick.
+
+The intended emotional sequence is:
+
+**Risk → Decision → Authorization → Action → Verification →**
+
+**VERIFIED ✓**
+
+*beat*
+
+**🏇 tiny VOUCH Knight rides triumphantly across the screen**
+
+The user should smile.
+
+That is the point.
+
+Keep the rest of the application professional and let this be the small memorable moment that makes VOUCH feel like it has a personality.
+
+After implementation:
+
+* run existing tests
+* run TypeScript checks
+* run production build
+* verify demo behavior
+* verify animation triggers exactly once per completed run
+* verify Restart allows it to play again
+* verify responsive behavior
+* verify reduced-motion behavior
+* verify no console errors
+
+Do not alter backend safety/authorization logic for this feature.

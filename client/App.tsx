@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useReducer, useRef, useState, type ReactNode } from "react";
 import {
   Activity, ArrowDown, ArrowRight, BadgeCheck, Ban, BookOpen, Check, ChevronDown, ChevronRight,
   CircleHelp, Clock3, Command, FileCheck2, Fingerprint, Gauge, History, Layers3, LockKeyhole,
@@ -8,6 +8,8 @@ import {
 import type { ActionRecord, AgentTrust, AutonomyLevel, DemoScenario, EvidenceItem, SessionState } from "../shared/types";
 import { demoControllerReducer, initialDemoController } from "./demo-controller";
 import { KnightArtwork, knightLabels, type KnightState } from "./Knight";
+import { VictoryLap } from "./VictoryLap";
+import { shouldScheduleVictoryLap } from "./victory-lap-controller";
 
 type View = "landing" | "why" | "how" | "demo" | "judges" | "architecture" | "control" | "history";
 type ApiState = { session: SessionState; scenarios: DemoScenario[] };
@@ -169,14 +171,41 @@ const demoStages: DemoStage[] = ["REQUEST", "EVIDENCE", "RISK", "AUTHORITY", "AC
 function DemoExperience({ scenarios, runScenario, loading, navigate, judgeMode = false }: { scenarios: DemoScenario[]; runScenario: (id: string, resolved?: boolean, stayOnDemo?: boolean) => Promise<void>; loading: boolean; navigate: (v: View) => void; judgeMode?: boolean }) {
   const [demo, dispatchDemo] = useReducer(demoControllerReducer, initialDemoController);
   const [scenarioId, setScenarioId] = useState("safe-review");
+  const [victoryLapVisible, setVictoryLapVisible] = useState(false);
+  const victoryScheduled = useRef(false);
+  const victoryTimers = useRef<number[]>([]);
   useEffect(() => {
     if (!demo.playing) return;
     const timer = window.setInterval(() => dispatchDemo({ type: "TICK" }), 900);
     return () => window.clearInterval(timer);
   }, [demo.playing]);
+  useEffect(() => () => victoryTimers.current.forEach((timer) => window.clearTimeout(timer)), []);
   useEffect(() => {
     if (demo.stage === demoStages.length - 1 && demo.playing === false && !loading) void runScenario("safe-review", false, true);
   }, [demo.stage, demo.playing]);
+  useEffect(() => {
+    if (!shouldScheduleVictoryLap({ stage: demo.stage, stageCount: demoStages.length, playing: demo.playing, loading, alreadyScheduled: victoryScheduled.current })) return;
+    victoryScheduled.current = true;
+    const reveal = window.setTimeout(() => setVictoryLapVisible(true), 1200);
+    const hide = window.setTimeout(() => setVictoryLapVisible(false), 3800);
+    victoryTimers.current.push(reveal, hide);
+  }, [demo.stage, demo.playing, loading]);
+  const restartDemo = () => {
+    victoryTimers.current.forEach((timer) => window.clearTimeout(timer));
+    victoryTimers.current = [];
+    victoryScheduled.current = false;
+    setVictoryLapVisible(false);
+    dispatchDemo({ type: "RESTART" });
+  };
+  const playDemo = () => {
+    if (demo.stage === demoStages.length - 1) {
+      victoryTimers.current.forEach((timer) => window.clearTimeout(timer));
+      victoryTimers.current = [];
+      victoryScheduled.current = false;
+      setVictoryLapVisible(false);
+    }
+    dispatchDemo({ type: demo.playing ? "PAUSE" : "PLAY" });
+  };
   const state = demoStages[demo.inspected ?? demo.stage];
   const demoKnight: Record<DemoStage, KnightState> = { REQUEST: "default", EVIDENCE: "investigating", RISK: "blocked", AUTHORITY: "approval", ACTION: "deployment", VERIFY: "verified", TRUST: "verified" };
   const stateCopy: Record<DemoStage, [string, string]> = {
@@ -186,7 +215,7 @@ function DemoExperience({ scenarios, runScenario, loading, navigate, judgeMode =
   };
   return <div className={`demo-experience content-width ${judgeMode ? "judge-demo" : ""}`}>
     <div className="demo-hero-heading"><div><div className="eyebrow"><span className="eyebrow-line" />{judgeMode ? "THE 90-SECOND EXPERIENCE" : "INTERACTIVE PRODUCT DEMO"}</div><h1>{judgeMode ? <>Judge the<br /><em>agent.</em></> : <>See VOUCH make<br /><em>the decision.</em></>}</h1><p>Watch an AI agent investigate, evaluate, decide, act—or refuse to act.</p></div><Guardian state={demoKnight[state]} /></div>
-    <section className="guided-demo"><div className="demo-topline"><div><span className="section-label">GUIDED EXPERIENCE</span><p>{stateCopy[state][0]} · {stateCopy[state][1]}</p></div><span className={demo.playing ? "demo-clock running" : "demo-clock"}><Clock3 size={14} /> {demo.playing ? "LIVE" : "PAUSED"} · 00:{String(Math.min(demo.stage * 10, 90)).padStart(2, "0")}</span></div><div className="demo-timeline">{demoStages.map((item, index) => <button className={`${index < demo.stage ? "complete" : ""} ${index === demo.stage ? "current" : ""} ${index > demo.stage ? "future" : ""}`} disabled={index > demo.stage} onClick={() => dispatchDemo({ type: "INSPECT", stage: index })} key={item}><span>{index < demo.stage ? <Check size={12} /> : String(index + 1).padStart(2, "0")}</span>{item}{index < demoStages.length - 1 && <i />}</button>)}</div><div className="demo-stage-card"><div className={`stage-graphic stage-${state.toLowerCase()}`}><div className="stage-ring" /><Guardian state={demoKnight[state]} /><span>{state}</span></div><div className="stage-copy"><span className="mini-label">{stateCopy[state][0]}</span><h2>{stateCopy[state][1]}</h2>{state === "AUTHORITY" ? <p>VOUCH does not reward the agent for always acting. It rewards the correct decision about whether it should.</p> : <p>Every stage is explicit, auditable, and enforced outside the model.</p>}<div className="stage-points"><span><Check size={13} /> Decision provenance</span><span><Check size={13} /> Server-side policy</span><span><Check size={13} /> Outcome verification</span></div></div></div><div className="demo-controls"><button className="control-button primary-control" onClick={() => dispatchDemo({ type: demo.playing ? "PAUSE" : "PLAY" })} disabled={loading}>{demo.playing ? <><Pause size={15} />Pause</> : <><Play size={15} />{demo.stage === 0 ? "Play demo" : "Resume"}</>}</button><button className="control-button" onClick={() => dispatchDemo({ type: "RESTART" })}><RefreshCw size={15} />Restart</button><button className="control-button" onClick={() => dispatchDemo({ type: "PREVIOUS" })} disabled={demo.stage === 0}><ArrowRight className="prev-icon" size={15} />Previous</button><button className="control-button" onClick={() => dispatchDemo({ type: "NEXT" })} disabled={demo.stage === demoStages.length - 1}><ArrowRight size={15} />Next step</button><span className="presenter-hint"><Command size={13} /> Presenter controls</span></div></section>
+    <section className="guided-demo"><div className="demo-topline"><div><span className="section-label">GUIDED EXPERIENCE</span><p>{stateCopy[state][0]} · {stateCopy[state][1]}</p></div><span className={demo.playing ? "demo-clock running" : "demo-clock"}><Clock3 size={14} /> {demo.playing ? "LIVE" : "PAUSED"} · 00:{String(Math.min(demo.stage * 10, 90)).padStart(2, "0")}</span></div><div className="demo-timeline">{demoStages.map((item, index) => <button className={`${index < demo.stage ? "complete" : ""} ${index === demo.stage ? "current" : ""} ${index > demo.stage ? "future" : ""}`} disabled={index > demo.stage} onClick={() => dispatchDemo({ type: "INSPECT", stage: index })} key={item}><span>{index < demo.stage ? <Check size={12} /> : String(index + 1).padStart(2, "0")}</span>{item}{index < demoStages.length - 1 && <i />}</button>)}</div><div className="demo-stage-card"><div className={`stage-graphic stage-${state.toLowerCase()}`}><div className="stage-ring" /><Guardian state={demoKnight[state]} /><span>{state}</span></div><div className="stage-copy"><span className="mini-label">{stateCopy[state][0]}</span><h2>{stateCopy[state][1]}</h2>{state === "AUTHORITY" ? <p>VOUCH does not reward the agent for always acting. It rewards the correct decision about whether it should.</p> : <p>Every stage is explicit, auditable, and enforced outside the model.</p>}<div className="stage-points"><span><Check size={13} /> Decision provenance</span><span><Check size={13} /> Server-side policy</span><span><Check size={13} /> Outcome verification</span></div></div></div>{victoryLapVisible && <div className="victory-lap-layer" aria-live="polite"><div className="victory-lap"><VictoryLap /></div></div>}<div className="demo-controls"><button className="control-button primary-control" onClick={playDemo} disabled={loading}>{demo.playing ? <><Pause size={15} />Pause</> : <><Play size={15} />{demo.stage === 0 ? "Play demo" : "Resume"}</>}</button><button className="control-button" onClick={restartDemo}><RefreshCw size={15} />Restart</button><button className="control-button" onClick={() => dispatchDemo({ type: "PREVIOUS" })} disabled={demo.stage === 0}><ArrowRight className="prev-icon" size={15} />Previous</button><button className="control-button" onClick={() => dispatchDemo({ type: "NEXT" })} disabled={demo.stage === demoStages.length - 1}><ArrowRight size={15} />Next step</button><span className="presenter-hint"><Command size={13} /> Presenter controls</span></div></section>
     <section className="demo-outcome"><div><span className="section-kicker">CHOOSE A DIFFERENT OUTCOME</span><h2>One system.<br /><em>Five honest answers.</em></h2><p>After the first experience, explore how VOUCH handles different evidence and authority conditions.</p></div><div className="scenario-rail">{scenarios.filter((scenario) => scenario.id !== "verification-failure" || true).map((scenario) => <button className={`scenario-mini ${scenario.accent} ${scenario.id === scenarioId ? "selected" : ""}`} onClick={() => { setScenarioId(scenario.id); void runScenario(scenario.id); }} disabled={loading} key={scenario.id}><span className="mini-label">{scenario.action.risk} RISK</span><b>{scenario.name}</b><small>{scenario.hasConflict ? "VOUCH stops" : scenario.id === "human-refund" ? "Human decides" : scenario.failVerification ? "Trust reduces" : "Agent acts"}</small><ArrowRight size={14} /></button>)}</div></section>
     {!judgeMode && <PageCta title="Want the technical boundary?" text="The model recommends. The VOUCH authorization layer decides." label="Explore architecture" onClick={() => navigate("architecture")} />}
   </div>;
