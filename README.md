@@ -1,8 +1,8 @@
 # VOUCH
 
-> **AI agents do not need unlimited autonomy. They need a way to earn it.**
+> **AI agents do not need unlimited autonomy. They need earned authority.**
 
-VOUCH is earned-autonomy infrastructure for AI agents. It evaluates evidence, source authority, risk, reversibility, policy, and demonstrated reliability before an agent is permitted to act. Every authorized action is verified afterward, and the result changes future authority.
+VOUCH is an adaptive authority engine for AI agents. It turns an agent's verified track record into bounded, revocable authority while evaluating every request again against current evidence, risk, policy, context, and hard safety limits.
 
 ## The problem
 
@@ -18,7 +18,7 @@ REQUEST → INVESTIGATE → EVIDENCE → RISK → AUTHORITY → ACTION → VERIF
                                                    └──── NEXT ACTION ┘
 ```
 
-The outcome can be:
+The outcome of each fresh authorization decision can be:
 
 - **EXECUTE** — policy, evidence, risk, and trust permit autonomous action.
 - **APPROVAL REQUIRED** — evidence supports the recommendation, but human authority is required.
@@ -47,7 +47,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for details.
 
 ## Trust model
 
-Trust represents demonstrated operational reliability inside the current policy scope. It is not a personality score.
+Trust represents demonstrated operational reliability inside the current policy scope. It is not a personality score and it is never permission by itself.
 
 | Level | Behavior |
 | --- | --- |
@@ -60,7 +60,9 @@ The deterministic lifecycle begins at trust 84 / T2. A verified bounded action e
 
 ## Risk and authority
 
-The deterministic server-side engine considers trust, autonomy, action risk, evidence confidence, source authority, conflicts, reversibility, and verification availability. Frontend state cannot bypass it.
+The deterministic server-side engine considers verified history, current evidence, action risk, source authority, conflicts, reversibility, policy, and hard limits on every request. Frontend state cannot bypass it. Past approval and higher standing do not create a permanent whitelist.
+
+High-risk and irreversible actions remain approval-required. Conflicted evidence and flagged untrusted instructions remain blocked regardless of trust score or autonomy level.
 
 ## Human authorization
 
@@ -90,7 +92,7 @@ Without AWS credentials the complete prototype runs as `DEMO — Deterministic V
 - Monitored recovery and authority restoration
 - Restored autonomous action in the same account-operation class
 
-The guided demo is driven by actual backend session state and proves `EARN → ACT → VERIFY → LOSE → RECOVER`. It can be reset to the initial T2 state. Presentation controls never grant authority.
+The guided demo is driven by actual backend session state and proves `PROVE → EARN → ACT → VERIFY → ADJUST`, including authority loss and conditional recovery. It can be reset to the initial T2 state. Presentation controls never grant authority.
 
 ## Product routes
 

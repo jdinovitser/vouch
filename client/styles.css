@@ -401,12 +401,16 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
   .earned-loop i { width:12px; }
 }
 
-.authority-credential-live { display:grid; grid-template-columns:minmax(220px,.7fr) 1.8fr; gap:34px; align-items:center; margin:0 0 18px; padding:25px 28px; border:1px solid rgba(214,168,91,.42); border-left:3px solid var(--authority); background:linear-gradient(110deg,rgba(214,168,91,.12),rgba(9,21,34,.74)); }
+.authority-credential-live { display:grid; grid-template-columns:minmax(220px,.65fr) 1.8fr; gap:24px 34px; align-items:center; margin:0 0 18px; padding:25px 28px; border:1px solid rgba(214,168,91,.42); border-left:3px solid var(--authority); background:linear-gradient(110deg,rgba(214,168,91,.12),rgba(9,21,34,.74)); }
 .authority-credential-live h2 { margin:6px 0 3px; color:var(--authority); font:700 28px var(--display); }
 .authority-credential-live p { margin:0; color:var(--muted); font-size:12px; }
+.credential-current small { display:block; max-width:300px; margin-top:12px; color:#9cafc3; font:500 9px/1.5 var(--mono); }
 .credential-scope { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
 .credential-scope span { min-height:72px; padding:12px 14px; border-left:1px solid var(--line-strong); color:var(--muted); font-size:11px; line-height:1.5; }
 .credential-scope b { display:block; margin-bottom:5px; color:var(--text); font:600 9px var(--mono); letter-spacing:.1em; }
+.credential-rule { grid-column:1 / -1; display:flex; align-items:center; gap:12px; padding:13px 15px; border-top:1px solid rgba(214,168,91,.28); color:var(--authority); }
+.credential-rule span { color:#c9d6e4; font-size:11px; }
+.credential-rule b { margin-right:8px; color:var(--authority); font:600 9px var(--mono); letter-spacing:.1em; }
 .proof-complete { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; color:var(--green); font:600 10px var(--mono); letter-spacing:.06em; }
 .empty-trust { padding:24px 4px; color:var(--muted); font-size:12px; }
 .authority-history { margin-bottom:22px; border:1px solid var(--line); background:var(--panel); }

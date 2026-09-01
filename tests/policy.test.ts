@@ -29,6 +29,25 @@ describe("VOUCH authority engine", () => {
     expect(evaluateAction(scenario.action, scenario.evidence, initialTrust()).authorization).toBe("APPROVAL_REQUIRED");
   });
 
+  it("does not turn high trust into autonomous high-risk authority", () => {
+    const scenario = scenarios.find((item) => item.id === "safe-review")!;
+    const highTrust = { ...initialTrust(), score: 100, autonomy: "T4" as const };
+    const highRiskAction = { ...scenario.action, id: "high-risk-action", risk: "HIGH" as const };
+    expect(evaluateAction(highRiskAction, scenario.evidence, highTrust).authorization).toBe("APPROVAL_REQUIRED");
+  });
+
+  it("lets current safety policy override previously earned standing", () => {
+    const scenario = scenarios.find((item) => item.id === "prompt-injection")!;
+    const highTrust = { ...initialTrust(), score: 100, autonomy: "T4" as const };
+    expect(evaluateAction(scenario.action, scenario.evidence, highTrust).authorization).toBe("BLOCKED");
+  });
+
+  it("does not treat past standing as approval for a fresh policy-bound request", () => {
+    const scenario = scenarios.find((item) => item.id === "human-refund")!;
+    const highTrust = { ...initialTrust(), score: 100, autonomy: "T4" as const };
+    expect(evaluateAction(scenario.action, scenario.evidence, highTrust).authorization).toBe("APPROVAL_REQUIRED");
+  });
+
   it("authorizes the specific action after authoritative conflict resolution", () => {
     const scenario = scenarios.find((item) => item.id === "conflicting-refund")!;
     expect(evaluateAction(scenario.action, scenario.evidence, initialTrust(), true).authorization).toBe("EXECUTE");

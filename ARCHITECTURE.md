@@ -4,14 +4,14 @@
 
 **The LLM recommends. The authorization layer decides.**
 
-Model output cannot grant permission. Server-side policy independently enforces whether an action can execute.
+Model output cannot grant permission. Server-side policy independently evaluates every request. Verified history informs current authority, but past success or approval never authorizes a future request by itself.
 
 ## Layers
 
 1. **Agent orchestration** — the real Strands + Bedrock path uses typed inspection tools to produce a structured recommendation when AWS is configured; deterministic demo mode remains available.
 2. **Evidence** — each source has an authority rank, verification state, relevance, confidence, and finding.
 3. **Risk** — actions are classified LOW, MEDIUM, or HIGH and paired with reversibility.
-4. **Authority** — a deterministic engine combines evidence, risk, trust, autonomy, policy, and reversibility into EXECUTE, APPROVAL_REQUIRED, or BLOCKED.
+4. **Authority** — a deterministic engine combines verified history, current evidence, risk, context, policy, hard limits, and reversibility into EXECUTE, APPROVAL_REQUIRED, or BLOCKED.
 5. **Action** — execution is only reachable through a valid authorization state.
 6. **Verification** — expected post-action state is compared with actual state.
 7. **Trust** — verified success increases trust conservatively; failure reduces trust and authority immediately; monitored recovery evidence can restore a previously earned level.
@@ -43,11 +43,11 @@ Conflict resolution is represented by a single-use server record bound to sessio
 
 Trust, evidence, approvals, audit records, history, and active scenario state are held in a server-side session map. No mutable action state is shared between session IDs. A production implementation should use a durable, encrypted session store.
 
-## Earned autonomy feedback loop
+## Adaptive authority feedback loop
 
-The deterministic demo begins at T2 RECOMMEND. A verified low-risk action crosses the T3 ACT threshold. A controlled verification failure then demotes the same agent to T2, causing the same medium-risk action class to require approval. A subsequent monitored recovery sequence verifies three bounded outcomes and restores T3. The authority engine—not the client and not the model—reads that restored standing on the next action.
+The deterministic demo begins at T2 RECOMMEND. A verified low-risk action crosses the T3 ACT threshold. A controlled verification failure then demotes the same agent to T2, causing the same medium-risk action class to require approval. A subsequent monitored recovery sequence verifies three bounded outcomes and restores T3. The authority engine—not the client and not the model—considers that restored standing when it freshly evaluates the next action.
 
-The recovery sequence is explicit demo policy, not a generic trust shortcut. It represents an evidence bundle of monitored outcomes and is covered by regression tests and an end-to-end API smoke sequence.
+The recovery sequence is explicit demo policy, not a generic trust shortcut. It represents an evidence bundle of monitored outcomes and is covered by regression tests and an end-to-end API smoke sequence. High-risk, irreversible, conflicted, and flagged unsafe actions remain bounded by policy regardless of standing.
 
 ## AWS integration
 

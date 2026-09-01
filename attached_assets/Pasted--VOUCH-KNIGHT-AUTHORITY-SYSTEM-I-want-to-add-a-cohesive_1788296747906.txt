@@ -1,0 +1,184 @@
+## VOUCH KNIGHT AUTHORITY SYSTEM
+
+I want to add a cohesive knight progression system to VOUCH.
+
+This is NOT just a mascot redesign. The knight should visually represent the agent's current authority level.
+
+The knight's appearance must be derived from the agent's REAL server-side authority/autonomy state. Do not create a separate client-side “knight level” that can drift away from the actual authorization state.
+
+### Authority → Knight progression
+
+Use four clear states:
+
+#### T1 — NOT TRUSTED
+
+Label:
+**NOT TRUSTED**
+
+Role:
+**Observe**
+
+Visual:
+
+* very small trainee/apprentice
+* simple clothing
+* no real armor
+* no sword
+* small/simple shield if appropriate
+* friendly but clearly inexperienced
+
+Meaning:
+
+> The agent has not earned authority to act.
+
+#### T2 — IN TRAINING
+
+Label:
+**IN TRAINING**
+
+Role:
+**Recommend**
+
+Visual:
+
+* apprentice/squire
+* partial armor
+* training shield
+* no real sword
+* visibly more developed than T1
+
+Meaning:
+
+> The agent is learning and proving itself.
+
+#### T3 — SQUIRE
+
+Label:
+**SQUIRE**
+
+Role:
+**Bounded Action**
+
+Visual:
+
+* recognizable knight/squire
+* stronger armor
+* proper shield
+* REAL SWORD
+* confident stance
+* no horse yet
+
+Meaning:
+
+> The agent has earned limited authority to act within defined boundaries.
+
+#### T4 — FULL KNIGHT
+
+Label:
+**FULL KNIGHT**
+
+Role:
+**Delegated Action**
+
+Visual:
+
+* full armor
+* shield
+* sword
+* confident heroic stance
+* HORSE
+
+Meaning:
+
+> The agent has demonstrated sufficient reliability for significant bounded autonomy.
+
+### Visual rules
+
+The same character must remain recognizable across all four stages.
+
+This should feel like one character progressing through training, not four unrelated mascots.
+
+The character should be:
+
+* cute
+* polished
+* confident
+* slightly playful
+* clearly a knight/squire
+* recognizable at small sizes
+* appropriate for an enterprise product
+
+Do NOT make it:
+
+* babyish
+* scary
+* fantasy-RPG themed
+* overly childish
+* a generic robot
+* a teddy bear
+* a helpless character
+
+The visual progression should be immediately understandable:
+
+**trainee → apprentice → squire → knight**
+
+and:
+
+**no sword → training gear → sword → full armor + horse**
+
+### Important implementation constraint
+
+Do not spend significant effort building elaborate animation.
+
+No complicated horse animation.
+No animated riding sequences.
+No particle effects.
+No game mechanics.
+
+The horse can simply appear as part of the T4 illustration/state.
+
+A subtle transition between states is enough if the existing UI architecture supports it.
+
+### Product usage
+
+Create a reusable Knight Authority component that can be used throughout VOUCH.
+
+It should accept the existing authority/autonomy state and render the appropriate state.
+
+Use it consistently in:
+
+* Homepage
+* Demo
+* Control Center
+* Judges
+* History/Audit where appropriate
+
+The Demo and Control Center should make the progression particularly visible.
+
+### Do not change the authorization architecture
+
+The knight is a representation of authority.
+
+It must NEVER determine authority.
+
+The direction is:
+
+**Server-side authority state → Knight visual state**
+
+NOT:
+
+**Knight visual state → authority**
+
+Preserve all existing server-side authorization, trust, verification, and AWS/Strands behavior.
+
+Before implementing, inspect the current codebase and determine the cleanest existing state/type to use as the source of truth.
+
+Do not rewrite unrelated components.
+
+After implementation:
+
+* run tests
+* run production build
+* verify all affected routes
+* confirm the knight state accurately reflects the real authority state
+* report files changed and any remaining issues

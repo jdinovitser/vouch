@@ -1,0 +1,405 @@
+I want to make one important product-direction adjustment to the current VOUCH “Earned Autonomy” implementation.
+
+Do NOT rebuild the application and do NOT undo the technical work you just completed.
+
+The current earned-autonomy concept is strong, but I want to sharpen the product so VOUCH is not positioned simply as another “trust score / graduated autonomy” system.
+
+New Core Product Positioning
+
+VOUCH is an adaptive authority engine for AI agents.
+
+Core idea:
+
+VOUCH turns an agent’s verified track record into bounded, revocable authority.
+
+Earned autonomy is the mechanism, not the entire product claim.
+
+The key product question should be:
+
+“Given what this agent is trying to do right now, what has it actually earned the authority to do?”
+
+VOUCH should evaluate authority using the combination of:
+
+Agent history + current evidence + action risk + policy + context + hard safety limits
+
+rather than treating trust as a simple permanent permission or a single score.
+
+Critical Safety Principle
+
+Do NOT implement:
+
+“Approved once = approved forever.”
+
+Do NOT implement:
+
+“Trust increased = this action is permanently authorized.”
+
+Every consequential action must still receive a fresh server-side authorization decision.
+
+A successful verified history can influence the agent’s current authority, but it must never bypass current policy, evidence, risk, or safety constraints.
+
+Think:
+
+Earned authority ≠ permanent permission
+
+Instead:
+
+Earned authority = currently available capability within defined boundaries
+
+Hard policy limits must always override earned trust.
+
+For example:
+
+Low-risk/reversible actions may become autonomous.
+Moderate-risk actions may become autonomous only within defined limits.
+High-risk, irreversible, destructive, financial, security, or policy-override actions can remain approval-required regardless of trust.
+
+Do not add unnecessary complexity or dozens of new policy types. Preserve the existing architecture and implement this concept cleanly.
+
+The Product Loop
+
+Make the core VOUCH loop:
+
+PROVE → EARN → ACT → VERIFY → ADJUST
+
+The important word is ADJUST.
+
+A verified successful outcome can increase available authority.
+
+A verified failure can reduce available authority.
+
+The next request is evaluated again using the agent’s new state.
+
+Therefore:
+
+History changes authority.
+Authority does not eliminate evaluation.
+
+The Signature Demo
+
+The demo should make this behavior unmistakable.
+
+Use one agent and one recognizable class of action.
+
+Show:
+
+1. START
+
+Agent begins at a lower autonomy level.
+
+Example:
+
+T2 — Recommend
+
+The agent can recommend the action but cannot execute it autonomously.
+
+2. PROVE
+
+The agent performs an allowed/reviewed action.
+
+The outcome is successfully verified.
+
+Show:
+
+Verified success
+
+Then:
+
+Trust / reliability improves
+
+and:
+
+T2 → T3
+
+The important message is:
+
+The agent earned additional authority through verified behavior.
+
+3. ACT
+
+The same agent requests the same general class of action again.
+
+This time VOUCH evaluates the current request and allows it because the agent currently has sufficient authority and the action remains within policy boundaries.
+
+Do NOT make this a permanent whitelist.
+
+4. VERIFY FAILURE
+
+Now create a clearly controlled verification failure.
+
+The action itself should not become dangerous; the important event is that the expected outcome does not match the verified outcome.
+
+Show:
+
+Expected ≠ Actual
+
+Then:
+
+Trust decreases
+
+and:
+
+T3 → T2
+
+5. AUTHORITY CHANGES
+
+This is the moment I want the judges to remember.
+
+Have the SAME agent request the SAME GENERAL CLASS OF ACTION again.
+
+VOUCH should now return:
+
+APPROVAL REQUIRED
+
+because the agent’s verified history changed its current authority.
+
+The human approval is the consequence of the loss of authority, not the main feature of the product.
+
+6. RECOVER
+
+After a successful verified action under the lower authority level, demonstrate that authority can be rebuilt.
+
+Show:
+
+Verified success → authority restored
+
+The complete story becomes:
+
+EARN → ACT → VERIFY → LOSE → RECOVER
+
+But make clear that recovery is conditional and bounded.
+
+What Makes VOUCH Different
+
+The UI and copy should NOT repeatedly say:
+
+“VOUCH gives agents trust.”
+
+Instead communicate:
+
+VOUCH determines what an agent has earned the authority to do — right now.
+
+And:
+
+Authority is earned through evidence, constrained by policy, and revoked when behavior proves unreliable.
+
+Another useful explanation:
+
+Trust informs authority. Policy bounds authority. Every action is evaluated again.
+
+These distinctions should appear naturally throughout the product, especially the Homepage, Why VOUCH, How It Works, Control Center, Judges, and Architecture pages.
+
+Homepage Direction
+
+Use the current earned-autonomy direction, but sharpen it around authority.
+
+Possible headline:
+
+AI agents don't need unlimited autonomy. They need earned authority.
+
+Supporting message:
+
+VOUCH gives AI agents a verifiable authority that adapts to their demonstrated behavior—without turning past success into permanent permission.
+
+Keep the copy concise and premium.
+
+Control Center
+
+Make the Control Center answer:
+
+What is this agent currently trusted and authorized to do?
+
+Do not make the trust score the hero.
+
+The hierarchy should be something like:
+
+CURRENT AUTHORITY
+What the agent can do right now
+
+WHY
+Evidence / verified history / current risk / policy
+
+BOUNDARIES
+What remains approval-required or blocked
+
+RECENT CHANGE
+Why authority increased or decreased
+
+NEXT DECISION
+What would happen if the agent attempted the next action
+
+This should feel like an actual authority-control product, not a generic AI monitoring dashboard.
+
+History / Audit
+
+Make the history tell an authority story.
+
+Useful events include:
+
+Authority Earned
+Action Authorized
+Outcome Verified
+Verification Failed
+Authority Reduced
+Approval Required
+Authority Restored
+
+Where appropriate, show the relationship:
+
+Evidence → Outcome → Trust Change → Authority Change
+
+The audit trail should help a judge understand WHY the agent’s authority changed.
+
+How It Works
+
+Keep the architecture simple:
+
+REQUEST → EVIDENCE → RISK → AUTHORITY → ACTION → VERIFICATION → TRUST → AUTHORITY UPDATE
+
+Then visually show the feedback loop.
+
+The important concept:
+
+Authority is dynamic, but authorization is still evaluated per request.
+
+Architecture
+
+Preserve the real server-side boundary.
+
+The architecture should communicate:
+
+User/Event
+↓
+Strands Agent
+↓
+Recommendation
+↓
+VOUCH Authority Engine
+↓
+Allow / Approval / Block
+↓
+Action
+↓
+Verification
+↓
+Trust / Reliability Update
+↓
+Authority Update
+↓
+Audit
+
+Then loop the authority update back into the next authorization decision.
+
+The VOUCH Authority Engine must remain server-side and deterministic.
+
+The agent must NEVER be able to directly modify:
+
+trust
+authority
+verification status
+approval status
+authorization outcome
+
+Client input must never grant itself authority.
+
+AWS / Strands Requirement
+
+Preserve the real Strands → Bedrock integration you already implemented.
+
+Do not fake AWS LIVE mode.
+
+Do not add unnecessary AWS infrastructure.
+
+The architecture should make the division of responsibility extremely clear:
+
+Strands/Bedrock = agent reasoning and recommendation
+
+VOUCH = authority, policy, authorization, verification, and trust consequences
+
+The agent recommends.
+
+VOUCH decides whether the agent has earned the authority to act.
+
+Tests
+
+Extend the existing tests only as necessary to prove the new product behavior.
+
+At minimum verify:
+
+Verified success can increase authority when policy allows.
+Verified failure decreases authority.
+Reduced authority changes the next authorization decision.
+Same agent + same general action can produce a different authorization result because of changed verified history.
+Past approval alone cannot authorize a future request.
+Current policy can override earned trust.
+High-risk/blocked actions cannot become autonomous merely because trust is high.
+Client cannot directly modify trust.
+Client cannot directly modify authority.
+Client cannot mark an outcome as verified.
+Stale/cross-action evidence cannot authorize an action.
+Recovery requires a new verified successful outcome.
+AWS LIVE is only displayed after an actual successful Strands/Bedrock invocation.
+Design Direction
+
+Keep the knight mascot.
+
+The knight should represent guardianship and authority, not just decoration.
+
+Keep the visual language premium, polished, and enterprise-grade.
+
+Do NOT spend significant implementation time on elaborate mascot animations, horses, complex scenes, or decorative features.
+
+The product concept and technical behavior are more important.
+
+The knight can simply communicate states such as:
+
+guarding
+investigating evidence
+ready to act
+approval required
+verified success
+authority reduced
+authority restored
+Most Important Judge Takeaway
+
+After watching the demo, a judge should be able to say:
+
+“VOUCH doesn't permanently trust an AI agent. It uses verified behavior to determine how much authority that agent currently has—and that authority can be reduced when the agent proves unreliable.”
+
+That is the concept I want the entire product to communicate.
+
+Implementation Rules
+
+Before changing code:
+
+Inspect the current implementation.
+Preserve the working server-side authorization architecture.
+Preserve the real Strands/Bedrock adapter and honest fallback behavior.
+Preserve the existing security fixes and tests.
+Do not rewrite from scratch.
+Do not add unnecessary infrastructure.
+Do not create fake capabilities just to support the story.
+
+Prioritize:
+
+1. Correct authority behavior
+2. End-to-end demo storytelling
+3. Clear product positioning
+4. Visual communication
+5. Supporting copy
+
+After implementation:
+
+Run the full test suite.
+Run the production build.
+Verify all routes.
+Verify the complete demo lifecycle.
+Verify that authority actually changes server-side behavior.
+Report exactly what changed.
+Report tests and results.
+Report build result.
+Report any remaining limitations.
+
+The finished product should make one idea impossible to miss:
+
+An AI agent’s verified behavior changes what it is allowed to do next — but it never gives the agent unlimited or permanent authority.
