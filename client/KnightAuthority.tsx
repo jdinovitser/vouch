@@ -34,7 +34,7 @@ function AuthorityArtwork({ level, state }: { level: AutonomyLevel; state: Exclu
   const armed = level === "T3" || level === "T4";
   const mounted = level === "T4";
   const pose = state === "verified" ? "translate(0 -4)" : state === "blocked" ? "rotate(-4 90 110)" : state === "approval" ? "rotate(3 90 110)" : "";
-  const riderTransform = mounted ? `translate(90 98) scale(.88) translate(-90 -98) translate(-1 -23) ${pose}` : `${level === "T1" ? "translate(90 98) scale(.76) translate(-90 -98)" : level === "T2" ? "translate(90 98) scale(.93) translate(-90 -98)" : ""} ${pose}`;
+  const riderTransform = mounted ? `translate(90 98) scale(.88) translate(-90 -98) translate(-1 -3) ${pose}` : `${level === "T1" ? "translate(90 98) scale(.76) translate(-90 -98)" : level === "T2" ? "translate(90 98) scale(.93) translate(-90 -98)" : ""} ${pose}`;
 
   return <svg className={`knight-artwork knight-authority-artwork knight-authority-${level}`} viewBox="0 0 200 220" role="img" aria-label={`${authorityKnightLabels[level].label} VOUCH Knight`}>
     <defs>
@@ -43,7 +43,7 @@ function AuthorityArtwork({ level, state }: { level: AutonomyLevel; state: Exclu
       <linearGradient id={shield} x1=".25" y1="0" x2=".8" y2="1"><stop stopColor="#8ac9ff"/><stop offset="1" stopColor="#286db0"/></linearGradient>
       <filter id={shadow}><feDropShadow dx="0" dy="7" stdDeviation="5" floodColor="#04101c" floodOpacity=".45"/></filter>
     </defs>
-    {mounted && <image className="knight-horse" aria-label="Delegated authority horse" href={horseAsset} x="28" y="70" width="142" height="142" preserveAspectRatio="xMidYMid meet"/>}
+    {mounted && <image className="knight-horse" aria-label="Delegated authority horse" href={horseAsset} x="10" y="57" width="180" height="180" preserveAspectRatio="xMidYMid meet"/>}
     <ellipse cx="97" cy="211" rx={mounted ? 82 : level === "T1" ? 38 : 62} ry="7" fill="#03111f" opacity=".35"/>
     <g transform={riderTransform} filter={`url(#${shadow})`}>
       {level === "T1" ? <g className="knight-clothing">
@@ -52,10 +52,13 @@ function AuthorityArtwork({ level, state }: { level: AutonomyLevel; state: Exclu
         <path d="M68 108c-5 5-8 14-7 23l15 4 3-23zM132 108c5 5 8 14 7 23l-15 4-3-23z" fill="#6e4c45"/>
         <path d="M62 137c-10 1-16 8-16 19l15 5 12-19M138 137c10 1 16 8 16 19l-15 5-12-19" fill="#5d7890" stroke="#c9dceb" strokeWidth="3"/>
       </g> : <g className="knight-armor">
-        <g className="knight-armored-legs">
+        {mounted ? <g className="knight-mounted-legs" aria-label="Mounted seated stance">
+          <path d="M73 140c-8 8-14 17-21 24l-12 4c-4 1-4 7 1 8l17-3c10-7 18-14 25-23l2-8z" fill="#356b9f" stroke="#d2ebff" strokeWidth="3" strokeLinejoin="round"/>
+          <path d="M110 140c8 8 14 17 21 24l12 4c4 1 4 7-1 8l-17-3c-10-7-18-14-25-23l-2-8z" fill="#356b9f" stroke="#d2ebff" strokeWidth="3" strokeLinejoin="round"/>
+        </g> : <g className="knight-armored-legs">
           <path d="M72 143v34l-17 3c-3 1-4-5-1-8l10-15v-14z" fill="#356b9f" stroke="#d2ebff" strokeWidth="3" strokeLinejoin="round"/>
           <path d="M111 143v34l17 3c3 1 4-5 1-8l-10-15v-14z" fill="#356b9f" stroke="#d2ebff" strokeWidth="3" strokeLinejoin="round"/>
-        </g>
+        </g>}
         <path d="M65 104c7-10 17-15 27-15 11 0 21 5 29 15l5 45c-9 9-20 14-34 14-13 0-25-5-33-14z" fill={`url(#${steel})`} stroke="#e0f2ff" strokeWidth="3.5"/>
         <path d="M79 104h26l9 40c-13 7-31 7-44 0z" fill="#4f8bc4" stroke="#cce8ff" strokeWidth="2"/>
         <path d="M92 103v48M77 122h30" stroke="#d5ecff" strokeWidth="2" opacity=".58"/>
