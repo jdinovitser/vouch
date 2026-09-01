@@ -125,7 +125,7 @@ export function KnightArtwork({ state }: { state: Exclude<KnightState, "default"
       <path d="M82 65c3-2 6-2 9 0M99 65c3-2 6-2 9 0" fill="none" stroke="#6f4e42" strokeWidth="2" strokeLinecap="round"/>
       <ellipse cx="86" cy="76" rx="3.8" ry="5" fill="#17334e"/><ellipse cx="103" cy="76" rx="3.8" ry="5" fill="#17334e"/>
       <circle cx="84.8" cy="74.5" r="1.1" fill="#fff"/><circle cx="101.8" cy="74.5" r="1.1" fill="#fff"/>
-      <path d="M89 91c4 2 8 2 12 0" fill="none" stroke="#9c5a58" strokeWidth="2.2" strokeLinecap="round"/>
+       {state === "verified" ? <path d="M87 89c5 7 13 7 18 0" fill="none" stroke="#9c5a58" strokeWidth="2.5" strokeLinecap="round"/> : <path d="M89 91c4 2 8 2 12 0" fill="none" stroke="#9c5a58" strokeWidth="2.2" strokeLinecap="round"/>}
       <path d="M92 18V8" stroke="#d9efff" strokeWidth="3.5" strokeLinecap="round"/>
       <path d="M92 11c9-8 18-5 23 2-8-1-14 2-20 8z" fill="#62b6ff"/>
     </g>
