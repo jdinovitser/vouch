@@ -1,0 +1,435 @@
+VOUCH Knight — Signature Mascot & Visual Universe Pass
+
+We are doing a focused visual identity pass for VOUCH.
+
+Do NOT redesign the application, change the backend, change the existing workflows, or rewrite working functionality.
+
+The goal is to make the VOUCH Knight a major part of the product's visual identity, the way ZenFlow used a cohesive cloud theme throughout its experience.
+
+VOUCH should feel like it has its own small visual universe built around a single recognizable guardian knight.
+
+Core creative direction
+
+The VOUCH Knight is:
+
+Small, friendly, confident, highly competent, and extremely serious about whether an AI agent is allowed to act.
+
+He is NOT:
+
+a baby
+a teddy bear
+a generic robot
+a fantasy RPG character
+a scary warrior
+a helpless mascot
+an oversized muscular knight
+a collection of unrelated mascot characters
+
+He should look like one consistent character appearing in different situations.
+
+Keep the existing VOUCH visual language, typography, dark premium SaaS aesthetic, and overall product quality.
+
+The knight should feel appropriate for an enterprise AI governance/security product while still being charming and memorable.
+
+Character design
+
+Create one canonical VOUCH Knight design and reuse that exact character design across all illustrations.
+
+Important characteristics:
+
+kawaii but NOT baby-like
+compact proportions
+visible expressive face
+recognizable knight helmet with face exposed
+clearly identifiable armor
+small armored shoulders/body
+shield
+sword
+confident stance
+friendly facial expression
+polished professional illustration
+clean shapes
+consistent proportions
+consistent armor and facial features across every pose
+
+The knight should immediately read as:
+
+guardian / protector / authority / trusted gatekeeper
+
+rather than simply "medieval knight."
+
+Create a complete VOUCH Knight pose library
+
+Create alternate illustrations/poses of the SAME knight.
+
+1. Guardian Knight — Default
+
+Use on the homepage and general VOUCH branding.
+
+Knight standing confidently with shield at his side and sword sheathed.
+
+Expression:
+calm, confident, slightly determined.
+
+This is the canonical VOUCH Knight.
+
+2. Investigating Knight — Evidence
+
+Use around Evidence / How It Works sections.
+
+Knight actively investigating evidence.
+
+Possible visual:
+
+magnifying glass
+examining documents/cards
+leaning slightly forward
+curious but serious expression
+
+The visual should communicate:
+
+"Let's see what the evidence says."
+
+3. Defender Knight — BLOCKED
+
+Use for blocked/conflicting/unsafe actions.
+
+This is an important pose.
+
+Knight has:
+
+shield raised
+sword DRAWN
+strong protective stance
+feet planted
+determined expression
+
+The visual should communicate:
+
+STOP. This action is not authorized.
+
+This should feel like a SUCCESSFUL protection event, not an error.
+
+4. Human Approval Knight — WAITING
+
+Use when human authorization is required.
+
+Knight should visibly pause and wait for the human.
+
+Possible pose:
+
+sword sheathed
+shield lowered
+one hand raised slightly
+patient/confident expression
+
+Visual message:
+
+"This one is yours to decide."
+
+This is important because VOUCH is about keeping humans in control when it matters.
+
+5. Deployment Knight — ACTION
+
+Create a fun signature VOUCH illustration:
+
+THE KNIGHT RIDES A HORSE.
+
+The same VOUCH Knight is mounted on a small, polished, friendly-looking armored horse and moving forward.
+
+This represents:
+
+Authorized → Action → Deploy
+
+The horse should NOT turn VOUCH into a fantasy game.
+
+Keep it stylized, clean, compact, premium, and consistent with the existing knight illustration.
+
+This can become one of the memorable signature moments of VOUCH.
+
+6. Verified Knight — SUCCESS
+
+Use after an action has executed and the outcome has been verified.
+
+Knight should look confident and satisfied.
+
+Possible visual:
+
+sword sheathed
+shield visible
+relaxed victorious stance
+subtle check/verification indicator
+small confident smile
+
+Message:
+
+Action completed. Outcome verified.
+
+7. Trust Reduced Knight — FAILURE / LEARNING
+
+Use when verification fails and trust/autonomy is reduced.
+
+Knight should NOT look devastated or childish.
+
+Instead:
+
+alert/concerned expression
+inspecting the situation
+shield slightly lowered
+subtle indication that something went wrong
+
+Message:
+
+"That didn't verify. We're reducing authority."
+
+This should visually reinforce that trust is dynamic.
+
+8. Audit Knight — ACCOUNTABILITY
+
+Use on History / Audit sections.
+
+Knight recording the event in a ledger.
+
+Possible visual:
+
+holding a small ledger
+writing/recording an event
+shield nearby
+serious professional expression
+
+Message:
+
+Every consequential decision is recorded.
+
+Knight visual continuity
+
+This is critical.
+
+All poses must clearly be the SAME character.
+
+Do NOT create eight different interpretations of the knight.
+
+Maintain:
+
+same face
+same eyes
+same helmet
+same armor
+same shield
+same proportions
+same illustration style
+same visual treatment
+
+The user should be able to see a pose and immediately think:
+
+"That's the VOUCH Knight."
+
+Interactive wink
+
+Add a subtle delightful interaction to the canonical knight.
+
+When the user's mouse/pointer hovers over the knight:
+
+the knight winks.
+
+Keep it extremely subtle and polished.
+
+Preferred behavior:
+
+normal state → normal expression
+hover → quick single wink
+return to normal after hover
+
+Do NOT make the knight bounce, spin, dance, shake, flash, or perform a cheesy animation.
+
+The wink should feel like a tiny Easter egg.
+
+If technically appropriate, allow the wink to replay after the pointer leaves and re-enters.
+
+Respect reduced-motion accessibility settings.
+
+Where the knight should appear
+
+Integrate the knight intentionally throughout the existing VOUCH product.
+
+Do NOT simply paste the same image everywhere.
+
+Use the appropriate pose for the meaning of each section.
+
+Suggested mapping:
+
+VOUCH area	Knight
+Homepage	Guardian
+Why VOUCH	Guardian / Defender
+How It Works — Evidence	Investigating
+Risk	Defender / sword drawn
+Authority	Waiting / Approval
+Action	Horse / Deployment
+Verification	Verified
+Trust reduction	Trust Reduced
+History / Audit	Audit
+Blocked demo state	Defender
+Human approval state	Waiting
+Verified demo state	Verified
+Verification failure	Trust Reduced
+Knight should become part of the storytelling
+
+The knight should visually reinforce the VOUCH lifecycle:
+
+REQUEST → EVIDENCE → RISK → AUTHORITY → ACTION → VERIFICATION → TRUST
+
+The character should make this understandable even before someone reads every word.
+
+Especially emphasize:
+
+Sword = enforcement
+
+Shield = protection
+
+Horse = authorized action
+
+Ledger = accountability
+
+Homepage treatment
+
+The homepage should have a strong hero visual involving the canonical VOUCH Knight.
+
+Do not make the knight dominate the page.
+
+He should complement the headline:
+
+AI can act. VOUCH makes it earn the right.
+
+The overall feeling should be:
+
+premium enterprise AI product + memorable guardian character
+
+not "cute mascot website."
+
+Demo treatment
+
+Use the appropriate knight pose as the demo progresses.
+
+The knight should change based on the state being demonstrated.
+
+For example:
+
+Conflict
+
+Knight → shield up + sword drawn
+
+Human approval
+
+Knight → waiting patiently
+
+Authorized action
+
+Knight → mounts horse / deployment
+
+Verified
+
+Knight → confident successful stance
+
+Verification failure
+
+Knight → concerned / investigating, followed by trust reduction
+
+This should make the demo more emotionally and visually understandable without adding unnecessary text.
+
+Technical implementation
+
+Before changing anything:
+
+Inspect the current VOUCH codebase and identify the existing mascot implementation.
+Reuse existing components and styling where practical.
+Do not duplicate mascot logic unnecessarily.
+Create a reusable Knight component/system so poses can be selected by state.
+Keep assets organized and named clearly.
+Do not break existing routing or functionality.
+Do not modify the backend, APIs, database, authorization engine, trust logic, or safety tests.
+
+If image assets are being generated or created, prioritize consistency of the SAME character across all poses.
+
+If generating multiple images separately would create inconsistent characters, use a consistent base design/reference approach so the character remains visually identical.
+
+Animation philosophy
+
+Animations should be:
+
+subtle
+premium
+purposeful
+fast
+accessible
+
+Allowed:
+
+wink
+very subtle idle movement
+subtle shield movement
+subtle horse movement in deployment scene
+
+Avoid:
+
+bouncing
+spinning
+excessive particles
+cartoon explosions
+constant motion
+distracting animations
+"AI magic" effects
+
+The knight should feel alive, not noisy.
+
+Quality bar
+
+Do not settle for "good enough."
+
+The target is:
+
+When someone sees VOUCH for the first time, they remember the knight.
+
+The mascot should feel like an intentional product identity, not an AI-generated decoration added after the fact.
+
+The visual identity should communicate:
+
+Trust. Protection. Authority. Accountability.
+
+while retaining VOUCH's premium enterprise SaaS feel.
+
+Preserve existing functionality
+
+This is a visual/product identity pass.
+
+Do NOT:
+
+rewrite the backend
+alter authorization logic
+alter trust calculations
+alter scenario behavior
+change API contracts
+remove existing pages
+remove existing demo controls
+change working workflows
+introduce unnecessary dependencies
+
+Make the smallest technically sound changes necessary to create the Knight system.
+
+Final validation
+
+After implementation:
+
+run TypeScript checks
+run the existing test suite
+run the production build
+verify every existing route still works
+verify the demo still works
+verify the knight appears in the intended locations
+verify hover wink works
+verify reduced-motion behavior
+verify responsive behavior
+verify there are no console errors
+
+Do not stop at mockups.
+
+Implement the complete Knight visual system in the existing VOUCH application and leave the application in a production-ready state.

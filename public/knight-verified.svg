@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 220" role="img" aria-label="VOUCH Knight after a verified action">
+  <defs><filter id="s"><feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#04101c" flood-opacity=".45"/></filter></defs>
+  <g filter="url(#s)">
+    <image href="/vouch-mascot.svg" x="74" y="34" width="132" height="139"/>
+    <circle cx="210" cy="53" r="22" fill="#143b3a" stroke="#48d597" stroke-width="3"/>
+    <path d="m198 53 8 8 16-18" fill="none" stroke="#8af0bd" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M46 184h164" stroke="#48d597" stroke-width="3" stroke-linecap="round"/>
+    <path d="M52 177l-6 7 6 7M204 177l6 7-6 7" fill="none" stroke="#48d597" stroke-width="2"/>
+  </g>
+</svg>

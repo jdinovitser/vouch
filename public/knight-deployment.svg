@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 240" role="img" aria-label="VOUCH Knight riding into an authorized action">
+  <defs><filter id="s"><feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="#04101c" flood-opacity=".5"/></filter></defs>
+  <g filter="url(#s)">
+    <!-- compact friendly armored horse -->
+    <path d="M40 169c5-39 31-58 67-57 26 1 42 13 56 33 15-18 25-39 22-59 22 3 33 17 30 39-3 20-15 35-33 46H76c-5 15-15 21-27 20-12-1-14-11-9-22z" fill="#3979b5" stroke="#d8efff" stroke-width="3"/>
+    <path d="M57 153c20-19 50-18 70-2M86 173v34M145 173v33" fill="none" stroke="#9bd2ff" stroke-width="6" stroke-linecap="round"/>
+    <path d="M198 93c9-8 18-7 25 0l-11 8z" fill="#8ec5ff" stroke="#d8efff" stroke-width="3"/>
+    <circle cx="216" cy="79" r="3" fill="#e7f6ff"/>
+    <path d="M69 136h78v24H69z" fill="#234f7d" stroke="#bfe4ff" stroke-width="2"/>
+    <path d="M92 136v23M127 136v23" stroke="#88c5f3" stroke-width="2"/>
+    <path d="M178 118l31-20" stroke="#e3f4ff" stroke-width="4" stroke-linecap="round"/>
+    <!-- same knight mounted -->
+    <image href="/vouch-mascot.svg" x="83" y="18" width="123" height="130"/>
+    <path d="M185 205h49" stroke="#48d597" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

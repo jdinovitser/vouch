@@ -1,1 +1,2 @@
 - [Deterministic demo policy](deterministic-demo-policy.md) — scripted safety outcomes are policy invariants; generic trust thresholds must not override them.
+- [Knight SVG rendering](knight-svg-rendering.md) — render composed Knight poses inline; nested SVG image references disappear when loaded through an img element.
