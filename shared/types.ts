@@ -53,6 +53,20 @@ export interface ActionDecision {
   authority: string;
 }
 
+export interface AgentRecommendation {
+  proposedAction: string;
+  recommendation: "APPROVE" | "HOLD" | "REJECT";
+  summary: string;
+  reasoning: string;
+  evidenceRefs: string[];
+  confidence: number;
+  requestedAuthority: string;
+  provider: "DEMO" | "AWS_LIVE";
+  model: string;
+  traceId: string;
+  toolCalls: string[];
+}
+
 export interface ExecutionResult {
   status: ActionResult;
   message: string;
@@ -87,6 +101,24 @@ export interface AuditEvent {
   risk: RiskLevel;
   authority: string;
   result: string;
+  sessionId: string;
+  agentRecommendation?: AgentRecommendation;
+  authorization?: AuthorizationDecision;
+  verification?: VerificationResult;
+  trustChange?: { from: number; to: number; autonomyFrom: AutonomyLevel; autonomyTo: AutonomyLevel };
+}
+
+export interface ResolutionRecord {
+  id: string;
+  sessionId: string;
+  actionId: string;
+  scenarioId: string;
+  evidenceVersion: string;
+  evidenceRefs: string[];
+  decision: "RESOLVED";
+  resultingAuthorization: "EXECUTE";
+  timestamp: string;
+  consumedAt?: string;
 }
 
 export interface DemoScenario {
@@ -111,19 +143,23 @@ export interface ActionRecord {
   verification?: VerificationResult;
   trustImpact?: number;
   createdAt: string;
+  evidenceVersion: string;
+  agentRecommendation?: AgentRecommendation;
 }
 
 export interface SessionState {
+  sessionId: string;
   trust: AgentTrust;
   activeScenarioId: string;
   currentAction?: ActionRecord;
   history: ActionRecord[];
   evidence: EvidenceItem[];
   approvals: string[];
+  resolutions: ResolutionRecord[];
   audit: AuditEvent[];
   trustHistory: TrustEvent[];
   activity: string[];
-  service: { mode: "DEMO" | "AWS"; available: boolean; message: string };
+  service: { mode: "DEMO" | "AWS_LIVE"; available: boolean; message: string; lastInvocationAt?: string };
 }
 
 export interface ScenarioResponse {

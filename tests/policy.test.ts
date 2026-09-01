@@ -43,6 +43,13 @@ describe("VOUCH authority engine", () => {
     expect(result.trust.score).toBe(72);
     expect(result.trust.autonomy).toBe("T2");
   });
+
+  it("changes a future permission after trust and autonomy fall", () => {
+    const scenario = scenarios.find((item) => item.id === "verification-failure")!;
+    expect(evaluateAction(scenario.action, scenario.evidence, initialTrust()).authorization).toBe("EXECUTE");
+    const demoted = updateTrust(initialTrust(), { status: "FAIL", expected: "Approved", actual: "Pending", message: "failed" }, "Verification failure");
+    expect(evaluateAction(scenario.action, scenario.evidence, demoted.trust).authorization).toBe("APPROVAL_REQUIRED");
+  });
 });
 
 describe("workflow state machine", () => {

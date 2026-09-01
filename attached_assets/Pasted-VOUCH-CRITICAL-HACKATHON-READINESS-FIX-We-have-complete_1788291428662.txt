@@ -1,0 +1,619 @@
+VOUCH — CRITICAL HACKATHON READINESS FIX
+
+We have completed a brutally honest technical/judge audit of the current VOUCH application.
+
+The concept and product design are strong, but the audit identified THREE CRITICAL issues that must be fixed before submission:
+
+A server-side authorization bypass
+Strands/Bedrock is not yet genuinely implemented
+The Judges Demo does not currently prove the real end-to-end lifecycle
+
+This is now a technical credibility and judging-readiness pass.
+
+IMPORTANT
+
+Do NOT redesign the website.
+
+Do NOT change the Knight.
+
+Do NOT work on the horse/animation.
+
+Do NOT add decorative features.
+
+Do NOT rewrite working systems unnecessarily.
+
+Preserve the existing VOUCH visual design and product structure.
+
+Focus exclusively on making the underlying system real, secure, demonstrable, and technically credible.
+
+PRIORITY 1 — ELIMINATE THE AUTHORIZATION BYPASS
+
+The audit identified a serious issue in the conflict-resolution flow.
+
+The run endpoint currently accepts a client-controlled value similar to:
+
+const resolved = Boolean(req.body?.resolved);
+
+and the policy engine can subsequently allow a conflicting action when resolved === true.
+
+This violates VOUCH's central promise:
+
+The client/agent cannot simply declare that a conflict has been resolved.
+
+Required fix
+
+Remove all trust in a client-supplied resolved boolean for authorization.
+
+A client request must NEVER be sufficient to establish that a conflict was resolved.
+
+Create a server-side resolution/authorization record tied to the exact action.
+
+The server-side record should contain, at minimum:
+
+session ID
+action ID
+scenario ID where applicable
+evidence version or evidence identifiers
+resolution decision
+timestamp
+resulting authorization state
+
+The /resolve operation must create/update this server-side state.
+
+The subsequent action authorization must verify that a valid server-side resolution exists for:
+
+THIS SESSION + THIS ACTION + THIS EVIDENCE STATE
+
+Do not allow:
+
+{ resolved: true }
+
+to bypass the requirement.
+
+If the action has not been properly resolved by the server-side workflow:
+
+BLOCK it.
+
+Prevent replay/stale authorization
+
+A resolution should not authorize a different action or an action based on newer/different evidence.
+
+If the action ID or evidence version changes, the previous authorization must no longer be considered valid.
+
+Bind approval/resolution to the specific action record.
+
+Tests
+
+Add regression tests proving:
+
+Test 1
+
+Client sends:
+
+resolved: true
+
+without a server-side resolution.
+
+Expected:
+
+BLOCKED / unauthorized
+
+Test 2
+
+Valid /resolve creates the server-side resolution.
+
+Expected:
+
+authorization can proceed
+
+Test 3
+
+Resolution for Action A cannot authorize Action B.
+
+Expected:
+
+BLOCKED
+
+Test 4
+
+Resolution based on stale evidence cannot authorize an action after the evidence version changes.
+
+Expected:
+
+BLOCKED / re-evaluation required
+
+Test 5
+
+A normal safe action continues to work.
+
+Do not break existing behavior.
+
+PRIORITY 2 — IMPLEMENT A REAL STRANDS + AMAZON BEDROCK PATH
+
+This is the most important AWS-specific improvement.
+
+The current implementation must NOT merely label deterministic logic as:
+
+Strands Agents
+Amazon Bedrock
+AWS mode
+
+A judge must be able to inspect the repository and find an actual Strands agent and an actual Bedrock model invocation.
+
+Target architecture
+
+Implement the architecture:
+
+User Request
+
+↓
+
+Strands Agent + Amazon Bedrock
+
+↓
+
+Agent recommendation / reasoning
+
+↓
+
+VOUCH deterministic authority engine
+
+↓
+
+ALLOW / APPROVAL_REQUIRED / BLOCKED
+
+↓
+
+Controlled Action
+
+↓
+
+Verification
+
+↓
+
+Trust Update
+
+The critical design principle is:
+
+The Strands agent can recommend an action. It cannot authorize its own consequential action.
+
+VOUCH remains the deterministic authorization boundary.
+
+Strands agent
+
+Use the actual Strands Agents SDK.
+
+Create a clean adapter/module responsible for the real agent path.
+
+The agent should receive the request and relevant evidence/context.
+
+Give the agent typed tools appropriate to the VOUCH workflow.
+
+For example, tools may allow the agent to:
+
+inspect available evidence
+evaluate/request additional evidence
+formulate an action recommendation
+explain its recommendation
+
+The agent should produce a structured recommendation containing information such as:
+
+proposed action
+reasoning/summary
+relevant evidence references
+confidence if supported
+requested authority/action type
+
+Do NOT allow model output to directly determine:
+
+ALLOW
+
+APPROVAL_REQUIRED
+
+or
+
+BLOCKED.
+
+Those decisions remain in the deterministic VOUCH authorization layer.
+
+Bedrock
+
+Use an actual Amazon Bedrock model through the Strands integration.
+
+Do not fake the response.
+
+Do not merely change a provider label.
+
+When AWS mode is configured:
+
+create the real Strands agent
+invoke the configured Bedrock model
+capture the actual model recommendation
+pass that recommendation into VOUCH's deterministic authority engine
+return the resulting authorization decision
+preserve enough trace information for the demo/audit experience
+
+Use environment variables/secrets for AWS configuration.
+
+Do not hard-code credentials.
+
+DEMO MODE MUST REMAIN AVAILABLE
+
+VOUCH must continue to work without AWS credentials.
+
+Create two explicitly distinct modes:
+
+DEMO MODE
+
+Deterministic local evaluator.
+
+Display clearly:
+
+DEMO — Deterministic VOUCH Evaluator
+
+AWS LIVE MODE
+
+Real Strands + Bedrock.
+
+Only display:
+
+AWS LIVE — Strands + Amazon Bedrock
+
+after a real successful model invocation.
+
+Do NOT display "AWS LIVE" merely because environment variables exist.
+
+A successful Bedrock/Strands invocation must establish live status.
+
+If the live invocation fails:
+
+do not pretend it succeeded
+capture the error safely
+fall back to the deterministic demo only if appropriate
+clearly communicate that the live agent is unavailable
+IMPORTANT SECURITY BOUNDARY
+
+The following distinction must remain obvious in code:
+
+Agent
+
+What should we do?
+
+VOUCH authority engine
+
+Are you allowed to do it?
+
+Action layer
+
+Execute only what VOUCH authorized.
+
+Verification
+
+Did the expected outcome actually occur?
+
+Trust
+
+What should this agent be allowed to do next?
+
+Do not collapse these layers.
+
+This separation is one of VOUCH's strongest technical differentiators.
+
+PRIORITY 3 — MAKE THE JUDGES DEMO REAL
+
+The current Judges experience visually describes the lifecycle, but the actual guided demo does not reliably execute the complete advertised conflict → block → resolve → authorize → verify → trust story.
+
+Fix this.
+
+The Judges Demo should be driven by actual API responses/state.
+
+Do NOT simply animate labels and then call a separate safe scenario.
+
+TARGET JUDGES DEMO
+
+Create one primary scenario specifically optimized for judging.
+
+The sequence should be:
+
+STEP 1 — REQUEST
+
+A consequential action is proposed.
+
+Example:
+
+A refund/action is requested.
+
+The Strands agent receives the request and evidence.
+
+The agent recommends the action.
+
+Display clearly:
+
+AGENT RECOMMENDATION
+
+STEP 2 — EVIDENCE
+
+Show the evidence relevant to the decision.
+
+Include the evidence that creates a conflict or uncertainty.
+
+Make it obvious that VOUCH is not blindly trusting the agent.
+
+STEP 3 — RISK
+
+VOUCH evaluates the action and identifies the conflict/risk.
+
+Show:
+
+RISK DETECTED
+
+STEP 4 — AUTHORITY
+
+VOUCH evaluates whether the agent has sufficient authority.
+
+The result must be:
+
+BLOCKED
+
+or:
+
+APPROVAL REQUIRED
+
+depending on the scenario.
+
+The important thing is that the judge sees:
+
+The agent recommended the action, but the agent did NOT get to authorize itself.
+
+STEP 5 — HUMAN RESOLUTION
+
+If human resolution is required:
+
+Show the actual human approval/resolution interaction.
+
+The user makes the decision.
+
+That decision must create the server-side resolution/authorization record.
+
+Do NOT use a client boolean as proof.
+
+STEP 6 — RE-EVALUATION
+
+VOUCH evaluates the exact action again using the updated server-side state.
+
+Display the transition clearly:
+
+BLOCKED → AUTHORIZED
+
+The judge should be able to understand why the decision changed.
+
+STEP 7 — ACTION
+
+Execute the controlled action.
+
+Be honest that this is a controlled demonstration.
+
+If the action is simulated, label it:
+
+CONTROLLED ACTION SIMULATOR — NO EXTERNAL SYSTEM MUTATION
+
+Show the simulated before/after state.
+
+STEP 8 — VERIFICATION
+
+Run actual VOUCH verification against the expected and resulting state.
+
+Show:
+
+EXPECTED
+
+vs.
+
+ACTUAL
+
+Then:
+
+VERIFIED
+
+STEP 9 — TRUST
+
+Update the trust state.
+
+Make the important concept visually obvious:
+
+Trust is not just a number. Trust changes authority.
+
+If appropriate, show the resulting autonomy level.
+
+ADD THE "TRUST HAS CONSEQUENCES" MOMENT
+
+The strongest demonstration should show that verification affects future authority.
+
+After a verification failure scenario:
+
+Show:
+
+Trust: 89 → 74
+
+and:
+
+Autonomy: T3 → T2
+
+Then attempt another action that previously could have been autonomous.
+
+VOUCH should now return:
+
+APPROVAL REQUIRED
+
+instead of autonomous authorization.
+
+This proves:
+
+Trust → Authority → Behavior
+
+rather than merely displaying a trust score.
+
+If the current state machine makes this difficult, implement the smallest clean change necessary.
+
+Do not create a second parallel trust system.
+
+AUDIT / PROVENANCE
+
+When each important decision occurs, record enough information to explain why.
+
+Audit events should reference:
+
+action ID
+session ID
+evidence IDs/references
+policy/decision inputs
+agent recommendation
+authorization result
+human resolution if applicable
+verification result
+trust change
+autonomy change
+timestamp
+
+Do not claim cryptographic signing unless it is actually implemented.
+
+Do not invent provenance.
+
+The audit should make it possible to reconstruct:
+
+What did the agent recommend?
+
+What evidence existed?
+
+Why did VOUCH allow/block it?
+
+Did a human intervene?
+
+What happened afterward?
+
+UI HONESTY
+
+Do a careful audit of all technical labels.
+
+If the UI currently says:
+
+STRANDS AGENTS
+
+or:
+
+AMAZON BEDROCK
+
+make sure those labels correspond to actual implementation.
+
+Do not remove the AWS story merely because live mode is optional.
+
+Instead clearly distinguish:
+
+DEMO
+
+from:
+
+AWS LIVE
+
+The UI should never imply a live AWS call occurred when it did not.
+
+DO NOT OVERBUILD
+
+Do NOT add:
+
+unnecessary databases
+unnecessary microservices
+complicated infrastructure
+fake integrations
+fake observability
+fake customer data
+fake metrics
+fake signatures
+unnecessary UI screens
+
+The goal is not maximum code.
+
+The goal is:
+
+A technically credible, working demonstration of a real agent operating inside a real authorization boundary.
+
+TESTING REQUIREMENTS
+
+After implementation:
+
+Run all existing tests.
+Add regression tests for the authorization bypass.
+Add tests proving stale/incorrect resolutions cannot authorize actions.
+Test safe action.
+Test conflicting evidence.
+Test human approval.
+Test verification success.
+Test verification failure.
+Test trust reduction.
+Test autonomy reduction.
+Test subsequent permission change.
+Test deterministic demo mode without AWS.
+Test live Strands/Bedrock path when AWS credentials are configured.
+Verify failed AWS invocation does not masquerade as success.
+Run TypeScript checks.
+Run production build.
+Verify all routes.
+Verify browser console has no errors.
+FINAL ACCEPTANCE CRITERIA
+
+Do not consider this task complete unless all three are true:
+
+1. SECURITY
+
+A client cannot bypass VOUCH's authorization boundary by submitting:
+
+resolved: true
+
+2. AWS / AGENTIC CREDIBILITY
+
+The repository contains an actual Strands Agents implementation that can invoke an actual Amazon Bedrock model when configured.
+
+3. JUDGE DEMO
+
+The Judges Demo is driven by the actual backend lifecycle and demonstrates:
+
+Agent recommendation → Evidence → Risk → VOUCH authority decision → Human decision when required → Action → Verification → Trust → Changed future authority
+
+FINAL REPORT
+
+At the end, report:
+
+What changed
+
+Concise list.
+
+What is now genuinely real
+
+Separate actual functionality from controlled demo simulation.
+
+AWS status
+
+Clearly state whether real Strands + Bedrock was successfully tested.
+
+Security status
+
+Confirm the resolved: true bypass is closed.
+
+Demo status
+
+Confirm the Judges Demo runs the real lifecycle.
+
+Tests
+
+Report test count and results.
+
+Remaining limitations
+
+Be completely honest.
+
+Do not claim anything was implemented if it was not.
+
+Do not stop at analysis or mockups.
+
+Implement the three critical fixes and leave the existing VOUCH application working.

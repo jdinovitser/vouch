@@ -74,9 +74,9 @@ The controlled prompt-injection scenario includes an instruction inside an untru
 
 ## AWS and Strands
 
-`server/agent/strands.ts` is the runtime seam for Strands Agents SDK and Amazon Bedrock. The agent orchestrates typed tools such as `get_evidence`, `check_authority`, `assess_risk`, `evaluate_action`, `execute_action`, and `verify_outcome`. The deterministic authority layer remains outside model control.
+`server/agent/strands.ts` contains the real TypeScript Strands `Agent` and Amazon Bedrock `BedrockModel` path. The agent uses typed inspection tools and produces a structured recommendation. That recommendation is recorded, but the deterministic VOUCH authority engine independently decides `EXECUTE`, `APPROVAL_REQUIRED`, or `BLOCKED`.
 
-Without AWS credentials the complete prototype runs in deterministic demo mode. With `VOUCH_ENABLE_AWS=true`, the adapter reports AWS mode and is ready for a configured Bedrock/AgentCore runtime.
+Without AWS credentials the complete prototype runs as `DEMO — Deterministic VOUCH Evaluator`. When `VOUCH_ENABLE_AWS=true`, `AWS_REGION`, and `BEDROCK_MODEL_ID` are configured, VOUCH attempts a real Strands + Bedrock invocation. The UI reports `AWS LIVE` only after that invocation succeeds; failures remain clearly labeled as deterministic fallback.
 
 ## Demo scenarios
 
@@ -119,7 +119,7 @@ Copy `.env.example`. No credentials are required for deterministic demo mode. Ne
 
 ## Limitations
 
-This is a hackathon prototype. Demo actions operate on controlled local scenario state rather than production financial, identity, or workflow systems. Session state is held in memory and resets with the server.
+This is a hackathon prototype. Demo actions operate on a clearly labeled controlled action simulator rather than production financial, identity, or workflow systems. Session state and server-bound resolution records are held in memory and reset with the server.
 
 ## Future work
 

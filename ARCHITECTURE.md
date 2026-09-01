@@ -8,7 +8,7 @@ Model output cannot grant permission. Server-side policy independently enforces 
 
 ## Layers
 
-1. **Agent orchestration** — the Strands adapter gathers evidence and calls typed tools.
+1. **Agent orchestration** — the real Strands + Bedrock path uses typed inspection tools to produce a structured recommendation when AWS is configured; deterministic demo mode remains available.
 2. **Evidence** — each source has an authority rank, verification state, relevance, confidence, and finding.
 3. **Risk** — actions are classified LOW, MEDIUM, or HIGH and paired with reversibility.
 4. **Authority** — a deterministic engine combines evidence, risk, trust, autonomy, policy, and reversibility into EXECUTE, APPROVAL_REQUIRED, or BLOCKED.
@@ -35,13 +35,17 @@ Tools expose structured inputs and outputs:
 - `update_trust`
 - `request_human_approval`
 
+## Server-bound resolution
+
+Conflict resolution is represented by a single-use server record bound to session ID, action ID, scenario ID, and a hash of the exact evidence state. Client-supplied resolution flags are ignored. A changed action or changed evidence requires a new resolution.
+
 ## Session isolation
 
 Trust, evidence, approvals, audit records, history, and active scenario state are held in a server-side session map. No mutable action state is shared between session IDs. A production implementation should use a durable, encrypted session store.
 
 ## AWS integration
 
-The optional AWS path is designed around Strands Agents SDK, Amazon Bedrock inference, and AgentCore/CloudWatch observability. Demo outcomes remain deterministic so a model failure cannot change the expected safety decision.
+The optional AWS path instantiates the TypeScript Strands `Agent` with an Amazon Bedrock `BedrockModel`. AWS LIVE status is established only after a successful invocation. AgentCore and CloudWatch remain future deployment/observability work. Authorization outcomes remain deterministic so model output cannot grant permission.
 
 ## Observability
 
