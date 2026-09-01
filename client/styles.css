@@ -175,6 +175,14 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .card-topline, .panel-heading { display: flex; justify-content: space-between; align-items: start; }
 .decision-id { color: #4e647c; font: 500 7px var(--mono); }
 .decision-status { display: flex; align-items: center; gap: 13px; padding: 26px 0 20px; }
+.authority-gate { display:flex; align-items:center; gap:9px; margin:0 0 18px; padding:10px 12px; border:1px solid var(--line-soft); border-radius:5px; background:#091522; color:#70859a; font:500 8px var(--mono); letter-spacing:.08em; }
+.authority-gate > svg { color:#47627d; }
+.gate-core { display:flex; align-items:center; gap:6px; padding:6px 9px; border:1px solid #2b4560; border-radius:4px; color:var(--blue-bright); background:#0d2135; }
+.gate-core b { font-size:8px; }
+.gate-core small { padding-left:6px; border-left:1px solid #2b4560; color:var(--muted); font-size:7px; }
+.gate-allow .gate-core { border-color:rgba(72,213,151,.4); color:var(--green); }.gate-allow .gate-core small { color:var(--green); }
+.gate-approval .gate-core { border-color:rgba(245,185,66,.4); color:var(--amber); }.gate-approval .gate-core small { color:var(--amber); }
+.gate-block .gate-core { border-color:rgba(255,96,109,.4); color:var(--red); }.gate-block .gate-core small { color:var(--red); }
 .decision-knight { margin-left: auto; min-width: 55px; display: grid; place-items: center; }
 .decision-knight .guardian-state { display: none; }
 .decision-knight + .risk-badge { margin-left: 0; }

@@ -20,3 +20,9 @@ Authority-tier visuals are a separate progression and must derive only from the 
 **Why:** The Knight communicates current authority; a separate client-side level could drift from the authorization engine. The T4 horse is a credential marker, not an action animation.
 
 **How to apply:** Render tiers through the shared authority component using the session autonomy value. Never let Knight state determine or mutate authority, and do not add riding animation or game mechanics.
+
+Knight props have fixed product meanings: shield = policy, sword = earned authority, horse = delegated authority, ledger = verified history, and gate = the authorization boundary. Never add a crown.
+
+**Why:** The mascot is an explanatory system, not decoration or a game layer. Stable semantics let users read authority changes without weakening the enterprise security model.
+
+**How to apply:** Show only server-derived equipment and real ledger events. Keep human approval visually distinct, and use the gate only for actual allow, approval-required, or block outcomes.
