@@ -3,9 +3,11 @@ import { scenarios } from "../server/scenarios";
 import { evaluateAction } from "../server/policy";
 import { initialTrust, updateTrust } from "../server/trust";
 import { transition } from "../server/state-machine";
+import { canRunRecovery, canRunRestoredAction } from "../server/recovery";
+import type { SessionState } from "../shared/types";
 
 describe("VOUCH authority engine", () => {
-  it("permits low-risk reversible actions at T3", () => {
+  it("permits low-risk reversible actions at T2", () => {
     const scenario = scenarios.find((item) => item.id === "safe-review")!;
     expect(evaluateAction(scenario.action, scenario.evidence, initialTrust()).authorization).toBe("EXECUTE");
   });
@@ -36,19 +38,65 @@ describe("VOUCH authority engine", () => {
     const start = initialTrust();
     const result = updateTrust(start, { status: "PASS", expected: "Approved", actual: "Approved", message: "verified" }, "Successful verified action");
     expect(result.trust.score).toBe(start.score + 1);
+    expect(result.trust.autonomy).toBe("T3");
   });
 
   it("demotes authority immediately after verification failure", () => {
     const result = updateTrust(initialTrust(), { status: "FAIL", expected: "Approved", actual: "Pending", message: "failed" }, "Verification failure");
-    expect(result.trust.score).toBe(72);
-    expect(result.trust.autonomy).toBe("T2");
+    expect(result.trust.score).toBe(69);
+    expect(result.trust.autonomy).toBe("T1");
   });
 
   it("changes a future permission after trust and autonomy fall", () => {
     const scenario = scenarios.find((item) => item.id === "verification-failure")!;
-    expect(evaluateAction(scenario.action, scenario.evidence, initialTrust()).authorization).toBe("EXECUTE");
-    const demoted = updateTrust(initialTrust(), { status: "FAIL", expected: "Approved", actual: "Pending", message: "failed" }, "Verification failure");
+    const earned = updateTrust(initialTrust(), { status: "PASS", expected: "Approved", actual: "Approved", message: "verified" }, "Authority earned");
+    expect(evaluateAction(scenario.action, scenario.evidence, earned.trust).authorization).toBe("EXECUTE");
+    const demoted = updateTrust(earned.trust, { status: "FAIL", expected: "Approved", actual: "Pending", message: "failed" }, "Verification failure");
     expect(evaluateAction(scenario.action, scenario.evidence, demoted.trust).authorization).toBe("APPROVAL_REQUIRED");
+  });
+
+  it("restores ACT authority after a verified recovery sequence", () => {
+    const earned = updateTrust(initialTrust(), { status: "PASS", expected: "Approved", actual: "Approved", message: "verified" }, "Authority earned");
+    const demoted = updateTrust(earned.trust, { status: "FAIL", expected: "Approved", actual: "Pending", message: "failed" }, "Verification failure");
+    const recovered = updateTrust(demoted.trust, { status: "PASS", expected: "3 of 3", actual: "3 of 3", message: "verified" }, "Recovery verified", { recovery: true });
+    expect(recovered.trust.score).toBe(85);
+    expect(recovered.trust.autonomy).toBe("T3");
+  });
+
+  it("demotes one authority level even when the remaining score is high", () => {
+    const result = updateTrust(
+      { ...initialTrust(), score: 100, autonomy: "T3" },
+      { status: "FAIL", expected: "Approved", actual: "Pending", message: "failed" },
+      "Verification failure",
+    );
+    expect(result.trust.score).toBe(85);
+    expect(result.trust.autonomy).toBe("T2");
+  });
+
+  it("rejects recovery until failure and reduced-authority reevaluation are server-held", () => {
+    const session = {
+      trust: initialTrust(),
+      history: [],
+      currentAction: undefined,
+    } as unknown as SessionState;
+    expect(canRunRecovery(session)).toBe(false);
+    session.trust = { ...session.trust, autonomy: "T2", verificationFailures: 1 };
+    session.history = [{
+      action: { id: "failed", title: "Update account", detail: "", scenarioId: "verification-failure", risk: "MEDIUM", reversibility: "PARTIALLY_REVERSIBLE", expectedOutcome: "Approved" },
+      state: "TRUST_UPDATED",
+      createdAt: new Date().toISOString(),
+      evidenceVersion: "failed-evidence",
+      verification: { status: "FAIL", expected: "Approved", actual: "Pending", message: "failed" },
+    }];
+    expect(canRunRecovery(session)).toBe(false);
+    session.currentAction = {
+      action: { ...session.history[0].action },
+      state: "APPROVAL_REQUIRED",
+      createdAt: new Date().toISOString(),
+      evidenceVersion: "retry-evidence",
+    };
+    expect(canRunRecovery(session)).toBe(true);
+    expect(canRunRestoredAction(session)).toBe(false);
   });
 });
 

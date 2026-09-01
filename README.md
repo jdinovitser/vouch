@@ -1,8 +1,8 @@
 # VOUCH
 
-> **AI can act. VOUCH makes it earn the right.**
+> **AI agents do not need unlimited autonomy. They need a way to earn it.**
 
-VOUCH is a trust-based autonomy layer for AI agents. It evaluates evidence, source authority, risk, reversibility, policy, and demonstrated reliability before an agent is permitted to act. Every authorized action is verified afterward, and the result updates future authority.
+VOUCH is earned-autonomy infrastructure for AI agents. It evaluates evidence, source authority, risk, reversibility, policy, and demonstrated reliability before an agent is permitted to act. Every authorized action is verified afterward, and the result changes future authority.
 
 ## The problem
 
@@ -14,6 +14,8 @@ VOUCH enforces a lifecycle:
 
 ```text
 REQUEST → INVESTIGATE → EVIDENCE → RISK → AUTHORITY → ACTION → VERIFY → TRUST
+                                                   ▲                 │
+                                                   └──── NEXT ACTION ┘
 ```
 
 The outcome can be:
@@ -49,12 +51,12 @@ Trust represents demonstrated operational reliability inside the current policy 
 
 | Level | Behavior |
 | --- | --- |
-| T1 — Supervised | Human approval for consequential actions |
-| T2 — Assisted | Low-risk routine actions may run |
-| T3 — Autonomous | Low risk and verified medium risk may run |
-| T4 — Expanded | Broader authority for proven bounded workflows |
+| T1 — Observe | Inspect and recommend without changing external state |
+| T2 — Recommend | Low-risk reversible actions may run; consequential work escalates |
+| T3 — Act | Verified medium-risk actions may run within policy |
+| T4 — Delegate | Broader approved scopes remain subject to continuous verification |
 
-Promotion is slow (+1 for a verified demo outcome). Demotion is immediate (-15 after failed verification), and may reduce the autonomy level.
+The deterministic lifecycle begins at trust 84 / T2. A verified bounded action earns T3. Verification failure reduces trust by 15 and demotes authority immediately. A clearly identified monitored recovery sequence can restore the T3 threshold; the same class of action can then execute autonomously again.
 
 ## Risk and authority
 
@@ -85,19 +87,21 @@ Without AWS credentials the complete prototype runs as `DEMO — Deterministic V
 - Human authorization
 - Untrusted instruction / prompt injection
 - Verification failure and trust demotion
+- Monitored recovery and authority restoration
+- Restored autonomous action in the same account-operation class
 
-The guided demo supports play, pause, resume, restart, single-step navigation, previous-stage navigation, and inspection of completed stages. Presentation controls never alter the deterministic backend decision.
+The guided demo is driven by actual backend session state and proves `EARN → ACT → VERIFY → LOSE → RECOVER`. It can be reset to the initial T2 state. Presentation controls never grant authority.
 
 ## Product routes
 
 - `/` — enterprise product landing page
 - `/why-vouch` — business problem, value, and ROI mechanics
 - `/how-it-works` — lifecycle and graduated autonomy
-- `/demo` — guided interactive experience
+- `/demo` — interactive earned-autonomy lifecycle
 - `/judges` — purpose-built 90-second judging path
 - `/architecture` — technical control boundary
 - `/control` — live product control center
-- `/history` — operational audit record
+- `/history` — outcome, trust, authority, and audit history
 
 ## Running locally
 

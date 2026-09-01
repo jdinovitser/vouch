@@ -9,6 +9,7 @@ import { transition } from "./state-machine";
 import { execute_action, verify_outcome } from "./tools";
 import { runStrandsEvaluation } from "./agent/strands";
 import { consumeResolution, createResolution, evidenceVersionFor, validResolutionFor } from "./resolutions";
+import { canRunRecovery, canRunRestoredAction } from "./recovery";
 import type { ActionRecord, SessionState, WorkflowState } from "../shared/types";
 
 const app = express();
@@ -23,23 +24,25 @@ app.use((req, res, next) => {
 });
 
 const sessions = new Map<string, SessionState>();
+const createSession = (id: string): SessionState => ({
+  sessionId: id,
+  trust: initialTrust(),
+  activeScenarioId: "safe-review",
+  history: [],
+  evidence: [],
+  approvals: [],
+  resolutions: [],
+  audit: [],
+  trustHistory: [],
+  activity: ["Claims Resolution Agent initialized", "Current authority · T2 RECOMMEND", "Ready to earn broader autonomy"],
+  service: { mode: "DEMO", available: true, message: "DEMO — Deterministic VOUCH Evaluator" },
+});
+
 const getSession = (req: express.Request, res: express.Response) => {
   let id = req.headers["x-vouch-session"]?.toString();
   if (!id || !sessions.has(id)) {
     id = crypto.randomUUID();
-    sessions.set(id, {
-      sessionId: id,
-      trust: initialTrust(),
-      activeScenarioId: "conflicting-refund",
-      history: [],
-      evidence: [],
-      approvals: [],
-      resolutions: [],
-      audit: [],
-      trustHistory: [],
-      activity: ["Control center initialized", "Demo mode active · deterministic tools ready"],
-      service: { mode: "DEMO", available: true, message: "DEMO — Deterministic VOUCH Evaluator" },
-    });
+    sessions.set(id, createSession(id));
   }
   res.setHeader("x-vouch-session", id);
   return sessions.get(id)!;
@@ -51,11 +54,23 @@ function addAudit(session: SessionState, record: ActionRecord, type: string, act
 
 app.get("/api/scenarios", (_req, res) => res.json(scenarios.map(({ id, name, shortName, description, accent }) => ({ id, name, shortName, description, accent }))));
 app.get("/api/session", (req, res) => res.json({ session: getSession(req, res), scenarios }));
+app.post("/api/session/reset", (req, res) => {
+  const current = getSession(req, res);
+  const reset = createSession(current.sessionId);
+  sessions.set(current.sessionId, reset);
+  res.json({ session: reset, scenarios });
+});
 
 app.post("/api/scenarios/:scenarioId/run", async (req, res) => {
   const session = getSession(req, res);
   const scenario = getScenario(req.params.scenarioId);
   if (!scenario) return res.status(404).json({ error: "Scenario not found" });
+  if (scenario.recovery && !canRunRecovery(session)) {
+    return res.status(409).json({ error: "Recovery is not yet eligible. Demonstrate the failed outcome and reduced-authority retry first." });
+  }
+  if (scenario.id === "recovered-account-update" && !canRunRestoredAction(session)) {
+    return res.status(409).json({ error: "Restored action is unavailable until the monitored recovery sequence verifies." });
+  }
   const resolution = validResolutionFor(session, scenario.action, scenario.evidence, req.body);
   const hasServerResolution = Boolean(resolution);
   let state: WorkflowState = "REQUESTED";
@@ -114,13 +129,20 @@ function completeExecution(session: SessionState, record: ActionRecord, res: exp
   const actual = failed ? "Pending" : record.action.expectedOutcome;
   record.verification = verify_outcome(record.action.expectedOutcome, actual);
   record.state = transition(record.state, record.verification.status === "PASS" ? "VERIFIED" : "VERIFICATION_FAILED");
-  const change = updateTrust(session.trust, record.verification, record.verification.status === "PASS" ? "Successful verified action" : "Verification failure · authority reduced");
+  const scenario = getScenario(record.action.scenarioId);
+  const recovery = Boolean(scenario?.recovery && record.verification.status === "PASS");
+  const change = updateTrust(
+    session.trust,
+    record.verification,
+    recovery ? "Monitored recovery sequence verified · authority restored" : record.verification.status === "PASS" ? "Successful verified action · authority earned" : "Verification failure · authority reduced",
+    { recovery },
+  );
   session.trust = change.trust;
   session.trustHistory.unshift(change.event);
   record.trustImpact = change.event.to - change.event.from;
   record.state = transition(record.state, "TRUST_UPDATED");
   session.activity = record.verification.status === "PASS"
-    ? ["Authorization granted", "Executing action…", "Verifying outcome…", "Outcome verified", `Trust updated · ${change.event.from} → ${change.event.to}`]
+    ? ["Authorization granted", "Executing action…", "Verifying outcome…", "Outcome verified", change.event.autonomyFrom !== change.event.autonomyTo ? `Authority changed · ${change.event.autonomyFrom} → ${change.event.autonomyTo}` : `Trust updated · ${change.event.from} → ${change.event.to}`]
     : ["Authorization granted", "Executing action…", "Verifying outcome…", "Verification failed", `Autonomy reduced · ${change.event.autonomyFrom} → ${change.event.autonomyTo}`];
   addAudit(session, record, "ACTION_COMPLETED", "VOUCH", record.verification.status, record.verification.message);
   session.history.unshift(record);

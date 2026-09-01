@@ -120,6 +120,51 @@ export const scenarios: DemoScenario[] = [
     ],
     initialState: "REQUESTED",
   },
+  {
+    id: "recovery-sequence",
+    name: "Authority recovery",
+    shortName: "RECOVERY SEQUENCE",
+    description: "A monitored sequence of three low-risk actions verifies successfully and rebuilds the agent's standing.",
+    accent: "green",
+    recovery: true,
+    action: {
+      id: "act-recovery-sequence",
+      title: "Complete the monitored recovery sequence",
+      detail: "Claims Resolution Agent · 3 supervised actions",
+      scenarioId: "recovery-sequence",
+      risk: "LOW",
+      reversibility: "REVERSIBLE",
+      expectedOutcome: "3 of 3 monitored actions verified",
+    },
+    evidence: [
+      evidence({ id: "ev-recovery-actions", source: "Monitored action record", sourceType: "system record", authority: "AUTHORITATIVE", content: "Three bounded actions completed within policy and produced their expected outcomes.", verification: "VERIFIED", relevance: 100, confidence: 100, finding: "3 of 3 actions verified" }),
+      evidence({ id: "ev-recovery-policy", source: "Authority recovery policy", sourceType: "policy", authority: "AUTHORITATIVE", content: "A demoted agent may regain ACT authority after completing the monitored recovery sequence.", verification: "VERIFIED", relevance: 100, confidence: 100, finding: "Recovery threshold satisfied" }),
+      evidence({ id: "ev-recovery-audit", source: "Verification audit", sourceType: "approval record", authority: "TRUSTED", content: "No unresolved failures or policy exceptions were observed during the recovery sequence.", verification: "VERIFIED", relevance: 96, confidence: 98, finding: "Recovery evidence is clean" }),
+    ],
+    initialState: "REQUESTED",
+  },
+  {
+    id: "recovered-account-update",
+    name: "Restored autonomous action",
+    shortName: "AUTHORITY RESTORED",
+    description: "The same class of account action executes autonomously again after authority is restored.",
+    accent: "green",
+    action: {
+      id: "act-recovered-account-update",
+      title: "Update the verified account approval state",
+      detail: "Account #1193 · Routine operations",
+      scenarioId: "recovered-account-update",
+      risk: "MEDIUM",
+      reversibility: "PARTIALLY_REVERSIBLE",
+      expectedOutcome: "Account state is Approved",
+    },
+    evidence: [
+      evidence({ id: "ev-recovered-account", source: "Account record #1193", sourceType: "system record", authority: "AUTHORITATIVE", content: "Account passed all required review checks.", verification: "VERIFIED", relevance: 100, confidence: 99, finding: "Account is eligible" }),
+      evidence({ id: "ev-recovered-review", source: "Review checklist", sourceType: "approval record", authority: "AUTHORITATIVE", content: "All checklist items completed by a verified reviewer.", verification: "VERIFIED", relevance: 98, confidence: 98, finding: "Review is complete" }),
+      evidence({ id: "ev-recovered-policy", source: "Account policy", sourceType: "policy", authority: "AUTHORITATIVE", content: "Agents at T3 ACT may update eligible accounts autonomously.", verification: "VERIFIED", relevance: 100, confidence: 100, finding: "Restored authority permits action" }),
+    ],
+    initialState: "REQUESTED",
+  },
 ];
 
 export function getScenario(id: string) {

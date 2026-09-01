@@ -133,6 +133,7 @@ export interface DemoScenario {
   failVerification?: boolean;
   hasConflict?: boolean;
   hasInjection?: boolean;
+  recovery?: boolean;
 }
 
 export interface ActionRecord {
