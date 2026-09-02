@@ -10,6 +10,7 @@ import { execute_action, verify_outcome } from "./tools";
 import { runStrandsEvaluation } from "./agent/strands";
 import { consumeResolution, createResolution, evidenceVersionFor, validResolutionFor } from "./resolutions";
 import { canRunRecovery, canRunRestoredAction } from "./recovery";
+import { caseForScenario, initialCases, initialMetrics } from "./cases";
 import type { ActionRecord, SessionState, WorkflowState } from "../shared/types";
 
 const app = express();
@@ -36,6 +37,8 @@ const createSession = (id: string): SessionState => ({
   trustHistory: [],
   activity: ["Claims Resolution Agent initialized", "Current authority · T2 RECOMMEND", "Ready to earn broader autonomy"],
   service: { mode: "DEMO", available: true, message: "DEMO — Deterministic VOUCH Evaluator" },
+  cases: initialCases(),
+  metrics: initialMetrics(),
 });
 
 const getSession = (req: express.Request, res: express.Response) => {
@@ -81,6 +84,11 @@ app.post("/api/scenarios/:scenarioId/run", async (req, res) => {
     evidenceVersion: evidenceVersionFor(scenario.evidence),
   };
   session.activeScenarioId = scenario.id;
+  const workCase = caseForScenario(session.cases, scenario.id);
+  if (workCase) {
+    workCase.status = "INVESTIGATING";
+    workCase.lastAction = "Evidence collection and policy review started";
+  }
   session.evidence = [];
   session.currentAction = record;
   session.activity = ["Request received", "Investigating evidence sources…", "Checking authoritative sources…"];
@@ -100,6 +108,12 @@ app.post("/api/scenarios/:scenarioId/run", async (req, res) => {
       ? ["Evidence gathered", "Untrusted instruction detected", "Instruction treated as data, not authority", "Decision: BLOCKED"]
       : ["Evidence gathered", "Policy checked", "Conflict detected", "Decision: BLOCKED", "Waiting for authoritative resolution"];
     addAudit(session, record, "AUTHORITY_BLOCKED", "VOUCH", "BLOCKED", record.decision.reason);
+    if (workCase) {
+      workCase.status = "BLOCKED";
+      workCase.lastAction = scenario.hasInjection ? "Untrusted instruction blocked before execution" : "Authoritative conflict requires resolution";
+    }
+    session.metrics.casesProcessed += 1;
+    session.metrics.blockedCases += 1;
     session.currentAction = record;
     return res.json({ session, scenarios, message: scenario.hasInjection ? "UNTRUSTED INSTRUCTION DETECTED" : "CONFLICT DETECTED" });
   }
@@ -113,14 +127,19 @@ app.post("/api/scenarios/:scenarioId/run", async (req, res) => {
     record.state = "APPROVAL_REQUIRED";
     session.activity = ["Evidence gathered", "Policy checked", "Risk assessed: " + scenario.action.risk, "Recommendation: APPROVE", "Waiting for human authorization"];
     addAudit(session, record, "APPROVAL_REQUESTED", "VOUCH", "PENDING", record.decision.reason);
+    if (workCase) {
+      workCase.status = "APPROVAL_REQUIRED";
+      workCase.lastAction = "Prepared for focused human review";
+    }
+    session.metrics.humanReviews += 1;
     session.currentAction = record;
     return res.json({ session, scenarios, message: "HUMAN DECISION REQUIRED" });
   }
   if (resolution) consumeResolution(resolution);
-  return completeExecution(session, record, res);
+  return completeExecution(session, record, res, Boolean(resolution));
 });
 
-function completeExecution(session: SessionState, record: ActionRecord, res: express.Response) {
+function completeExecution(session: SessionState, record: ActionRecord, res: express.Response, authorizedByHuman = false) {
   if (record.state !== "AUTHORIZED") record.state = transition(record.state, "AUTHORIZED");
   record.state = transition(record.state, "EXECUTING");
   record.execution = execute_action(record.action);
@@ -145,6 +164,24 @@ function completeExecution(session: SessionState, record: ActionRecord, res: exp
     ? ["Authorization granted", "Executing action…", "Verifying outcome…", "Outcome verified", change.event.autonomyFrom !== change.event.autonomyTo ? `Authority changed · ${change.event.autonomyFrom} → ${change.event.autonomyTo}` : `Trust updated · ${change.event.from} → ${change.event.to}`]
     : ["Authorization granted", "Executing action…", "Verifying outcome…", "Verification failed", `Autonomy reduced · ${change.event.autonomyFrom} → ${change.event.autonomyTo}`];
   addAudit(session, record, "ACTION_COMPLETED", "VOUCH", record.verification.status, record.verification.message);
+  const workCase = caseForScenario(session.cases, record.action.scenarioId);
+  session.metrics.casesProcessed += 1;
+  if (record.verification.status === "PASS") {
+    session.metrics.verifiedOutcomes += 1;
+    if (!authorizedByHuman) session.metrics.autonomousResolutions += 1;
+    session.metrics.minutesSaved += authorizedByHuman ? 6 : 14;
+    if (workCase) {
+      workCase.status = "RESOLVED";
+      workCase.resolution = record.action.expectedOutcome;
+      workCase.lastAction = authorizedByHuman ? "Human-authorized action executed and verified" : "Resolved autonomously and independently verified";
+    }
+  } else {
+    session.metrics.verificationFailures += 1;
+    if (workCase) {
+      workCase.status = "VERIFICATION_FAILED";
+      workCase.lastAction = "Expected outcome did not appear; sent to professional review";
+    }
+  }
   session.history.unshift(record);
   session.currentAction = record;
   return res.json({ session, scenarios, message: record.verification.status === "PASS" ? "ACTION VERIFIED" : "VERIFICATION FAILED" });
@@ -157,7 +194,7 @@ app.post("/api/actions/:actionId/approve", (req, res) => {
   session.approvals.push(record.action.id);
   record.state = transition(record.state, "AUTHORIZED");
   addAudit(session, record, "HUMAN_AUTHORIZATION", "HUMAN", "APPROVED", "Human approval recorded");
-  return completeExecution(session, record, res);
+  return completeExecution(session, record, res, true);
 });
 
 app.post("/api/actions/:actionId/reject", (req, res) => {
@@ -167,6 +204,12 @@ app.post("/api/actions/:actionId/reject", (req, res) => {
   record.state = transition(record.state, "BLOCKED");
   record.execution = { status: "CANCELLED", message: "Action cancelled by human decision." };
   addAudit(session, record, "HUMAN_REJECTION", "HUMAN", "REJECTED", "Action cancelled and recorded");
+  const workCase = caseForScenario(session.cases, record.action.scenarioId);
+  if (workCase) {
+    workCase.status = "BLOCKED";
+    workCase.lastAction = "Professional rejected the proposed resolution";
+  }
+  session.metrics.casesProcessed += 1;
   session.history.unshift(record);
   return res.json({ session, scenarios, message: "ACTION CANCELLED" });
 });
@@ -182,6 +225,11 @@ app.post("/api/actions/:actionId/resolve", (req, res) => {
     return res.status(409).json({ error: "The action evidence changed and must be evaluated again" });
   }
   const resolution = createResolution(session, record.action, scenario.evidence);
+  const workCase = caseForScenario(session.cases, record.action.scenarioId);
+  if (workCase) {
+    workCase.status = "INVESTIGATING";
+    workCase.lastAction = "Authoritative human resolution attached; re-evaluation required";
+  }
   session.activity = ["Human resolution received", "New authoritative approval attached", "Re-evaluating evidence…"];
   addAudit(session, record, "CONFLICT_RESOLVED", "HUMAN", "RESOLVED", `Server resolution ${resolution.id} bound to this action and evidence version`);
   return res.json({ session, scenarios, message: "Authoritative approval recorded for this exact action and evidence. Re-evaluate to continue." });

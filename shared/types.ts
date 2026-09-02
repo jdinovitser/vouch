@@ -10,6 +10,8 @@ export type WorkflowState =
   | "TRUST_UPDATED";
 export type AuthorizationDecision = "EXECUTE" | "APPROVAL_REQUIRED" | "BLOCKED";
 export type ActionResult = "PENDING" | "EXECUTED" | "CANCELLED" | "FAILED";
+export type ClaimsCaseStatus = "NEW" | "INVESTIGATING" | "APPROVAL_REQUIRED" | "RESOLVED" | "BLOCKED" | "VERIFICATION_FAILED";
+export type CasePriority = "LOW" | "MEDIUM" | "HIGH";
 
 export interface AgentTrust {
   score: number;
@@ -136,6 +138,31 @@ export interface DemoScenario {
   recovery?: boolean;
 }
 
+export interface ClaimsCase {
+  id: string;
+  scenarioId: string;
+  caseNumber: string;
+  customer: string;
+  category: string;
+  summary: string;
+  amount?: number;
+  priority: CasePriority;
+  status: ClaimsCaseStatus;
+  receivedAt: string;
+  lastAction?: string;
+  resolution?: string;
+}
+
+export interface AgentMetrics {
+  casesProcessed: number;
+  autonomousResolutions: number;
+  humanReviews: number;
+  blockedCases: number;
+  verificationFailures: number;
+  verifiedOutcomes: number;
+  minutesSaved: number;
+}
+
 export interface ActionRecord {
   action: ActionRequest;
   state: WorkflowState;
@@ -161,6 +188,8 @@ export interface SessionState {
   trustHistory: TrustEvent[];
   activity: string[];
   service: { mode: "DEMO" | "AWS_LIVE"; available: boolean; message: string; lastInvocationAt?: string };
+  cases: ClaimsCase[];
+  metrics: AgentMetrics;
 }
 
 export interface ScenarioResponse {

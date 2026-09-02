@@ -4,6 +4,7 @@ import { evaluateAction } from "../server/policy";
 import { consumeResolution, createResolution, validResolutionFor } from "../server/resolutions";
 import { getScenario } from "../server/scenarios";
 import { initialTrust } from "../server/trust";
+import { initialCases, initialMetrics } from "../server/cases";
 
 function session(sessionId = "session-a"): SessionState {
   return {
@@ -18,6 +19,8 @@ function session(sessionId = "session-a"): SessionState {
     trustHistory: [],
     activity: [],
     service: { mode: "DEMO", available: true, message: "DEMO — Deterministic VOUCH Evaluator" },
+    cases: initialCases(),
+    metrics: initialMetrics(),
   };
 }
 
