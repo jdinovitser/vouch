@@ -12,7 +12,7 @@ import { consumeResolution, createResolution, evidenceVersionFor, validResolutio
 import { canRunRecovery, canRunRestoredAction } from "./recovery";
 import { caseForScenario, initialCases, initialMetrics } from "./cases";
 import { loadSession, replaceSession, saveSession } from "./session-store";
-import { approvalAllowsExecution } from "./approval";
+import { approvalAllowsExecution, approvalIsExpired } from "./approval";
 import type { ActionRecord, ApprovalRecord, SessionState, WorkflowState } from "../shared/types";
 
 const app = express();
@@ -45,7 +45,9 @@ const createSession = (id: string): SessionState => ({
 
 const normalizeSession = (session: SessionState): SessionState => ({
   ...session,
-  approvals: (session.approvals ?? []).filter((item): item is ApprovalRecord => typeof item === "object" && item !== null),
+  approvals: (session.approvals ?? [])
+    .filter((item): item is ApprovalRecord => typeof item === "object" && item !== null)
+    .map((item) => ({ ...item, expiresAt: item.expiresAt ?? new Date(Date.parse(item.createdAt) + 5 * 60_000).toISOString() })),
   cases: (session.cases ?? initialCases()).map((item) => ({ ...item, version: item.version ?? 1, refundAmount: item.refundAmount ?? 0 })),
   metrics: { ...initialMetrics(), ...(session.metrics ?? {}) },
 });
@@ -110,6 +112,8 @@ app.post("/api/scenarios/:scenarioId/run", async (req, res) => {
   state = transition(state, "EVIDENCE_COLLECTED");
   session.evidence = scenario.evidence;
   addAudit(session, record, "EVIDENCE_RETRIEVED", "VOUCH", "VERIFIED", `${scenario.evidence.length} evidence sources retrieved and versioned`);
+  const policyEvidence = scenario.evidence.filter((item) => item.sourceType === "policy");
+  addAudit(session, record, "POLICY_RETRIEVED", "VOUCH", policyEvidence.length ? "VERIFIED" : "NOT_FOUND", policyEvidence.length ? `${policyEvidence.length} authoritative policy source${policyEvidence.length === 1 ? "" : "s"} retrieved` : "No policy source was available");
   const conflict = (scenario.hasConflict && !hasServerResolution) || scenario.hasInjection;
   if (conflict) state = transition(state, "CONFLICT_DETECTED");
   state = transition(state, conflict ? "BLOCKED" : "RISK_ASSESSED");
@@ -160,6 +164,7 @@ app.post("/api/scenarios/:scenarioId/run", async (req, res) => {
         caseVersion: workCase.version,
         status: "PENDING",
         createdAt: new Date().toISOString(),
+        expiresAt: new Date(Date.now() + 5 * 60_000).toISOString(),
       };
       record.approvalId = approval.id;
       session.approvals.unshift(approval);
@@ -184,7 +189,7 @@ async function completeExecution(session: SessionState, record: ActionRecord, re
   }
   const freshDecision = evaluate_action(record.action, scenario.evidence, session.trust, hasServerResolution);
   const approval = record.approvalId ? session.approvals.find((item) => item.id === record.approvalId) : undefined;
-  const validHumanApproval = authorizedByHuman && approvalAllowsExecution(approval, record, workCase, record.evidenceVersion);
+  const validHumanApproval = authorizedByHuman && approvalAllowsExecution(approval, session.sessionId, record, workCase, record.evidenceVersion);
   if (freshDecision.authorization !== "EXECUTE" && !(freshDecision.authorization === "APPROVAL_REQUIRED" && validHumanApproval)) {
     return res.status(409).json({ error: "Fresh server authorization does not permit execution" });
   }
@@ -195,12 +200,14 @@ async function completeExecution(session: SessionState, record: ActionRecord, re
   if (record.state !== "AUTHORIZED") record.state = transition(record.state, "AUTHORIZED");
   record.state = transition(record.state, "EXECUTING");
   record.execution = workCase ? execute_case_action(record.action, workCase, Boolean(scenario.failVerification)) : execute_action(record.action);
+  addAudit(session, record, "ACTION_EXECUTED", "VOUCH", "EXECUTED", record.execution.message);
   addAudit(session, record, "PROTECTED_MUTATION", "VOUCH", "EXECUTED", record.execution.message);
   session.currentAction = record;
   await saveSession(session);
   const persisted = (await loadSession(session.sessionId))!;
   const persistedRecord = persisted.currentAction!;
   const persistedCase = caseForScenario(persisted.cases, persistedRecord.action.scenarioId);
+  addAudit(persisted, persistedRecord, "CASE_RELOADED", "VOUCH", persistedCase ? "FOUND" : "MISSING", persistedCase ? `Case version ${persistedCase.version} reloaded from Postgres` : "Case was not found during the independent reload");
   persistedRecord.state = transition(persistedRecord.state, "VERIFYING");
   persistedRecord.verification = persistedCase
     ? verify_case_outcome(persistedRecord.action, persistedCase)
@@ -221,8 +228,11 @@ async function completeExecution(session: SessionState, record: ActionRecord, re
   persisted.activity = persistedRecord.verification.status === "PASS"
     ? ["Authorization granted", "Executing action…", "Verifying outcome…", "Outcome verified", change.event.autonomyFrom !== change.event.autonomyTo ? `Authority changed · ${change.event.autonomyFrom} → ${change.event.autonomyTo}` : `Trust updated · ${change.event.from} → ${change.event.to}`]
     : ["Authorization granted", "Executing action…", "Verifying outcome…", "Verification failed", `Autonomy reduced · ${change.event.autonomyFrom} → ${change.event.autonomyTo}`];
-  addAudit(persisted, persistedRecord, "VERIFICATION_COMPLETED", "VOUCH", persistedRecord.verification.status, persistedRecord.verification.message);
+  addAudit(persisted, persistedRecord, persistedRecord.verification.status === "PASS" ? "VERIFICATION_PASS" : "VERIFICATION_FAILED", "VOUCH", persistedRecord.verification.status, persistedRecord.verification.message);
   addAudit(persisted, persistedRecord, "AUTHORITY_UPDATED", "VOUCH", persisted.trust.autonomy, `${change.event.autonomyFrom} → ${change.event.autonomyTo}`);
+  if (change.event.autonomyFrom !== change.event.autonomyTo) {
+    addAudit(persisted, persistedRecord, persistedRecord.verification.status === "FAIL" ? "AUTHORITY_DEMOTED" : "AUTHORITY_INCREASED", "VOUCH", persisted.trust.autonomy, change.event.reason);
+  }
   persisted.metrics.casesProcessed += 1;
   if (persistedRecord.verification.status === "PASS") {
     persisted.metrics.verifiedOutcomes += 1;
@@ -241,6 +251,7 @@ async function completeExecution(session: SessionState, record: ActionRecord, re
       persistedCase.lastAction = "Database verification found a mismatch; sent to professional review";
       persistedCase.version += 1;
     }
+    addAudit(persisted, persistedRecord, "HUMAN_REVIEW_REQUIRED", "VOUCH", "OPEN", "Verification mismatch requires professional review before further action");
   }
   persisted.history.unshift(persistedRecord);
   persisted.currentAction = persistedRecord;
@@ -252,10 +263,18 @@ app.post("/api/actions/:actionId/approve", async (req, res) => {
   const session = await getSession(req, res);
   const record = session.currentAction;
   if (!record || record.action.id !== req.params.actionId || record.state !== "APPROVAL_REQUIRED") return res.status(409).json({ error: "Approval is not currently available for this action" });
-  const approval = session.approvals.find((item) => item.id === record.approvalId && item.status === "PENDING");
+  const approval = session.approvals.find((item) => item.id === record.approvalId);
   const scenario = getScenario(record.action.scenarioId);
   const workCase = caseForScenario(session.cases, record.action.scenarioId);
-  if (!approval || !scenario || !workCase || approval.actionId !== record.action.id || approval.caseId !== workCase.id
+  if (approvalIsExpired(approval)) {
+    if (approval) {
+      approval.status = "EXPIRED";
+      addAudit(session, record, "APPROVAL_EXPIRED", "VOUCH", "EXPIRED", "The action-bound approval window elapsed; a fresh evaluation is required");
+      await saveSession(session);
+    }
+    return res.status(409).json({ error: "Approval expired; a fresh authorization decision is required" });
+  }
+  if (!approval || approval.status !== "PENDING" || !scenario || !workCase || approval.sessionId !== session.sessionId || approval.actionId !== record.action.id || approval.caseId !== workCase.id
       || approval.evidenceVersion !== evidenceVersionFor(scenario.evidence) || approval.caseVersion !== workCase.version) {
     return res.status(409).json({ error: "Approval is stale or is not bound to this case, action, and evidence version" });
   }

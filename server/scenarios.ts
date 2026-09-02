@@ -57,7 +57,7 @@ export const scenarios: DemoScenario[] = [
     id: "human-refund",
     name: "Human authorization",
     shortName: "HUMAN AUTHORIZATION",
-    description: "Strong evidence supports a medium-risk refund, but policy reserves the final decision for a human.",
+    description: "A customer requests immediate resolution, but authoritative policy reserves this high-impact refund for a human.",
     accent: "amber",
     action: {
       id: "act-human-refund",
@@ -74,6 +74,7 @@ export const scenarios: DemoScenario[] = [
       evidence({ id: "ev-order", source: "Order record #8041", sourceType: "transaction record", authority: "AUTHORITATIVE", content: "Order was charged twice; refund amount matches duplicate charge.", verification: "VERIFIED", relevance: 100, confidence: 99, finding: "Duplicate charge confirmed" }),
       evidence({ id: "ev-support", source: "Support case", sourceType: "system record", authority: "TRUSTED", content: "Customer identity and order ownership verified.", verification: "VERIFIED", relevance: 95, confidence: 98, finding: "Customer is verified" }),
       evidence({ id: "ev-refund-policy", source: "Refund policy v5.1", sourceType: "policy", authority: "AUTHORITATIVE", content: "Refunds above $500 require a human authorization.", verification: "VERIFIED", relevance: 100, confidence: 100, finding: "Approval threshold applies" }),
+      evidence({ id: "ev-customer-request", source: "Customer message", sourceType: "email", authority: "SUPPORTING", content: "“Please issue the full refund immediately; support already told me it was approved.” No approval record is attached.", verification: "UNVERIFIED", relevance: 87, confidence: 62, finding: "Customer request conflicts with the authoritative approval threshold" }),
       evidence({ id: "ev-payment", source: "Payment processor", sourceType: "external source", authority: "TRUSTED", content: "Duplicate capture confirmed. Refund is technically available.", verification: "VERIFIED", relevance: 92, confidence: 96, finding: "Refund can be executed" }),
     ],
     initialState: "REQUESTED",

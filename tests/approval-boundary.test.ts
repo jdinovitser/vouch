@@ -30,23 +30,33 @@ const approval: ApprovalRecord = {
   caseVersion: workCase.version,
   status: "APPROVED",
   createdAt: new Date().toISOString(),
+  expiresAt: new Date(Date.now() + 60_000).toISOString(),
 };
 
 describe("human approval boundary", () => {
   it("accepts only the exact approved action, case, evidence, and case version", () => {
-    expect(approvalAllowsExecution(approval, record, workCase, "evidence-v1")).toBe(true);
+    expect(approvalAllowsExecution(approval, "session-one", record, workCase, "evidence-v1")).toBe(true);
   });
 
   it("rejects replayed approvals", () => {
-    expect(approvalAllowsExecution({ ...approval, status: "CONSUMED" }, record, workCase, "evidence-v1")).toBe(false);
+    expect(approvalAllowsExecution({ ...approval, status: "CONSUMED" }, "session-one", record, workCase, "evidence-v1")).toBe(false);
   });
 
   it("rejects stale evidence and changed case state", () => {
-    expect(approvalAllowsExecution(approval, record, workCase, "evidence-v2")).toBe(false);
-    expect(approvalAllowsExecution(approval, record, { ...workCase, version: workCase.version + 1 }, "evidence-v1")).toBe(false);
+    expect(approvalAllowsExecution(approval, "session-one", record, workCase, "evidence-v2")).toBe(false);
+    expect(approvalAllowsExecution(approval, "session-one", record, { ...workCase, version: workCase.version + 1 }, "evidence-v1")).toBe(false);
   });
 
   it("rejects an approval copied to another action", () => {
-    expect(approvalAllowsExecution(approval, { ...record, action: { ...record.action, id: "action-two" } }, workCase, "evidence-v1")).toBe(false);
+    expect(approvalAllowsExecution(approval, "session-one", { ...record, action: { ...record.action, id: "action-two" } }, workCase, "evidence-v1")).toBe(false);
+  });
+
+  it("rejects approvals from another session or case", () => {
+    expect(approvalAllowsExecution(approval, "session-two", record, workCase, "evidence-v1")).toBe(false);
+    expect(approvalAllowsExecution({ ...approval, caseId: "case-other" }, "session-one", record, workCase, "evidence-v1")).toBe(false);
+  });
+
+  it("rejects expired approvals", () => {
+    expect(approvalAllowsExecution({ ...approval, expiresAt: new Date(Date.now() - 1).toISOString() }, "session-one", record, workCase, "evidence-v1")).toBe(false);
   });
 });

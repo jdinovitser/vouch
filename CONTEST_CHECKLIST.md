@@ -2,6 +2,15 @@
 
 Status is based on observed behavior, not feature names.
 
+## Final judge-proof audit
+
+- **Already complete:** Postgres session durability, protected case mutation, fresh-read verification, deterministic authority, honest AWS fallback, case queue, approval/rejection routes, prompt-injection block, adaptive authority.
+- **Closed in this pass:** strict approval session binding, approval expiry, canonical lifecycle events, structured model/trace/verification audit fields, complete case proof panel, metric assumptions, primary process-next CTA, and a real four-case guided judge flow.
+- **Unsafe findings:** no model-controlled authorization or client-controlled mutation path was found. Trust remains an input, never permission.
+- **Broken findings:** no known compile or workflow blocker after final validation.
+- **Visually confusing findings addressed:** recommendation vs authorization and authorized vs verified are now explicitly separated and labeled.
+- **Contest-risky remaining:** Bedrock daily quota currently prevents a successful live AWS result; production publishing and submission media remain external steps.
+
 ## Proven
 
 - **Professional Agents track fit** — claims operations professionals and repetitive duplicate-charge resolution are the primary product story.

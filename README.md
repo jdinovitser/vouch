@@ -129,7 +129,7 @@ Copy `.env.example`. No credentials are required for deterministic demo mode. Ne
 
 ## Limitations
 
-This is a hackathon prototype. Demo actions operate on a clearly labeled controlled action simulator rather than production financial, identity, or workflow systems. Session state and server-bound resolution records are held in memory and reset with the server.
+This is a hackathon prototype. Protected demo actions mutate seeded claims records in the project Postgres database rather than production financial or identity systems. Session state and server-bound approval/resolution records persist across application restarts until the user explicitly resets the demo session.
 
 ## Future work
 

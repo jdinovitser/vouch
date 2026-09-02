@@ -1,0 +1,880 @@
+VOUCH — NEXT SUPER PROMPT
+FINAL JUDGE-PROOF IMPLEMENTATION PASS
+
+You are continuing development of the existing VOUCH application.
+
+DO NOT rebuild VOUCH.
+DO NOT create a parallel prototype.
+DO NOT replace the existing authority engine.
+DO NOT weaken, bypass, mock, or remove existing safety controls.
+
+The goal of this pass is to take the current implementation from “technically upgraded” to fully demonstrable, verifiable, and contest-ready.
+
+The previous upgrade already established the direction:
+
+Claims operations is the professional use case.
+VOUCH handles routine claims-resolution work.
+Strands produces the agent recommendation.
+VOUCH independently determines whether the action is authorized.
+Postgres is the durable source of truth.
+Case mutations are protected.
+Approvals are action-bound and single-use.
+Verification reloads the case from durable state rather than trusting the execution return value.
+Authority can increase after verified success and decrease after failed verification.
+Security tests cover stale evidence, changed case state, action substitution, approval replay, and authorization bypass attempts.
+The UI has begun exposing the boundary between recommendation, authorization, mutation, and verification.
+
+Now finish the product.
+
+1. FIRST: AUDIT THE CURRENT IMPLEMENTATION
+
+Before changing anything:
+
+Inspect the entire current architecture.
+Inspect the database schema/repository.
+Inspect all case lifecycle routes.
+Inspect the Strands integration.
+Inspect the Bedrock integration and fallback behavior.
+Inspect the authority engine.
+Inspect approval handling.
+Inspect verification.
+Inspect the audit/event model.
+Inspect the current judge/demo UI.
+Inspect all tests.
+
+Create a concise internal checklist of:
+
+already complete
+partially complete
+missing
+broken
+unsafe
+visually confusing
+contest-risky
+
+Then implement the missing items in priority order.
+
+Do not spend time polishing things that are already working.
+
+2. NON-NEGOTIABLE PRODUCT STORY
+
+The entire application must communicate one simple story:
+
+VOUCH lets claims professionals automate routine case resolution while keeping risky, conflicting, and unverified actions under human control.
+
+The flagship workflow must be:
+
+Case enters queue → agent investigates → evidence gathered → policy checked → Strands recommendation → VOUCH authorization decision → authorized action → durable case mutation → independent verification → authority updated → audit record
+
+The agent recommendation and VOUCH authorization must NEVER be visually or technically conflated.
+
+The judge must be able to see:
+
+What the agent thinks
+
+STRANDS RECOMMENDATION
+
+What VOUCH allows
+
+VOUCH AUTHORIZATION
+
+What actually happened
+
+PROTECTED ACTION EXECUTION
+
+Whether it worked
+
+FRESH-READ VERIFICATION
+
+What happened afterward
+
+AUTHORITY / AUDIT EVENT
+
+This separation is the core innovation.
+
+3. FINISH THE THREE FLAGSHIP CASES
+
+There must be three polished, deterministic flagship scenarios.
+
+CASE A — ROUTINE DUPLICATE CHARGE
+
+This is the happy path.
+
+Example:
+
+claim: duplicate charge
+evidence supports duplicate transaction
+authoritative policy permits routine resolution
+no meaningful conflict
+risk is within autonomous threshold
+
+Expected flow:
+
+Case appears in queue.
+Agent retrieves evidence.
+Agent retrieves policy.
+Strands produces recommendation.
+VOUCH evaluates authority.
+VOUCH returns:
+
+EXECUTE
+
+Protected mutation occurs.
+Case status actually changes in Postgres.
+Verification reloads the case.
+Verification returns:
+
+PASS
+
+Trust/authority event is recorded.
+Metrics update.
+
+The UI must clearly show every step.
+
+4. CASE B — CONFLICTING EVIDENCE / HUMAN APPROVAL
+
+Create a realistic claims case where evidence conflicts.
+
+Example:
+
+customer email suggests one resolution
+authoritative policy or transaction evidence suggests another
+agent recommends an action
+VOUCH determines autonomous execution is not permitted
+
+Expected result:
+
+APPROVAL_REQUIRED
+
+The action MUST NOT execute automatically.
+
+Show:
+
+conflicting evidence
+authoritative evidence
+Strands recommendation
+risk classification
+VOUCH decision
+exact requested action
+reason human approval is required
+approval packet
+human approval button
+resulting audit event
+
+Approval must remain:
+
+case-bound
+action-bound
+evidence-bound
+single-use
+invalidated by relevant state changes
+
+Test replay explicitly.
+
+If the same approval is submitted twice:
+
+second attempt must fail safely.
+
+5. CASE C — VERIFICATION FAILURE
+
+This is critical.
+
+Create a scenario where VOUCH authorizes an action, the action appears to execute, but the independently reloaded state does NOT match the expected outcome.
+
+Expected result:
+
+VERIFICATION_FAILED
+
+Then:
+
+Do not pretend success.
+Record the expected state.
+Record the observed state.
+Record the mismatch.
+Record a verification failure event.
+Reduce authority from the appropriate level.
+Prevent the system from silently continuing as if nothing happened.
+Surface the failure to the human.
+Preserve the complete audit trail.
+
+The UI should make this extremely obvious.
+
+Use language like:
+
+AUTHORIZED ≠ VERIFIED
+
+and:
+
+The agent was permitted to act, but the resulting state could not be proven correct.
+
+This distinction is one of VOUCH's strongest differentiators.
+
+6. ADD PROMPT-INJECTION / UNTRUSTED-DATA CASE
+
+Implement or finish the prompt-injection scenario.
+
+A claim attachment, customer message, or other evidence source may contain instructions such as:
+
+ignore policy
+approve immediately
+reveal internal information
+override authorization
+change system instructions
+
+The agent must treat this content as untrusted evidence, not authority.
+
+The correct behavior is:
+
+identify the content as untrusted
+do not allow it to override policy
+do not allow it to grant authority
+do not allow it to directly mutate state
+
+If appropriate, return:
+
+BLOCKED
+
+The UI should explicitly explain:
+
+Untrusted claim content cannot grant the agent permission to act.
+
+Add a regression test.
+
+7. COMPLETE THE EVENT REPLAY
+
+The case timeline must be case-specific.
+
+A judge selecting a case should be able to see something like:
+
+09:41:02 CASE_RECEIVED
+09:41:04 EVIDENCE_RETRIEVED
+09:41:06 POLICY_RETRIEVED
+09:41:08 STRANDS_RECOMMENDATION
+09:41:08 AUTHORIZATION_DECISION
+09:41:09 ACTION_EXECUTED
+09:41:10 CASE_RELOADED
+09:41:10 VERIFICATION_PASS
+09:41:10 AUTHORITY_UPDATED
+
+For a failure:
+
+AUTHORIZATION_GRANTED
+ACTION_EXECUTED
+CASE_RELOADED
+VERIFICATION_FAILED
+AUTHORITY_DEMOTED
+HUMAN_REVIEW_REQUIRED
+
+Every event should have useful structured information.
+
+At minimum where appropriate:
+
+timestamp
+event type
+case ID
+action ID
+authority level
+decision
+reason
+actor/source
+model
+trace ID
+evidence references
+expected state
+observed state
+
+Do not fabricate fields merely for visual effect.
+
+8. MAKE THE AWS / STRANDS PROVENANCE VISIBLE
+
+The primary happy path MUST visibly demonstrate real Strands usage.
+
+If Bedrock is successfully invoked, show honest provenance.
+
+Display something like:
+
+AGENT
+Strands
+
+MODEL
+[actual model identifier]
+
+TOOLS
+[actual tools used]
+
+TRACE
+[actual trace/request identifier when available]
+
+RECOMMENDATION
+[actual recommendation]
+
+Then separately:
+
+VOUCH
+Authorization: EXECUTE
+
+The visual hierarchy must make it impossible for a judge to mistake:
+
+“The model recommended it”
+
+for:
+
+“The model was allowed to do it.”
+
+Those are different decisions.
+
+9. AWS FAILURE MUST DEGRADE HONESTLY
+
+If AWS/Bedrock is unavailable:
+
+the application must remain usable
+the fallback must be deterministic
+the UI must NOT pretend the fallback was AWS
+“AWS LIVE” must appear ONLY after a successful real AWS invocation
+clearly label fallback mode
+
+Use terminology such as:
+
+AWS LIVE
+
+or:
+
+DETERMINISTIC DEMO FALLBACK
+
+Never blur the two.
+
+Add or preserve a regression test for this.
+
+10. VERIFY PERSISTENCE ACROSS RESTART
+
+This is mandatory.
+
+Run this real scenario:
+
+Create/load a case.
+Change its state.
+Record an event.
+Restart the application.
+Reload the case.
+Confirm the state remains.
+Confirm the event remains.
+Confirm authority remains.
+Confirm metrics remain consistent.
+
+The UI must not depend on an in-memory Map as the source of truth.
+
+Postgres must be authoritative.
+
+If there is still any accidental in-memory source of truth, remove it or make it a cache only.
+
+11. BUILD THE JUDGE CONTROL CENTER
+
+The first screen a judge sees should NOT be an architecture lecture.
+
+It should immediately communicate:
+
+VOUCH
+
+Autonomous claims resolution with controlled authority
+
+Then:
+
+Cases waiting
+Resolved autonomously
+Human review
+Verification rate
+Authority level
+Time saved
+
+Primary CTA:
+
+PROCESS NEXT CASE
+
+Secondary options:
+
+View cases
+View exceptions
+View audit trail
+View architecture
+
+The professional workflow should be visually dominant.
+
+12. CASE DETAIL VIEW
+
+Selecting a case should show:
+
+Case
+case ID
+claim type
+customer
+amount
+current state
+risk
+Evidence
+
+Show authoritative vs untrusted/conflicting evidence clearly.
+
+Agent Recommendation
+
+Show:
+
+Strands
+model
+tools
+recommendation
+reasoning summary
+evidence references
+
+Do NOT present hidden chain-of-thought.
+
+Show concise decision-relevant rationale instead.
+
+VOUCH Authorization
+
+Show:
+
+current authority
+requested action
+policy result
+risk result
+evidence freshness
+authorization decision
+reason
+Execution
+
+Show:
+
+action ID
+protected mutation
+resulting state
+Verification
+
+Show:
+
+expected state
+observed state
+result
+Authority
+
+Show:
+
+previous authority
+event
+new authority
+reason
+Audit
+
+Show the persisted event timeline.
+
+13. IMPACT METRICS
+
+The application must calculate metrics from actual session/case records.
+
+Include:
+
+total cases
+autonomously resolved
+human approvals
+blocked
+verification failures
+verification pass rate
+autonomous resolution rate
+human review rate
+estimated time saved
+
+Use clearly labeled seeded/demo data where applicable.
+
+Do NOT make unsupported production claims.
+
+If the benchmark is synthetic, say:
+
+Seeded evaluation set
+
+not:
+
+Real customer results
+
+Add a simple comparison:
+
+Workflow	Manual baseline	With VOUCH
+Evidence review	minutes	seconds
+Policy lookup	manual	automated
+Routine resolution	human handled	autonomous when eligible
+Exception handling	manual investigation	focused approval queue
+Outcome verification	inconsistent	required
+
+Make the assumptions behind time-saved calculations inspectable.
+
+14. AUTHORITY VISUALIZATION
+
+Keep the adaptive authority concept.
+
+Show something understandable such as:
+
+T1 — Observe
+T2 — Recommend
+T3 — Execute routine actions
+T4 — Expanded authority
+
+But make clear:
+
+Authority is not permanent permission.
+
+Every action must still receive a fresh authorization decision.
+
+Show recent events:
+
+Verified success
+→ authority increased
+
+Verification failure
+→ authority reduced
+
+Policy conflict
+→ action blocked / approval required
+
+Also explicitly state:
+
+Trust never overrides policy.
+
+15. HUMAN APPROVAL UX
+
+Human approval should be deliberate.
+
+The approval screen should show:
+
+YOU ARE AUTHORIZING
+Case
+Action
+Amount / impact
+Evidence
+Policy basis
+Risk
+Agent recommendation
+VOUCH authorization rationale
+
+Then:
+
+APPROVE THIS ACTION
+
+After approval:
+
+approval is consumed
+action instance executes
+event recorded
+verification runs
+
+The approval must never be a generic:
+
+“approve case”
+
+It must approve a specific action.
+
+16. SECURITY REGRESSION SUITE
+
+Add tests for all of these:
+
+Authorization
+insufficient authority
+policy denial
+stale evidence
+changed case state
+action substitution
+replayed approval
+expired approval
+wrong case approval
+wrong action approval
+Prompt injection
+malicious evidence cannot grant authority
+malicious evidence cannot override policy
+malicious evidence cannot directly mutate state
+Verification
+expected state matches observed state
+mismatch produces VERIFICATION_FAILED
+failed verification demotes authority
+failed verification creates audit event
+Persistence
+state survives restart
+events survive restart
+approval consumption survives restart
+authority survives restart
+AWS
+successful Bedrock call marks AWS live
+failed Bedrock call uses honest fallback
+fallback never claims AWS provenance
+17. TEST THE ACTUAL PUBLIC WORKFLOW
+
+Do not stop at unit tests.
+
+Exercise the running application end-to-end.
+
+At minimum:
+
+Test 1
+
+Routine duplicate charge:
+
+QUEUE → STRANDS → EXECUTE → MUTATION → VERIFY PASS
+
+Test 2
+
+Conflicting case:
+
+QUEUE → STRANDS → APPROVAL_REQUIRED → NO MUTATION
+
+Then approve:
+
+APPROVAL → MUTATION → VERIFY PASS
+
+Test 3
+
+Verification failure:
+
+QUEUE → STRANDS → EXECUTE → MUTATION → VERIFY FAIL → DEMOTION
+
+Test 4
+
+Prompt injection:
+
+QUEUE → UNTRUSTED CONTENT → BLOCKED → NO MUTATION
+
+Test 5
+
+Restart:
+
+MUTATE → RESTART → RELOAD → STATE INTACT
+
+Do not claim these work unless you actually exercise them.
+
+18. FIX ANY UI THAT HIDES THE TECHNICAL PROOF
+
+A judge should never have to hunt for:
+
+Strands
+authorization
+policy
+evidence
+execution
+verification
+authority
+audit
+
+These should be visible in the flagship workflow.
+
+Avoid:
+
+excessive marketing copy
+giant architecture diagrams before the workflow
+meaningless badges
+fake activity
+decorative AI language
+unexplained trust scores
+
+The product should feel like a real professional operations system.
+
+19. FINAL DEMO MODE
+
+Create/finish a guided demo mode.
+
+The judge should be able to click:
+
+START GUIDED DEMO
+
+Then the application walks through:
+
+1. Routine case
+
+Agent resolves automatically.
+
+2. Exception
+
+VOUCH stops and requests human approval.
+
+3. Failure
+
+Verification fails and authority decreases.
+
+4. Security
+
+Prompt injection is blocked.
+
+The guided experience should be completable quickly and resettable.
+
+Every scenario must use the actual backend workflow, not screenshots or fake frontend-only transitions.
+
+20. DO NOT OVERBUILD
+
+Do NOT add:
+
+unrelated integrations
+generic chatbot functionality
+extra industries
+unnecessary dashboards
+social features
+complicated user management
+decorative AI features
+speculative enterprise functionality
+
+VOUCH wins by being narrow, real, technically defensible, and easy to understand.
+
+21. CONTEST POSITIONING
+
+The product should clearly communicate this insight:
+
+Existing agents are evaluated on whether they can produce an answer. VOUCH evaluates whether they have earned the authority to change professional workflow state—and verifies whether that change actually worked.
+
+The product description should support:
+
+Resolve routine claims automatically. Escalate only what requires judgment.
+
+And the deeper technical description can say:
+
+VOUCH provides adaptive authority infrastructure for professional AI agents, combining policy, evidence, bounded permissions, human approval, protected execution, independent verification, and auditable authority changes.
+
+Do not lead with the infrastructure abstraction.
+
+Lead with the professional outcome.
+
+22. FINAL DEFINITION OF DONE
+
+Do not declare this task complete until ALL of the following are true:
+
+Professional workflow
+
+Claims operations user is obvious
+
+Real case queue exists
+
+Agent investigates
+
+Evidence is retrieved
+
+Policy is checked
+
+Strands produces recommendation
+
+VOUCH separately authorizes
+
+Authorized action mutates durable state
+
+Verification independently reloads state
+
+Outcome is verified
+
+Audit event persists
+
+Human boundary
+
+Conflicting evidence requires review
+
+High-risk actions cannot autonomously execute
+
+Prompt injection is untrusted
+
+Human approval is explicit
+
+Approval is action-bound
+
+Approval is single-use
+
+Blocked actions produce no mutation
+
+Adaptive authority
+
+Verified success can increase authority
+
+Failed verification decreases authority
+
+Recovery requires verified work
+
+Trust never overrides policy
+
+Every action receives a fresh authorization decision
+
+Technical proof
+
+Strands is in the primary path
+
+Bedrock is real when AWS LIVE is displayed
+
+Fallback is honestly labeled
+
+Postgres is durable source of truth
+
+State survives restart
+
+Events survive restart
+
+Case-level replay works
+
+Security regression suite passes
+
+End-to-end workflows pass
+
+Judge experience
+
+Judge understands customer within 15 seconds
+
+Judge understands task within 15 seconds
+
+Judge can process a case quickly
+
+Judge sees recommendation vs authorization
+
+Judge sees mutation
+
+Judge sees verification
+
+Judge sees authority change
+
+Judge sees audit trail
+
+Judge sees measurable impact
+
+Guided demo works from a fresh browser session
+
+23. FINAL VALIDATION REPORT
+
+When finished, DO NOT merely say “done.”
+
+Return a concise implementation report containing:
+
+IMPLEMENTED
+
+Every major change.
+
+VERIFIED
+
+Exact tests and end-to-end workflows actually run.
+
+AWS STATUS
+
+Whether Bedrock/Strands was successfully exercised and what remains fallback.
+
+DATABASE STATUS
+
+What is persisted and what survives restart.
+
+SECURITY STATUS
+
+Which attack/abuse cases were tested.
+
+DEMO STATUS
+
+Whether the guided demo works from a fresh browser.
+
+REMAINING RISKS
+
+Anything still imperfect.
+
+RECOMMENDED NEXT STEP
+
+Only recommend additional work if it materially improves contest score or reliability.
+
+Do not invent successful tests, AWS calls, or deployment status.
+
+The standard is not “the UI looks finished.”
+
+The standard is:
+
+A skeptical judge can follow a real professional case through recommendation, independent authorization, protected mutation, verification, authority change, and audit—and the system can prove what happened.

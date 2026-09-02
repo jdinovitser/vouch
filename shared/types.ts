@@ -107,6 +107,10 @@ export interface AuditEvent {
   result: string;
   sessionId: string;
   caseId?: string;
+  model?: string;
+  traceId?: string;
+  expectedState?: string;
+  observedState?: string;
   agentRecommendation?: AgentRecommendation;
   authorization?: AuthorizationDecision;
   verification?: VerificationResult;
@@ -166,8 +170,9 @@ export interface ApprovalRecord {
   caseId: string;
   evidenceVersion: string;
   caseVersion: number;
-  status: "PENDING" | "APPROVED" | "REJECTED" | "CONSUMED";
+  status: "PENDING" | "APPROVED" | "REJECTED" | "CONSUMED" | "EXPIRED";
   createdAt: string;
+  expiresAt: string;
   decidedAt?: string;
   consumedAt?: string;
 }
