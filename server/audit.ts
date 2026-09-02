@@ -1,6 +1,7 @@
 import type { ActionRecord, AuditEvent, SessionState } from "../shared/types";
 
 export function auditFor(session: SessionState, record: ActionRecord, type: string, actor: "VOUCH" | "HUMAN", status: string, result: string): AuditEvent {
+  const latestTrustEvent = session.trustHistory[0];
   return {
     id: crypto.randomUUID(),
     timestamp: new Date().toISOString(),
@@ -24,8 +25,10 @@ export function auditFor(session: SessionState, record: ActionRecord, type: stri
     trustChange: record.trustImpact === undefined ? undefined : {
       from: session.trust.score - record.trustImpact,
       to: session.trust.score,
-      autonomyFrom: session.trustHistory[0]?.autonomyFrom ?? session.trust.autonomy,
+      autonomyFrom: latestTrustEvent?.autonomyFrom ?? session.trust.autonomy,
       autonomyTo: session.trust.autonomy,
+      authorityFrom: latestTrustEvent?.authorityFrom ?? session.trust.autonomousLimit,
+      authorityTo: latestTrustEvent?.authorityTo ?? session.trust.autonomousLimit,
     },
   };
 }

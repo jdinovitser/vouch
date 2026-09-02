@@ -1,0 +1,647 @@
+VOUCH FANGS — SURGICAL EARNED-AUTHORITY UPGRADE
+
+You are modifying the existing VOUCH project.
+
+DO NOT rebuild VOUCH. DO NOT redesign the application from scratch. DO NOT replace working architecture. DO NOT remove existing functionality.
+
+The goal of this task is one focused product improvement:
+
+Make VOUCH visibly demonstrate that an agent earns, gains, loses, and regains bounded autonomy through verified work.
+
+The core product thesis is:
+
+A professional agent that learns from verified work to safely earn more autonomy.
+
+The existing VOUCH principle must remain:
+
+The agent recommends. VOUCH decides.
+
+And the existing lifecycle remains:
+
+PROVE → EARN → ACT → VERIFY → ADJUST
+
+This upgrade should make that lifecycle undeniable in the live demo.
+
+1. BEFORE CHANGING ANYTHING
+
+First inspect the existing application and understand the current implementation.
+
+Identify:
+
+current frontend architecture
+current backend/API architecture
+current Postgres/session state
+existing seeded cases
+existing authorization/evaluation engine
+existing trust/reliability logic
+existing autonomy/authority logic
+existing verification logic
+existing audit trail
+existing Strands Agents / Amazon Bedrock integration
+existing demo stage flow
+existing buttons/actions
+existing visual design system
+existing tests
+
+Do not modify anything yet.
+
+Determine the smallest set of changes needed to create the earned-authority feedback loop.
+
+Preserve all existing working behavior unless a change is strictly necessary for this feature.
+
+2. THE NEW BEHAVIOR WE NEED
+
+VOUCH must visibly demonstrate that verified performance changes future authority.
+
+The demo should tell one coherent story:
+
+START
+
+The agent begins with bounded authority.
+
+Example:
+
+T2 · RECOMMEND
+Reliability: 84/100
+Autonomous authority: $250
+
+Use the project's existing terminology and data model if these already exist. Do not create duplicate competing concepts.
+
+3. SUCCESSFUL VERIFIED WORK MUST CHANGE AUTHORITY
+
+When the agent completes a qualifying routine action:
+
+Agent recommendation
+→ VOUCH evaluates authority
+→ action is allowed
+→ action executes
+→ outcome is independently verified
+→ verified success updates the agent's trust/reliability
+→ earned authority increases according to deterministic rules
+
+For the existing routine $124 case, preserve the current successful flow.
+
+After successful verification, make the state change visible.
+
+For example:
+
+BEFORE:
+
+Reliability 84/100
+Autonomous authority $250
+
+AFTER VERIFIED SUCCESS:
+
+Reliability 88/100
+Autonomous authority $500
+
+The exact numbers may be adjusted to fit the existing implementation, but the important requirement is:
+
+verified success must cause a real, persisted change in future authority.
+
+Do not fake this with frontend-only animation.
+
+The resulting authority must come from actual server/session state and affect the next authorization decision.
+
+4. AUTHORITY MUST AFFECT A FUTURE DECISION
+
+This is the most important requirement.
+
+After the successful routine case, process a subsequent case whose requested action exceeds the agent's currently earned authority.
+
+Example:
+
+$1,240 refund
+
+VOUCH must independently reevaluate the new request.
+
+The UI should make the reason obvious:
+
+AUTHORITY NOT EARNED
+
+or equivalent existing terminology.
+
+Show something like:
+
+Requested: $1,240
+Earned autonomous authority: $500
+Decision: BLOCKED / HUMAN AUTHORIZATION REQUIRED
+
+Use the project's existing distinction between BLOCKED and APPROVAL REQUIRED. Do not incorrectly collapse them into one state.
+
+The key proof is:
+
+The same agent has more authority after verified success, but still cannot automatically perform an action beyond what it has earned.
+
+5. VERIFICATION FAILURE MUST REDUCE AUTHORITY
+
+Use the existing failure/verification stage.
+
+When a protected action fails verification, the result must have a real effect on trust and future authority.
+
+Example:
+
+BEFORE:
+
+Reliability 88/100
+Authority $500
+
+AFTER FAILED VERIFICATION:
+
+Reliability 72/100
+Authority $100
+
+Again, the exact numbers can follow the existing trust model.
+
+The important behavior:
+
+verification failure must reduce future capability.
+
+Do not merely display:
+
+Trust decreased
+
+while leaving authorization behavior unchanged.
+
+The reduced authority must be persisted and used by the authorization engine on the next decision.
+
+6. THE SAME AGENT MUST EVOLVE
+
+Do not create separate fake agents for each stage.
+
+The point of the demo is:
+
+ONE AGENT. CHANGING AUTHORITY.
+
+The visible agent identity should remain consistent throughout the proof.
+
+The judge should be able to understand:
+
+Initial state
+
+T2 · RECOMMEND
+Reliability 84
+Authority $250
+
+↓
+
+Verified work
+
+$124 routine action
+ALLOWED
+EXECUTED
+VERIFIED
+
+↓
+
+Earned capability
+
+Reliability 88
+Authority $500
+
+↓
+
+Larger request
+
+$1,240
+AUTHORITY NOT EARNED
+
+↓
+
+Verification failure
+
+Reliability decreases
+Authority decreases
+
+↓
+
+Future decision
+
+The reduced authority is actually used.
+
+This is the central VOUCH demonstration.
+
+7. MAKE THE AUTHORITY CHANGE VISUALLY OBVIOUS
+
+Add a compact, polished Earned Authority area to the existing UI.
+
+Do not redesign the page.
+
+Do not introduce a large dashboard.
+
+Do not add unnecessary charts.
+
+Use the existing visual language.
+
+The component should communicate:
+
+EARNED AUTHORITY
+
+$250 → $500
+
+and/or:
+
+RELIABILITY
+
+84 → 88
+
+After a failure:
+
+88 → 72
+
+The transition can have a restrained animation if the project already uses animation.
+
+Do NOT make this gimmicky.
+
+This is a professional enterprise product.
+
+The visual should feel like a capability boundary changing, not a video-game XP bar.
+
+8. EXPLAIN WHY THE CHANGE HAPPENED
+
+Whenever authority changes, expose the causal reason.
+
+Example:
+
+AUTHORITY INCREASED
+
+Verified successful resolution
++4 reliability
+New autonomous limit: $500
+
+And:
+
+AUTHORITY REDUCED
+
+Verification failure
+-16 reliability
+New autonomous limit: $100
+
+Keep the language concise.
+
+The user/judge should never have to guess why authority changed.
+
+9. DO NOT CONFUSE TRUST WITH AUTHORITY
+
+Keep these concepts logically distinct.
+
+Trust/reliability is evidence about the agent's performance.
+
+Authority is what the agent is currently permitted to do.
+
+The relationship should be deterministic and explainable.
+
+Conceptually:
+
+Verified history
+→ Reliability / trust
+→ Earned capability
+→ Current authorization decision
+
+The current request must STILL be evaluated using:
+
+current evidence
+current risk
+policy
+context
+current authority
+hard safety constraints
+
+Do not allow past success to bypass current policy or safety boundaries.
+
+This is critical.
+
+Earned authority is bounded and revocable, not permanent permission.
+
+10. CURRENT EVIDENCE MUST ALWAYS WIN
+
+A previously successful agent must still be blocked when the current request violates a hard boundary.
+
+Do NOT implement:
+
+good history = automatic approval
+
+Instead:
+
+good history + low risk + valid evidence + policy compliant + authority sufficient = potentially ALLOW
+
+But:
+
+hard safety violation = BLOCK
+
+regardless of historical performance.
+
+This preserves the core VOUCH safety model.
+
+11. PERSISTENCE REQUIREMENT
+
+Do not implement the new authority behavior purely in React/client state.
+
+Authority/trust changes must be represented in the existing server-side/session state.
+
+If the project already uses Postgres for durable state, use that existing mechanism.
+
+If the existing architecture uses session-scoped state for demo behavior, preserve that architecture.
+
+After processing a case:
+
+mutate authoritative server state
+record the audit event
+reload the resulting state
+render the reloaded state
+
+The browser must not be the source of truth.
+
+12. AUDIT TRAIL
+
+Every authority change should create an auditable event.
+
+For example:
+
+AUTHORITY_ADJUSTED
+
+with scalar metadata such as:
+
+previous reliability
+new reliability
+previous authority
+new authority
+reason
+case ID
+verification result
+timestamp
+
+Follow the project's existing logging/audit conventions.
+
+Do not expose secrets.
+
+Do not log credentials, tokens, API keys, or sensitive payloads.
+
+Do not replace existing audit behavior.
+
+13. STRANDS + BEDROCK MUST REMAIN INTACT
+
+Do NOT remove, mock away, or replace the existing Strands Agents / Amazon Bedrock implementation if it is already present.
+
+The architecture should remain conceptually:
+
+Strands-powered professional agent
+→ gathers evidence / reasons / recommends
+
+↓
+
+VOUCH authority engine
+→ independently determines what the agent has earned the right to do
+
+↓
+
+Controlled action
+
+↓
+
+Verification
+
+↓
+
+Trust + authority adjustment
+
+The model should recommend.
+
+The deterministic VOUCH layer should decide authority.
+
+Do not let an LLM directly determine whether it has permission to execute a consequential action.
+
+14. PRESERVE THE EXISTING DEMO
+
+All current demo stages must continue to work.
+
+Preserve:
+
+01 ROUTINE
+02 EXCEPTION
+03 APPROVE
+04 FAILURE
+05 SECURITY
+06 COMPLETE
+
+Preserve the existing seeded cases.
+
+Preserve:
+
+Reset proof
+current case processing
+authorization state
+verification
+audit behavior
+professional impact metrics
+existing backend APIs
+existing error handling
+existing security boundaries
+
+If a stage currently demonstrates something valuable, do not remove it.
+
+The new earned-authority behavior should strengthen the existing stages rather than replace them.
+
+15. DO NOT TURN THIS INTO A SIMULATION
+
+This is extremely important.
+
+Do not create fake UI-only state changes such as:
+
+84 → 88
+
+unless those values are backed by actual server-side state and the new value affects authorization.
+
+Do not use a timer to pretend the agent learned.
+
+Do not automatically grant authority merely because a demo button was clicked.
+
+The authority change must be causally connected to:
+
+action → verification → state update → next authorization decision.
+
+16. HANDLE RESET CORRECTLY
+
+Reset proof must restore the initial seeded state.
+
+For example:
+
+Reliability 84
+Authority $250
+All seeded cases NEW
+
+Use the existing reset mechanism if one exists.
+
+Do not leave learned authority behind after reset unless that is explicitly how the current application is designed.
+
+17. TEST THE ACTUAL BEHAVIOR
+
+Before declaring this complete, test the complete sequence.
+
+TEST A — Routine success
+
+Process the $124 routine case.
+
+Verify:
+
+authorization succeeds
+action executes
+verification succeeds
+reliability changes
+authority changes
+audit event exists
+server state reflects the new values
+TEST B — Earned authority affects future authorization
+
+After TEST A, process the higher-value case.
+
+Verify that authorization uses the newly earned authority.
+
+TEST C — Verification failure
+
+Trigger the existing failure scenario.
+
+Verify:
+
+verification fails
+reliability decreases
+authority decreases
+audit event exists
+subsequent authorization uses the reduced authority
+TEST D — Hard safety boundary
+
+Verify that strong prior performance cannot bypass a hard safety constraint.
+
+TEST E — Reset
+
+Reset the proof.
+
+Verify that initial authority/reliability/state are restored.
+
+18. DO NOT CHANGE THE USER-FACING CORE MESSAGE
+
+Keep this central message prominent:
+
+The agent recommends. VOUCH decides.
+
+And preserve:
+
+PROVE → EARN → ACT → VERIFY → ADJUST
+
+The new feature should make those words true in the actual application.
+
+19. VISUAL / COPY GUIDANCE
+
+Use confident, concise language.
+
+Preferred:
+
+EARNED AUTHORITY
+
+VERIFIED SUCCESS
+
+AUTHORITY INCREASED
+
+AUTHORITY NOT EARNED
+
+VERIFICATION FAILED
+
+AUTHORITY REDUCED
+
+CURRENT AUTHORITY
+
+Avoid generic AI-safety language such as:
+
+“AI is dangerous”
+“Trust the AI”
+“AI safety layer”
+“human in the loop” as the primary story
+“escalate everything”
+
+The story is not that VOUCH constantly sends work to humans.
+
+The story is:
+
+The agent learns from verified work and earns the ability to handle more work autonomously.
+
+20. DO NOT OVERDESIGN
+
+Do NOT:
+
+rebuild the page
+replace the mascot
+add unnecessary animations
+add a new navigation system
+add a giant analytics dashboard
+add unrelated features
+change the project name
+change the core visual identity
+remove existing seeded cases
+replace the existing backend
+rewrite working APIs without necessity
+
+This is a surgical product upgrade.
+
+21. FINAL ACCEPTANCE CRITERIA
+
+This task is complete ONLY if a judge can watch the demo and understand:
+
+BEFORE
+
+The professional agent has limited earned authority.
+
+AFTER VERIFIED SUCCESS
+
+The agent has demonstrably earned more authority.
+
+AFTER FAILURE
+
+The agent can lose authority.
+
+NEXT REQUEST
+
+The changed authority actually affects what the agent is allowed to do.
+
+ALWAYS
+
+Current evidence, risk, policy, context, and hard safety constraints can override historical trust.
+
+The final product should make this statement demonstrably true:
+
+VOUCH lets professional agents earn autonomy through verified work.
+
+And the product should communicate:
+
+One agent. Every request reevaluated.
+
+Earned authority is bounded, revocable capability—not permanent permission.
+
+IMPORTANT: IMPLEMENTATION DISCIPLINE
+
+Before editing:
+
+Inspect the existing implementation.
+Identify the smallest safe change.
+Reuse existing state, APIs, database structures, authorization logic, and UI components wherever possible.
+Make the feature incrementally.
+Run existing tests.
+Add focused tests for the new behavior.
+Test the complete demo flow.
+Confirm no existing functionality regressed.
+
+If something already works, leave it alone.
+
+If there is a conflict between adding this feature and preserving an existing behavior, stop and explain the conflict rather than silently rewriting the architecture.
+
+At the end, report:
+
+files changed
+what changed
+how authority is now persisted
+how verified success changes authority
+how verification failure reduces authority
+how the next authorization decision consumes the changed authority
+tests run and results
+any limitations or remaining work
+
+Do not claim Strands, Bedrock, persistence, verification, or adaptive authority is working unless you actually verified it in the implementation.

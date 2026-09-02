@@ -58,12 +58,15 @@ describe("VOUCH authority engine", () => {
     const result = updateTrust(start, { status: "PASS", expected: "Approved", actual: "Approved", message: "verified" }, "Successful verified action");
     expect(result.trust.score).toBe(start.score + 1);
     expect(result.trust.autonomy).toBe("T3");
+    expect(result.trust.autonomousLimit).toBe(500);
+    expect(result.event).toMatchObject({ authorityFrom: 250, authorityTo: 500 });
   });
 
   it("demotes authority immediately after verification failure", () => {
     const result = updateTrust(initialTrust(), { status: "FAIL", expected: "Approved", actual: "Pending", message: "failed" }, "Verification failure");
     expect(result.trust.score).toBe(69);
     expect(result.trust.autonomy).toBe("T1");
+    expect(result.trust.autonomousLimit).toBe(100);
   });
 
   it("changes a future permission after trust and autonomy fall", () => {
@@ -72,6 +75,38 @@ describe("VOUCH authority engine", () => {
     expect(evaluateAction(scenario.action, scenario.evidence, earned.trust).authorization).toBe("EXECUTE");
     const demoted = updateTrust(earned.trust, { status: "FAIL", expected: "Approved", actual: "Pending", message: "failed" }, "Verification failure");
     expect(evaluateAction(scenario.action, scenario.evidence, demoted.trust).authorization).toBe("APPROVAL_REQUIRED");
+    expect(evaluateAction(scenario.action, scenario.evidence, demoted.trust)).toMatchObject({
+      authorityStatus: "EXCEEDS_LIMIT",
+      requestedAmount: 124,
+      autonomousLimit: 100,
+    });
+  });
+
+  it("uses persisted earned dollar authority in the next higher-value decision", () => {
+    const routine = scenarios.find((item) => item.id === "safe-review")!;
+    const exception = scenarios.find((item) => item.id === "human-refund")!;
+    const earned = updateTrust(
+      initialTrust(),
+      { status: "PASS", expected: "Resolved", actual: "Resolved", message: "verified" },
+      "Successful verified action · authority earned",
+    );
+    expect(evaluateAction(routine.action, routine.evidence, earned.trust).authorization).toBe("EXECUTE");
+    expect(evaluateAction(exception.action, exception.evidence, earned.trust)).toMatchObject({
+      authorization: "APPROVAL_REQUIRED",
+      authorityStatus: "EXCEEDS_LIMIT",
+      requestedAmount: 1240,
+      autonomousLimit: 500,
+    });
+  });
+
+  it("does not increase autonomous authority for human-authorized work", () => {
+    const result = updateTrust(
+      { ...initialTrust(), autonomousLimit: 500 },
+      { status: "PASS", expected: "Resolved", actual: "Resolved", message: "verified" },
+      "Human-authorized action verified",
+      { qualifiesForAuthority: false },
+    );
+    expect(result.trust.autonomousLimit).toBe(500);
   });
 
   it("restores ACT authority after a verified recovery sequence", () => {

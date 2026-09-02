@@ -45,6 +45,7 @@ const createSession = (id: string): SessionState => ({
 
 const normalizeSession = (session: SessionState): SessionState => ({
   ...session,
+  trust: { ...initialTrust(), ...session.trust, autonomousLimit: session.trust?.autonomousLimit ?? 250 },
   approvals: (session.approvals ?? [])
     .filter((item): item is ApprovalRecord => typeof item === "object" && item !== null)
     .map((item) => ({ ...item, expiresAt: item.expiresAt ?? new Date(Date.parse(item.createdAt) + 5 * 60_000).toISOString() })),
@@ -218,18 +219,29 @@ async function completeExecution(session: SessionState, record: ActionRecord, re
     persisted.trust,
     persistedRecord.verification,
     recovery ? "Monitored recovery sequence verified · authority restored" : persistedRecord.verification.status === "PASS" ? "Successful verified action · authority earned" : "Verification failure · authority reduced",
-    { recovery },
+    { recovery, qualifiesForAuthority: !authorizedByHuman },
   );
   persisted.trust = change.trust;
-  if (change.event.autonomyFrom !== change.event.autonomyTo) persisted.metrics.authorityChanges += 1;
+  const authorityChanged = change.event.autonomyFrom !== change.event.autonomyTo || change.event.authorityFrom !== change.event.authorityTo;
+  if (authorityChanged) persisted.metrics.authorityChanges += 1;
   persisted.trustHistory.unshift(change.event);
   persistedRecord.trustImpact = change.event.to - change.event.from;
   persistedRecord.state = transition(persistedRecord.state, "TRUST_UPDATED");
   persisted.activity = persistedRecord.verification.status === "PASS"
-    ? ["Authorization granted", "Executing action…", "Verifying outcome…", "Outcome verified", change.event.autonomyFrom !== change.event.autonomyTo ? `Authority changed · ${change.event.autonomyFrom} → ${change.event.autonomyTo}` : `Trust updated · ${change.event.from} → ${change.event.to}`]
-    : ["Authorization granted", "Executing action…", "Verifying outcome…", "Verification failed", `Autonomy reduced · ${change.event.autonomyFrom} → ${change.event.autonomyTo}`];
+    ? ["Authorization granted", "Executing action…", "Verifying outcome…", "Outcome verified", change.event.authorityFrom !== change.event.authorityTo ? `Earned authority · $${change.event.authorityFrom} → $${change.event.authorityTo}` : `Trust updated · ${change.event.from} → ${change.event.to}`]
+    : ["Authorization granted", "Executing action…", "Verifying outcome…", "Verification failed", `Authority reduced · $${change.event.authorityFrom} → $${change.event.authorityTo}`];
   addAudit(persisted, persistedRecord, persistedRecord.verification.status === "PASS" ? "VERIFICATION_PASS" : "VERIFICATION_FAILED", "VOUCH", persistedRecord.verification.status, persistedRecord.verification.message);
-  addAudit(persisted, persistedRecord, "AUTHORITY_UPDATED", "VOUCH", persisted.trust.autonomy, `${change.event.autonomyFrom} → ${change.event.autonomyTo}`);
+  addAudit(persisted, persistedRecord, "AUTHORITY_UPDATED", "VOUCH", persisted.trust.autonomy, `${change.event.autonomyFrom} → ${change.event.autonomyTo} · $${change.event.authorityFrom} → $${change.event.authorityTo}`);
+  if (change.event.authorityFrom !== change.event.authorityTo) {
+    addAudit(
+      persisted,
+      persistedRecord,
+      "AUTHORITY_ADJUSTED",
+      "VOUCH",
+      persistedRecord.verification.status === "PASS" ? "INCREASED" : "REDUCED",
+      `${change.event.reason} · reliability ${change.event.from} → ${change.event.to} · autonomous limit $${change.event.authorityFrom} → $${change.event.authorityTo}`,
+    );
+  }
   if (change.event.autonomyFrom !== change.event.autonomyTo) {
     addAudit(persisted, persistedRecord, persistedRecord.verification.status === "FAIL" ? "AUTHORITY_DEMOTED" : "AUTHORITY_INCREASED", "VOUCH", persisted.trust.autonomy, change.event.reason);
   }

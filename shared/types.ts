@@ -16,6 +16,7 @@ export type CasePriority = "LOW" | "MEDIUM" | "HIGH";
 export interface AgentTrust {
   score: number;
   autonomy: AutonomyLevel;
+  autonomousLimit: number;
   verifiedActions: number;
   verificationFailures: number;
   blockedUnsafeActions: number;
@@ -55,6 +56,9 @@ export interface ActionDecision {
   confidence: number;
   policy: "PASS" | "FAIL";
   authority: string;
+  requestedAmount?: number;
+  autonomousLimit?: number;
+  authorityStatus?: "WITHIN_LIMIT" | "EXCEEDS_LIMIT" | "NOT_APPLICABLE";
 }
 
 export interface AgentRecommendation {
@@ -92,6 +96,8 @@ export interface TrustEvent {
   reason: string;
   autonomyFrom: AutonomyLevel;
   autonomyTo: AutonomyLevel;
+  authorityFrom: number;
+  authorityTo: number;
 }
 
 export interface AuditEvent {
@@ -114,7 +120,14 @@ export interface AuditEvent {
   agentRecommendation?: AgentRecommendation;
   authorization?: AuthorizationDecision;
   verification?: VerificationResult;
-  trustChange?: { from: number; to: number; autonomyFrom: AutonomyLevel; autonomyTo: AutonomyLevel };
+  trustChange?: {
+    from: number;
+    to: number;
+    autonomyFrom: AutonomyLevel;
+    autonomyTo: AutonomyLevel;
+    authorityFrom: number;
+    authorityTo: number;
+  };
 }
 
 export interface ResolutionRecord {
