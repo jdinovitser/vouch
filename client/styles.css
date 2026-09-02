@@ -477,6 +477,7 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .story-hero-visual:after { content: "TRUST BOUNDARY  /  POLICY ONLINE"; position: absolute; left: 12%; top: 8%; color: #4c7193; font: 500 7px var(--mono); letter-spacing: .14em; z-index: 1; }
 .story-hero-visual .orbit-a { width: 320px; height: 320px; }
 .story-hero-visual .guardian { transform: scale(1.4); z-index: 2; }
+.story-hero-visual > .authority-knight { transform: scale(1.1); z-index: 2; }
 .hero-state-card { position: absolute; right: 5%; bottom: 8%; width: 210px; padding: 15px; border: 1px solid var(--line); border-radius: 6px; background: #0c1c2c; box-shadow: 0 20px 45px rgba(0,0,0,.3); }
 .hero-state-card b { display: block; margin: 9px 0 5px; color: var(--text); font-size: 12px; }
 .hero-state-card small { color: var(--muted); font-size: 9px; line-height: 1.5; }
@@ -546,6 +547,7 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .autonomy-step > span { color: var(--blue-bright); font: 700 25px var(--display); }.autonomy-step > b { display: block; margin: 10px 0 8px; font: 600 10px var(--mono); letter-spacing: .1em; }.autonomy-step p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.5; }.autonomy-step > svg { position: absolute; right: -18px; top: 70px; color: #42617f; z-index: 1; }.level-T2 { border-top: 2px solid var(--amber); }.level-T3 { border-top: 2px solid var(--green); box-shadow: 0 10px 30px rgba(72,213,151,.08); }.level-T4 { border-top: 2px solid var(--purple); }.autonomy-note { display: flex; gap: 8px; align-items: center; margin-top: 23px; color: var(--amber); font: 500 9px var(--mono); }
 .autonomy-step > .authority-knight { float:right; margin:-16px -9px 4px 5px; }
 .trust-product { display: grid; grid-template-columns: 120px .8fr 1.2fr; gap: 25px; align-items: center; padding: 75px 0; border-top: 1px solid var(--line-soft); }
+.trust-product .authority-knight-caption { display: none; }
 .trust-loop { display: grid; grid-template-columns: 1fr 18px 1fr 18px 1fr; gap: 9px; align-items: center; color: #a2b3c3; font-size: 10px; line-height: 1.4; }.trust-loop svg { color: var(--blue); }.trust-loop b { color: var(--green); }.trust-loop strong { grid-column: 1 / -1; color: var(--red); font: 500 8px var(--mono); letter-spacing: .12em; padding-top: 10px; border-top: 1px solid var(--line-soft); }.trust-loop strong ~ span { color: #8598aa; }.trust-loop .down-text { color: var(--red); }
 
 /* Guardian states */
