@@ -21,6 +21,12 @@ Authority-tier visuals are a separate progression and must derive only from the 
 
 **How to apply:** Render tiers through the shared authority component using the session autonomy value. Never let Knight state determine or mutate authority, and do not add riding animation or game mechanics.
 
+T5 is a celebration illustration, not an authority tier. Use it only after a verified proof completes; the server authority model remains T1–T4 and must still be shown separately.
+
+**Why:** Celebration communicates a successful lifecycle outcome without inventing a capability level the authorization engine does not issue.
+
+**How to apply:** Render T5 from verified completion state only. Never store, label, or evaluate T5 as agent authority.
+
 Knight props have fixed product meanings: shield = policy, sword = earned authority, horse = delegated authority, ledger = verified history, and gate = the authorization boundary. Never add a crown.
 
 **Why:** The mascot is an explanatory system, not decoration or a game layer. Stable semantics let users read authority changes without weakening the enterprise security model.

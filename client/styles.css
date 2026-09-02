@@ -646,6 +646,8 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .knight-tier-card .authority-knight { min-height: 270px; }
 .autonomy-step { min-height: 210px; }
 .authority-knight .knight-artwork { width: 185px; }
+.knight-authority-image { display: block; height: auto; object-fit: contain; }
+.authority-knight-T1, .authority-knight-T2 { filter: none; }
 .authority-knight-small .knight-artwork { width: 92px; }
 .guardian-halo .authority-knight .knight-artwork { width: 165px; }
 .stage-graphic > .authority-knight .knight-artwork { width: 203px; }

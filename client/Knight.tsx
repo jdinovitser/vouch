@@ -148,4 +148,4 @@ export function KnightArtwork({ state, showShadow = true, authorityLevel }: { st
   </svg>;
 }
 
-export { KnightAuthority, authorityKnightLabels } from "./KnightAuthority";
+export { CelebrationKnight, KnightAuthority, authorityKnightLabels } from "./KnightAuthority";
