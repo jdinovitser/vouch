@@ -19,6 +19,47 @@ type LiveInvoker = (action: ActionRequest, evidence: EvidenceItem[]) => Promise<
   toolCalls: string[];
 }>;
 
+type AwsFailure = {
+  name?: unknown;
+  code?: unknown;
+  message?: unknown;
+  $metadata?: {
+    httpStatusCode?: unknown;
+    requestId?: unknown;
+    extendedRequestId?: unknown;
+    cfId?: unknown;
+    attempts?: unknown;
+    totalRetryDelay?: unknown;
+  };
+  $response?: {
+    statusCode?: unknown;
+  };
+};
+
+function logAwsFailure(error: unknown) {
+  const failure = error as AwsFailure;
+  const metadata = failure.$metadata;
+  console.error("[VOUCH] Bedrock invocation failed", {
+    name: typeof failure.name === "string" ? failure.name : undefined,
+    code: typeof failure.code === "string" ? failure.code : undefined,
+    httpStatus: typeof metadata?.httpStatusCode === "number"
+      ? metadata.httpStatusCode
+      : typeof failure.$response?.statusCode === "number"
+        ? failure.$response.statusCode
+        : undefined,
+    message: error instanceof Error
+      ? error.message
+      : typeof failure.message === "string"
+        ? failure.message
+        : String(error),
+    requestId: typeof metadata?.requestId === "string" ? metadata.requestId : undefined,
+    extendedRequestId: typeof metadata?.extendedRequestId === "string" ? metadata.extendedRequestId : undefined,
+    cfId: typeof metadata?.cfId === "string" ? metadata.cfId : undefined,
+    attempts: typeof metadata?.attempts === "number" ? metadata.attempts : undefined,
+    totalRetryDelay: typeof metadata?.totalRetryDelay === "number" ? metadata.totalRetryDelay : undefined,
+  });
+}
+
 export function describeAwsFailure(error: unknown) {
   const message = error instanceof Error ? error.message : String(error);
   if (/too many tokens|quota|throttl/i.test(message)) return "AWS invocation attempted; Bedrock quota is currently exhausted — deterministic fallback used";
@@ -134,6 +175,7 @@ export async function runStrandsEvaluation(
         lastInvocationAt: new Date().toISOString(),
       };
     } catch (error) {
+      logAwsFailure(error);
       service = {
         mode: "DEMO",
         available: false,
