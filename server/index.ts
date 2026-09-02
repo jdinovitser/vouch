@@ -198,11 +198,15 @@ async function completeExecution(session: SessionState, record: ActionRecord, re
     approval.status = "CONSUMED";
     approval.consumedAt = new Date().toISOString();
   }
+  record.authorizationSource = authorizedByHuman ? "HUMAN" : "AUTONOMOUS";
   if (record.state !== "AUTHORIZED") record.state = transition(record.state, "AUTHORIZED");
   record.state = transition(record.state, "EXECUTING");
   record.execution = workCase ? execute_case_action(record.action, workCase, Boolean(scenario.failVerification)) : execute_action(record.action);
   addAudit(session, record, "ACTION_EXECUTED", "VOUCH", "EXECUTED", record.execution.message);
   addAudit(session, record, "PROTECTED_MUTATION", "VOUCH", "EXECUTED", record.execution.message);
+  if (authorizedByHuman) {
+    addAudit(session, record, "HUMAN_AUTHORIZED_ACTION_EXECUTED", "VOUCH", "EXECUTED", "Protected action executed after professional authorization");
+  }
   session.currentAction = record;
   await saveSession(session);
   const persisted = (await loadSession(session.sessionId))!;
@@ -228,9 +232,12 @@ async function completeExecution(session: SessionState, record: ActionRecord, re
   persistedRecord.trustImpact = change.event.to - change.event.from;
   persistedRecord.state = transition(persistedRecord.state, "TRUST_UPDATED");
   persisted.activity = persistedRecord.verification.status === "PASS"
-    ? ["Authorization granted", "Executing action…", "Verifying outcome…", "Outcome verified", change.event.authorityFrom !== change.event.authorityTo ? `Earned authority · $${change.event.authorityFrom} → $${change.event.authorityTo}` : `Trust updated · ${change.event.from} → ${change.event.to}`]
+    ? [authorizedByHuman ? "Human authorization recorded" : "Autonomous authorization granted", authorizedByHuman ? "Executing human-authorized action…" : "Executing action…", "Verifying outcome…", "Outcome verified", authorizedByHuman ? `Autonomous authority unchanged · $${persisted.trust.autonomousLimit}` : change.event.authorityFrom !== change.event.authorityTo ? `Earned authority · $${change.event.authorityFrom} → $${change.event.authorityTo}` : `Trust updated · ${change.event.from} → ${change.event.to}`]
     : ["Authorization granted", "Executing action…", "Verifying outcome…", "Verification failed", `Authority reduced · $${change.event.authorityFrom} → $${change.event.authorityTo}`];
   addAudit(persisted, persistedRecord, persistedRecord.verification.status === "PASS" ? "VERIFICATION_PASS" : "VERIFICATION_FAILED", "VOUCH", persistedRecord.verification.status, persistedRecord.verification.message);
+  if (authorizedByHuman && persistedRecord.verification.status === "PASS") {
+    addAudit(persisted, persistedRecord, "HUMAN_AUTHORIZED_ACTION_VERIFIED", "VOUCH", "PASS", "Outcome independently verified after professional authorization");
+  }
   addAudit(persisted, persistedRecord, "AUTHORITY_UPDATED", "VOUCH", persisted.trust.autonomy, `${change.event.autonomyFrom} → ${change.event.autonomyTo} · $${change.event.authorityFrom} → $${change.event.authorityTo}`);
   if (change.event.authorityFrom !== change.event.authorityTo) {
     addAudit(
@@ -249,6 +256,7 @@ async function completeExecution(session: SessionState, record: ActionRecord, re
   if (persistedRecord.verification.status === "PASS") {
     persisted.metrics.verifiedOutcomes += 1;
     if (!authorizedByHuman) persisted.metrics.autonomousResolutions += 1;
+    if (authorizedByHuman) persisted.metrics.humanAuthorizedActions += 1;
     persisted.metrics.minutesSaved += authorizedByHuman ? 6 : 14;
     if (persistedCase) {
       persistedCase.status = "RESOLVED";
@@ -295,8 +303,10 @@ app.post("/api/actions/:actionId/approve", async (req, res) => {
   }
   approval.status = "APPROVED";
   approval.decidedAt = new Date().toISOString();
+  record.authorizationSource = "HUMAN";
+  record.humanDecision = "APPROVED";
   record.state = transition(record.state, "AUTHORIZED");
-  addAudit(session, record, "HUMAN_AUTHORIZATION", "HUMAN", "APPROVED", "Human approval recorded");
+  addAudit(session, record, "HUMAN_AUTHORIZATION_GRANTED", "HUMAN", "APPROVED", "Professional authorization recorded for this exact action");
   return completeExecution(session, record, res, true);
 });
 
@@ -304,18 +314,21 @@ app.post("/api/actions/:actionId/reject", async (req, res) => {
   const session = await getSession(req, res);
   const record = session.currentAction;
   if (!record || record.action.id !== req.params.actionId || record.state !== "APPROVAL_REQUIRED") return res.status(409).json({ error: "Rejection is not currently available for this action" });
-  record.state = transition(record.state, "BLOCKED");
-  record.execution = { status: "CANCELLED", message: "Action cancelled by human decision." };
   const approval = session.approvals.find((item) => item.id === record.approvalId && item.status === "PENDING");
   if (!approval) return res.status(409).json({ error: "Approval has already been decided or is no longer valid" });
+  record.authorizationSource = "HUMAN";
+  record.humanDecision = "DECLINED";
+  record.state = transition(record.state, "BLOCKED");
+  record.execution = { status: "CANCELLED", message: "Action not executed; professional declined human authorization." };
   approval.status = "REJECTED";
   approval.decidedAt = new Date().toISOString();
-  addAudit(session, record, "HUMAN_REJECTION", "HUMAN", "REJECTED", "Action cancelled and recorded");
+  addAudit(session, record, "HUMAN_AUTHORIZATION_DECLINED", "HUMAN", "DECLINED", "Professional declined authorization; protected state remains unchanged");
   const workCase = caseForScenario(session.cases, record.action.scenarioId);
   if (workCase) {
     workCase.status = "BLOCKED";
     workCase.lastAction = "Professional rejected the proposed resolution";
   }
+  session.activity = ["Human decision declined", "Action not executed", "Protected state unchanged", "Decision preserved in audit"];
   session.metrics.casesProcessed += 1;
   session.history.unshift(record);
   await saveSession(session);

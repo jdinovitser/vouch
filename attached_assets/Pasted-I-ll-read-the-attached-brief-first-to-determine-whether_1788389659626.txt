@@ -1,0 +1,103 @@
+I’ll read the attached brief first to determine whether it contains a new implementation request or just context, then I’ll act on any concrete requirements it contains.
+
+
+
+3 actions
+The attached brief is an implementation specification for a surgical “earned authority” upgrade, not just reference material. I’ll compare it against the current code and tests first, identify any missing pieces, then make only the smallest necessary changes without replacing the existing VOUCH architecture.
+
+
+
+4 actions
+The audit found the core gap: VOUCH already persists trust and authority tiers, but it does not yet persist a numeric dollar limit that changes authorization after verified work. I’ll now inspect the existing trust, policy, session, audit, and demo paths closely, then patch that boundary and add focused regression coverage.
+
+
+
+14 actions
+The implementation path is clear: add one persisted autonomousLimit field to the existing AgentTrust object, make policy compare requested dollar amounts against it, adjust it only after fresh verification, and expose the change in the existing credential/proof UI and audit records. I’ll preserve the current tier logic, conflict blocking, approvals, Strands adapter, and reset behavior.
+
+
+
+21 actions
+The server-side authority model and UI wiring are now in place. I’m running the fast type/test checks next; I expect to catch any compatibility issues from old persisted sessions or the new audit fields before polishing the compact authority visuals.
+
+
+
+6 actions
+The focused checks pass. I’ve also added the compact requested-versus-earned boundary and before/after authority callouts. I’ll now run the full suite and production build, restart the app once, and exercise the live API sequence to confirm the persisted limit actually changes future authorization.
+
+
+
+6 actions
+The complete live sequence now proves the requested behavior: $250 → $500 after verified routine work, $1,240 requires approval against the $500 limit, a failed verification reduces authority to $100, the same $124 action then requires approval, and prompt injection still blocks regardless of history. I’m doing the final visual and runtime-log check now.
+
+
+
+3 actions
+The app is visually healthy and the runtime sequence is verified. I found only the known Bedrock daily-token quota fallback in logs; it remains honestly labeled and does not affect the deterministic authority proof. I’m recording the new authority policy as a durable project invariant, then I’ll provide the completion report.
+
+
+
+4 actions
+Implemented the attached VOUCH FANGS earned-authority upgrade without replacing the existing architecture.
+
+What changed
+Added a persisted server-side autonomous dollar limit to the existing trust state.
+Initial state:
+Reliability: 84/100
+Tier: T2 · RECOMMEND
+Earned autonomous limit: $250
+Verified autonomous success raises the limit by $250, capped at $1,000.
+Verification failure reduces the limit to 20% of its prior value, with a $100 floor.
+Human-authorized work does not automatically expand autonomous authority.
+Every monetary request is compared with the current persisted limit during fresh server authorization.
+Added canonical AUTHORITY_ADJUSTED audit events with:
+Previous/new reliability
+Previous/new dollar limits
+Reason
+Case and verification context
+Added compact UI proof for:
+Requested amount
+Earned limit
+AUTHORITY INCREASED
+AUTHORITY REDUCED
+AUTHORITY NOT EARNED
+Updated the guided demo to re-evaluate the failed $124 action after demotion before proceeding to the security case.
+Verified live sequence
+Routine $124 case executes and verifies.
+Reliability: 84 → 85
+Tier: T2 → T3
+Authority: $250 → $500
+The next $1,240 refund is reevaluated.
+Decision: APPROVAL_REQUIRED
+Reason: AUTHORITY NOT EARNED
+Requested: $1,240
+Earned limit: $500
+Human approval executes successfully without expanding the autonomous limit.
+Verification failure occurs.
+Reliability: 86 → 71
+Tier: T3 → T2
+Authority: $500 → $100
+The same $124 action is reevaluated.
+Decision changes to APPROVAL_REQUIRED
+Requested $124 exceeds the new $100 limit
+Prompt injection remains BLOCKED regardless of prior performance.
+Reset restores the seeded state.
+Files changed
+shared/types.ts
+server/trust.ts
+server/policy.ts
+server/audit.ts
+server/index.ts
+client/App.tsx
+client/styles.css
+tests/policy.test.ts
+Project memory documenting the deterministic authority policy
+Validation
+TypeScript check: passed
+Tests: 48 passed
+Production build: passed
+Live API lifecycle: passed
+Workflow: running
+Visual preview: healthy
+Strands/Bedrock remains intact; the known daily-token quota currently causes the honestly labeled deterministic fallback.
+The latest changes are ready to publish.

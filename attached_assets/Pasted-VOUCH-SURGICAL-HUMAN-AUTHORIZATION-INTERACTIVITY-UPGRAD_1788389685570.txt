@@ -1,0 +1,575 @@
+VOUCH — SURGICAL HUMAN AUTHORIZATION + INTERACTIVITY UPGRADE
+
+We have now tested the published VOUCH demo end-to-end and it works well. Do not redesign it, rebuild it, or replace working architecture.
+
+The demo already looks polished and already proves the core adaptive-authority behavior:
+
+VERIFIED WORK → EARNED AUTHORITY → MORE CAPABILITY
+
+and
+
+VERIFICATION FAILURE → REDUCED AUTHORITY → LESS CAPABILITY
+
+I want ONE focused product improvement:
+
+ADD A REAL HUMAN-AUTHORIZATION INTERACTION
+
+The purpose is to make the Professional Agents story stronger.
+
+VOUCH must clearly demonstrate:
+
+The agent recommends. VOUCH decides whether autonomous authority is earned. When it isn't, the professional can make the decision themselves.
+
+This is NOT an "override VOUCH" mechanism.
+
+Do NOT create a generic bypass button.
+
+Call the interaction:
+
+HUMAN AUTHORIZATION
+
+or
+
+PROFESSIONAL APPROVAL
+
+The human is taking responsibility for an action that the agent has NOT earned autonomous authority to perform.
+
+1. INSPECT THE EXISTING IMPLEMENTATION FIRST
+
+Before changing anything:
+
+Inspect the existing demo flow.
+Inspect the current approval-required state.
+Inspect current server-side authorization.
+Inspect current audit implementation.
+Inspect existing human-approval behavior if any.
+Inspect the current 01–06 guided demo stages.
+Inspect the existing autonomousLimit implementation.
+Inspect current persisted trust/authority state.
+
+Do not duplicate existing functionality.
+
+Reuse the existing authorization, action, verification, audit, and state mechanisms wherever possible.
+
+2. ADD HUMAN AUTHORIZATION TO APPROVAL-REQUIRED CASES
+
+When VOUCH determines:
+
+APPROVAL_REQUIRED
+
+because the requested action exceeds the agent's current earned autonomous authority, the UI should make the decision interactive.
+
+Example:
+
+VOUCH DECISION
+
+AUTONOMOUS ACTION: NOT AUTHORIZED
+
+Requested amount: $1,240
+
+Earned autonomous authority: $500
+
+Reason:
+
+AUTHORITY NOT EARNED
+
+Then provide two clear actions:
+
+[ APPROVE AS HUMAN ]
+
+[ DECLINE ]
+
+Keep the existing visual language and design system.
+
+Do not introduce a new visual framework or redesign the page.
+
+3. HUMAN APPROVAL MUST BE A REAL SERVER-SIDE STATE TRANSITION
+
+Do NOT make the button cosmetic.
+
+When the user selects:
+
+APPROVE AS HUMAN
+
+the server must record a real human authorization state before the protected action executes.
+
+The sequence should be:
+
+REQUEST
+→ EVIDENCE
+→ RISK
+→ VOUCH AUTHORITY CHECK
+→ APPROVAL REQUIRED
+→ HUMAN AUTHORIZATION
+→ ACTION
+→ VERIFICATION
+→ AUDIT
+
+Use the existing server-side architecture.
+
+Do not let the client simply declare that the action was approved.
+
+4. HUMAN APPROVAL MUST NOT INCREASE AUTONOMOUS AUTHORITY
+
+This is critical.
+
+If the professional approves a $1,240 action:
+
+The action may execute.
+The outcome may be verified.
+The human authorization must be recorded.
+But autonomous authority must NOT increase merely because the human approved it.
+
+The UI should explicitly communicate this.
+
+For example:
+
+✓ HUMAN AUTHORIZED
+
+✓ ACTION EXECUTED
+
+✓ OUTCOME VERIFIED
+
+AUTONOMOUS AUTHORITY: $500
+
+AUTHORITY NOT EARNED
+
+The point is:
+
+Human approval proves that the professional accepted the decision. It does not prove that the agent has earned the right to make that decision autonomously.
+
+This distinction is central to VOUCH.
+
+5. ADD DECLINE BEHAVIOR
+
+If the user selects:
+
+DECLINE
+
+do not execute the protected action.
+
+Record the human decision in the audit trail using the existing audit architecture.
+
+Show a compact result such as:
+
+HUMAN DECISION: DECLINED
+
+ACTION NOT EXECUTED
+
+Do not modify autonomous authority.
+
+6. ADD CLEAR AUDIT EVENTS
+
+Use the existing canonical audit system.
+
+Add appropriate events for:
+
+human authorization granted
+human authorization declined
+human-authorized action executed
+human-authorized action verified
+
+Do not create a completely separate audit architecture.
+
+The audit should make it possible to distinguish:
+
+AUTONOMOUS ACTION
+
+from
+
+HUMAN-AUTHORIZED ACTION
+
+This distinction should be obvious to a technical judge inspecting the implementation.
+
+7. STRENGTHEN THE GUIDED DEMO
+
+Use the existing guided demo.
+
+Do NOT add a seventh stage.
+
+Do NOT remove any existing stages.
+
+The existing stages remain:
+
+01 ROUTINE
+02 EXCEPTION
+03 APPROVE
+04 FAILURE
+05 SECURITY
+06 COMPLETE
+
+Make 03 APPROVE genuinely interactive.
+
+The intended sequence should be:
+
+01 ROUTINE
+
+$124 request.
+
+Current autonomous authority:
+
+$250
+
+VOUCH allows the action.
+
+Action executes.
+
+Verification succeeds.
+
+Authority increases:
+
+$250 → $500
+
+Reliability increases as currently implemented.
+
+The UI already proves this. Preserve it.
+
+02 EXCEPTION
+
+Present the higher-value request.
+
+For example:
+
+$1,240
+
+Current earned autonomous authority:
+
+$500
+
+VOUCH reevaluates the current request.
+
+Result:
+
+APPROVAL REQUIRED
+
+Reason:
+
+AUTHORITY NOT EARNED
+
+Do not automatically execute it.
+
+03 APPROVE
+
+Now make the judge participate.
+
+Show:
+
+VOUCH REQUIRES HUMAN AUTHORIZATION
+
+Requested:
+
+$1,240
+
+Earned autonomous authority:
+
+$500
+
+Then:
+
+[ APPROVE AS HUMAN ]
+
+[ DECLINE ]
+
+If the judge chooses approval:
+
+Show the real lifecycle:
+
+HUMAN AUTHORIZED
+↓
+ACTION EXECUTED
+↓
+OUTCOME VERIFIED
+↓
+AUTONOMOUS AUTHORITY REMAINS $500
+
+Explicitly show:
+
+AUTHORITY NOT EARNED
+
+This is the key teaching moment.
+
+04 FAILURE
+
+Preserve the existing verification-failure sequence.
+
+Verification failure should still reduce:
+
+$500 → $100
+
+and reliability/tier should change exactly as currently implemented.
+
+Then reevaluate the same $124 request.
+
+Because:
+
+$124 > $100
+
+the action now requires human authorization.
+
+This proves that the system learned from verified failure by reducing what the agent can do autonomously.
+
+05 SECURITY
+
+Preserve the existing security boundary.
+
+A malicious/conflicting/untrusted instruction must remain blocked regardless of previous successful performance.
+
+Human approval must NOT become a mechanism for silently bypassing the hard security boundary.
+
+Do not weaken existing security behavior.
+
+06 COMPLETE
+
+Preserve the existing audit/professional-impact summary.
+
+If appropriate, add a compact summary showing:
+
+AUTONOMOUS ACTIONS
+
+HUMAN-AUTHORIZED ACTIONS
+
+BLOCKED
+
+VERIFICATION FAILURES
+
+This should reinforce that VOUCH separates autonomous authority from professional judgment.
+
+8. IMPORTANT PRODUCT LANGUAGE
+
+Avoid the word:
+
+OVERRIDE
+
+for this feature.
+
+The professional is not "overriding" VOUCH.
+
+The professional is exercising human authority where autonomous authority has not been earned.
+
+Preferred language:
+
+HUMAN AUTHORIZATION
+
+PROFESSIONAL APPROVAL
+
+AUTONOMOUS AUTHORITY NOT EARNED
+
+HUMAN DECISION REQUIRED
+
+This should reinforce the core product idea:
+
+The agent recommends. VOUCH decides. The professional remains the final authority when autonomy has not been earned.
+
+9. DO NOT CHANGE THE CORE AUTHORITY MODEL
+
+Preserve all existing rules:
+
+Initial reliability remains 84/100.
+Initial tier remains T2 · RECOMMEND.
+Initial autonomous limit remains $250.
+Verified autonomous success raises authority by $250.
+Maximum autonomous authority remains $1,000.
+Verification failure reduces authority to 20% of the prior limit.
+$100 remains the floor.
+Human-authorized work does NOT automatically increase autonomous authority.
+Every monetary request is reevaluated against current persisted authority.
+Hard safety/security constraints remain absolute.
+Reset restores seeded state.
+
+Do not alter these rules merely to make the new interaction work.
+
+10. PRESERVE STRANDS + BEDROCK
+
+Do not remove, replace, or bypass the existing Strands/Bedrock agent architecture.
+
+The intended separation remains:
+
+STRANDS-POWERED PROFESSIONAL AGENT
+→ gathers evidence
+→ reasons
+→ recommends
+
+then:
+
+VOUCH DETERMINISTIC AUTHORITY ENGINE
+→ evaluates current authority
+→ ALLOW / APPROVAL_REQUIRED / BLOCK
+
+then:
+
+CONTROLLED ACTION
+→ verification
+→ trust/authority adjustment
+
+Never allow an LLM to directly determine consequential authorization.
+
+If the existing Bedrock quota fallback is active, preserve the existing honest fallback labeling. Do not pretend deterministic fallback is Strands.
+
+11. UX REQUIREMENTS
+
+Keep this visually compact.
+
+Do not create a giant modal or complicated workflow.
+
+The judge should understand the decision within seconds.
+
+The important visual information is:
+
+REQUESTED
+
+EARNED
+
+DECISION
+
+HUMAN ACTION
+
+OUTCOME
+
+For example:
+
+REQUESTED: $1,240
+EARNED AUTONOMOUS AUTHORITY: $500
+
+VOUCH: HUMAN AUTHORIZATION REQUIRED
+
+[ APPROVE AS HUMAN ] [ DECLINE ]
+
+After approval:
+
+✓ HUMAN AUTHORIZED
+✓ ACTION EXECUTED
+✓ VERIFIED
+
+AUTONOMOUS AUTHORITY: $500
+
+AUTHORITY NOT EARNED
+
+12. DO NOT MAKE THE DEMO TOO INTERACTIVE
+
+This is a focused improvement, not a simulation game.
+
+The judge should have meaningful agency at the important decision point, but the guided narrative should remain deterministic and easy to follow.
+
+One meaningful human decision is better than ten unnecessary controls.
+
+13. TEST THE COMPLETE LIFECYCLE
+
+Add/update tests as appropriate.
+
+At minimum verify:
+
+Autonomous request within current authority can execute.
+Successful autonomous verification increases authority.
+Request above current authority returns APPROVAL_REQUIRED.
+Human approval allows the protected action through the proper server-side authorization path.
+Human approval does NOT increase autonomous authority.
+Human decline prevents execution.
+Human authorization is recorded in audit state.
+Verification failure still reduces authority.
+Reduced authority affects the next request.
+Hard security boundaries remain enforced.
+Reset restores initial state.
+
+Run:
+
+TypeScript/type checking
+existing test suite
+production build
+live API lifecycle if already available
+published demo smoke test if practical
+
+Do not declare success unless the tests actually pass.
+
+14. FINAL ACCEPTANCE TEST
+
+The finished demo should allow a judge to experience this story:
+
+FIRST
+
+The agent successfully handles a $124 routine claim.
+
+$250 → $500 earned authority
+
+THEN
+
+The agent encounters a $1,240 claim.
+
+$1,240 > $500
+
+VOUCH says:
+
+HUMAN AUTHORIZATION REQUIRED
+
+THEN
+
+The judge clicks:
+
+APPROVE AS HUMAN
+
+The action executes.
+
+But:
+
+AUTONOMOUS AUTHORITY STAYS $500
+
+The agent did NOT earn additional authority merely because the professional approved it.
+
+THEN
+
+A verification failure occurs.
+
+$500 → $100
+
+THEN
+
+The same $124 request is reevaluated.
+
+$124 > $100
+
+So the agent can no longer autonomously perform it.
+
+That is the product.
+
+The professional can make decisions.
+
+The agent can earn autonomy.
+
+Verified success can increase what the agent is allowed to do.
+
+Verified failure can reduce what the agent is allowed to do.
+
+And hard safety boundaries remain intact.
+
+15. ABSOLUTE CONSTRAINT
+
+Do not:
+
+rebuild the app
+redesign the UI
+replace the current architecture
+remove the existing demo stages
+remove Strands
+remove Bedrock
+remove Postgres persistence
+weaken security
+turn authority into a client-side variable
+make human approval cosmetic
+make human approval increase autonomous authority
+add a generic "override" bypass
+add unnecessary features
+change working behavior unrelated to this request
+
+This is a surgical interaction upgrade to the already-working VOUCH demo.
+
+At completion, report:
+
+Files changed
+Human authorization implementation
+Server-side state transition
+Audit events added/updated
+Confirmation that human approval does NOT increase autonomous authority
+Tests run and results
+Any limitations
+Exact steps to test the new interactive flow in the published demo
+
+Do not claim anything that was not actually implemented and tested.

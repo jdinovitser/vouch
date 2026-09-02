@@ -23,6 +23,7 @@ export function initialMetrics(): AgentMetrics {
     verifiedOutcomes: 0,
     minutesSaved: 0,
     authorityChanges: 0,
+    humanAuthorizedActions: 0,
   };
 }
 

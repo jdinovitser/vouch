@@ -21,6 +21,7 @@ export function auditFor(session: SessionState, record: ActionRecord, type: stri
     observedState: record.verification?.actual,
     agentRecommendation: record.agentRecommendation,
     authorization: record.decision?.authorization,
+    authorizationSource: record.authorizationSource,
     verification: record.verification,
     trustChange: record.trustImpact === undefined ? undefined : {
       from: session.trust.score - record.trustImpact,

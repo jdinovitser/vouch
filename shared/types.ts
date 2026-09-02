@@ -9,6 +9,8 @@ export type WorkflowState =
   | "AUTHORIZED" | "EXECUTING" | "VERIFYING" | "VERIFIED" | "VERIFICATION_FAILED"
   | "TRUST_UPDATED";
 export type AuthorizationDecision = "EXECUTE" | "APPROVAL_REQUIRED" | "BLOCKED";
+export type AuthorizationSource = "AUTONOMOUS" | "HUMAN";
+export type HumanDecision = "APPROVED" | "DECLINED";
 export type ActionResult = "PENDING" | "EXECUTED" | "CANCELLED" | "FAILED";
 export type ClaimsCaseStatus = "NEW" | "INVESTIGATING" | "APPROVAL_REQUIRED" | "RESOLVED" | "BLOCKED" | "VERIFICATION_FAILED";
 export type CasePriority = "LOW" | "MEDIUM" | "HIGH";
@@ -119,6 +121,7 @@ export interface AuditEvent {
   observedState?: string;
   agentRecommendation?: AgentRecommendation;
   authorization?: AuthorizationDecision;
+  authorizationSource?: AuthorizationSource;
   verification?: VerificationResult;
   trustChange?: {
     from: number;
@@ -199,6 +202,7 @@ export interface AgentMetrics {
   verifiedOutcomes: number;
   minutesSaved: number;
   authorityChanges: number;
+  humanAuthorizedActions: number;
 }
 
 export interface ActionRecord {
@@ -214,6 +218,8 @@ export interface ActionRecord {
   caseId?: string;
   caseVersion?: number;
   approvalId?: string;
+  authorizationSource?: AuthorizationSource;
+  humanDecision?: HumanDecision;
 }
 
 export interface SessionState {
