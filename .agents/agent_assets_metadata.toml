@@ -1,0 +1,72 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "rc5qZTrZUspn8FSGCYkS5"
+uri = "file://attached_assets/generated_images/vouch-trainee-original.png"
+type = "image"
+title = "VOUCH Trainee"
+description = "Original transparent PNG trainee character in regular clothes, with no armor or weapons."
+logical_id = "df72c570-fa91-4b3b-9065-0d27b80f613f"
+content_hash = "sha256:3b2028fd13d3bbaf948d2d2a2c66818658b7eebdc09a6406030b722530d67f11"
+size = 1110153
+mtime_ms = 1788385264895
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/df72c570-fa91-4b3b-9065-0d27b80f613f/34432dde-0d9e-4d27-910c-9935336fc40f"
+storage_version_token = "1788385282535925"
+content_type = "image/png"
+
+[[outputs]]
+id = "cr-3ilYlbKsAw1cjK0EEe"
+uri = "file://attached_assets/generated_images/vouch-squire-original.png"
+type = "image"
+title = "VOUCH Squire"
+description = "Original transparent PNG squire with a wooden training sword and shield, without a cape."
+logical_id = "cf38e8f7-de06-43ea-97ef-0905817b6f79"
+content_hash = "sha256:86d037392f02494790f53a9d7c1d8fa74727e7dd115dd5bdd9f8e5e97fcddcb1"
+size = 1260132
+mtime_ms = 1788385265240
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/cf38e8f7-de06-43ea-97ef-0905817b6f79/49a2e7b7-ca6e-4655-bf81-2c9f6b9bd1b7"
+storage_version_token = "1788385283129277"
+content_type = "image/png"
+
+[[outputs]]
+id = "AZ2JRvwd2-RNU-r2mMmWp"
+uri = "file://attached_assets/generated_images/vouch-warrior-original.png"
+type = "image"
+title = "VOUCH Warrior"
+description = "Original transparent PNG warrior in full armor with sword and shield, without a cape."
+logical_id = "c14d55af-d4ce-49c1-9ca2-6e62de9a3482"
+content_hash = "sha256:f854d9c4e8d0d10a6192bab4a3be3224ec70a243a04fc9ca283837ef5562b36c"
+size = 1421520
+mtime_ms = 1788385267804
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/c14d55af-d4ce-49c1-9ca2-6e62de9a3482/255098fa-ecea-4bc6-b595-8481cf49a3ea"
+storage_version_token = "1788385283623378"
+content_type = "image/png"
+
+[[outputs]]
+id = "BmO8v_X5LBzZN_AhYDf8C"
+uri = "file://attached_assets/generated_images/vouch-knight-original.png"
+type = "image"
+title = "VOUCH Golden Knight"
+description = "Original transparent PNG knight in golden armor with a red cape, sword, and shield."
+logical_id = "992e7b1c-3e6f-495c-a33a-037bd190acec"
+content_hash = "sha256:676528ee1f606bd5d51adc553f4f2b40a38dc772d2cf8c1b55041019b91381b7"
+size = 1583005
+mtime_ms = 1788385270703
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/992e7b1c-3e6f-495c-a33a-037bd190acec/b761b615-c7ee-4b2e-a8e0-b20ac16e1e08"
+storage_version_token = "1788385284129783"
+content_type = "image/png"
+
+[[outputs]]
+id = "r0FKAt9Ze_R2lEv4wjS7F"
+uri = "file://attached_assets/generated_images/vouch-mounted-knight-original.png"
+type = "image"
+title = "VOUCH Mounted Knight"
+description = "Original transparent PNG golden knight with a red cape on horseback, carrying sword and shield."
+logical_id = "b780233d-16bd-4faf-862b-e68abdc13a2c"
+content_hash = "sha256:6514440fd50915aac762587aa60da0bbab2d14fa26042edc8b3d0b0217c87ce5"
+size = 1537093
+mtime_ms = 1788385269734
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/b780233d-16bd-4faf-862b-e68abdc13a2c/46a4b235-56d8-4f2a-8f14-5e21cad1a30f"
+storage_version_token = "1788385284646457"
+content_type = "image/png"
