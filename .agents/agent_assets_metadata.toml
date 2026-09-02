@@ -70,3 +70,73 @@ mtime_ms = 1788385269734
 storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/b780233d-16bd-4faf-862b-e68abdc13a2c/46a4b235-56d8-4f2a-8f14-5e21cad1a30f"
 storage_version_token = "1788385284646457"
 content_type = "image/png"
+
+[[outputs]]
+id = "_jHW6iu-BaW5G9zmfakrQ"
+uri = "file://attached_assets/generated_images/vouch-trainee-chibi-final.png"
+type = "image"
+title = "Corrected Trainee"
+description = "Reference-matched simple chibi sticker style; regular clothes, no armor, weapons, shield, or cape."
+logical_id = "9f519d7a-db56-41e8-a75a-31ec3081e825"
+content_hash = "sha256:59e51f2b7fd0c311828af9a5408e6167aca0f3186ab51bd440caa7341e3ea885"
+size = 802656
+mtime_ms = 1788385426496
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/9f519d7a-db56-41e8-a75a-31ec3081e825/3ee149f1-b421-4f86-a61b-9cec41afdedf"
+storage_version_token = "1788385445543808"
+content_type = "image/png"
+
+[[outputs]]
+id = "sr9JLM5NhXexCipubZU4F"
+uri = "file://attached_assets/generated_images/vouch-squire-chibi-final.png"
+type = "image"
+title = "Corrected Squire"
+description = "Reference-matched simple chibi sticker style; wooden training sword and wooden shield, no cape."
+logical_id = "11ba01c2-c90c-4cb5-b7a2-2ab278f13ca8"
+content_hash = "sha256:e6d5f047f34000e90da9b595b4d52b1dfdcb6b41bfdc076f6926295643ac33fb"
+size = 992465
+mtime_ms = 1788385426472
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/11ba01c2-c90c-4cb5-b7a2-2ab278f13ca8/013166de-f33d-4987-8b85-d52a803aed9a"
+storage_version_token = "1788385446158284"
+content_type = "image/png"
+
+[[outputs]]
+id = "tZy9XF0B0j_I6ZFHYngoJ"
+uri = "file://attached_assets/generated_images/vouch-warrior-chibi-final.png"
+type = "image"
+title = "Corrected Warrior"
+description = "Reference-matched simple chibi sticker style; full silver armor, sword, and shield, no cape."
+logical_id = "9e193047-98b2-4c5e-84fb-529aed5cc88f"
+content_hash = "sha256:c514b1c8baaf5dc333d1619315a68f99f003f1a9489f98b1d2355352914fe0a0"
+size = 1370686
+mtime_ms = 1788385430219
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/9e193047-98b2-4c5e-84fb-529aed5cc88f/bcb28bed-56f8-4f5e-aaf7-6d2d4937ffe1"
+storage_version_token = "1788385446698082"
+content_type = "image/png"
+
+[[outputs]]
+id = "u9K4pTirxshJ-4pQLGD8R"
+uri = "file://attached_assets/generated_images/vouch-knight-chibi-final.png"
+type = "image"
+title = "Corrected Golden Knight"
+description = "Reference-matched simple chibi sticker style; golden armor, sword, shield, and red cape."
+logical_id = "2888c382-7f7c-494f-a45a-ebd33464be0a"
+content_hash = "sha256:3014d68b9563ab06368e1bc0411a87455d0f4d15bf893ec8a1fd1fab726794d8"
+size = 1122768
+mtime_ms = 1788385426630
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/2888c382-7f7c-494f-a45a-ebd33464be0a/eb9e92bd-83a1-468d-9afa-cc13f9aacdab"
+storage_version_token = "1788385447217875"
+content_type = "image/png"
+
+[[outputs]]
+id = "0i1JfzWKhSFujxJZ-nyXv"
+uri = "file://attached_assets/generated_images/vouch-mounted-knight-chibi-final.png"
+type = "image"
+title = "Corrected Mounted Knight"
+description = "Reference-matched simple chibi sticker style; golden armor and red cape on horseback."
+logical_id = "bb0942e7-beff-4453-98ad-a886de0fcd83"
+content_hash = "sha256:9cb1af8c7d743c84a421d3385372199ecee0202d9281ad3e467e8118131515da"
+size = 1134159
+mtime_ms = 1788385428677
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/bb0942e7-beff-4453-98ad-a886de0fcd83/60bec554-8163-46b5-bdf5-e45125ba3a38"
+storage_version_token = "1788385447669174"
+content_type = "image/png"
