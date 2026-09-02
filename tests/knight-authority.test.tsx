@@ -55,6 +55,6 @@ describe("Knight authority progression", () => {
     const markup = renderToStaticMarkup(<CelebrationKnight />);
     expect(markup).toContain('data-authority-artwork="T5"');
     expect(markup).toContain("vouch-mounted-knight-chibi-final.png");
-    expect(markup).toContain("PROOF COMPLETE");
+    expect(markup).not.toContain("authority-knight-caption");
   });
 });

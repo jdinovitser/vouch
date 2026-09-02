@@ -43,13 +43,11 @@ export function KnightAuthority({ level, size = "normal", state = "deployment" }
       data-authority-artwork={level}
       data-equipment={authorityEquipment[level]}
     />
-    <div className="authority-knight-caption"><b>{authority.label}</b><span>{authority.role}</span></div>
   </div>;
 }
 
 export function CelebrationKnight({ size = "normal" }: { size?: "normal" | "small" }) {
   return <div className={`authority-knight authority-knight-celebration authority-knight-${size}`} aria-label="VOUCH Knight celebrating a verified proof">
     <img className="knight-artwork knight-authority-image" src={mountedKnightArtwork} alt="VOUCH mounted knight celebrating verified proof completion" data-authority-artwork="T5" />
-    <div className="authority-knight-caption"><b>PROOF COMPLETE</b><span>VERIFIED CELEBRATION</span></div>
   </div>;
 }
