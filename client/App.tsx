@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import {
   Activity, ArrowDown, ArrowRight, BadgeCheck, Ban, BookOpen, Check, ChevronDown, ChevronRight, Cloud,
-  CircleHelp, FileCheck2, Fingerprint, Gauge, History, Layers3, LockKeyhole,
+  CircleHelp, Database, FileCheck2, Fingerprint, Gauge, History, Layers3, LockKeyhole,
   Menu, Play, Radio, RefreshCw, ScanSearch, ShieldAlert, ShieldCheck, Sparkles, Users,
   X, Zap,
 } from "lucide-react";
@@ -109,13 +109,10 @@ function App() {
 }
 
 function EarnedAutonomyStrip({ view }: { view: View }) {
-  const copy = view === "judges"
-    ? "Watch the same agent earn authority, lose it after a failed outcome, then earn it back."
-    : view === "demo"
+  if (view === "judges" || view === "control") return null;
+  const copy = view === "demo"
       ? "The signature proof: PROVE → EARN → ACT → VERIFY → ADJUST."
-      : view === "control"
-        ? "What has this agent earned the authority to do right now?"
-        : view === "history"
+      : view === "history"
           ? "Read every transition as evidence → outcome → authority. This is the agent's operational memory."
           : view === "architecture"
             ? "History informs authority. Policy bounds it. Every request is evaluated again."
@@ -234,11 +231,11 @@ function EarnedLifecycleDemo({ session, scenarios, runScenario, resetSession, lo
   ];
   const descriptions = [
     "At T2 RECOMMEND, the agent may complete bounded low-risk work. A verified outcome can earn broader authority.",
-    "At T3 ACT, a verified medium-risk account update is eligible to execute without human approval.",
-    "The API returned, but the expected account state did not appear. VOUCH treated the outcome—not the attempt—as truth.",
+    "At T3 ACT, a verified duplicate-charge resolution is eligible to execute without human approval.",
+    "The mutation returned, but the claims ledger recorded $0 instead of $124. VOUCH treated the durable outcome—not the attempt—as truth.",
     "Nothing about the model changed. Its earned standing changed, so policy now returns APPROVAL_REQUIRED.",
     "Three monitored, bounded actions verified successfully. Recovery evidence restored the authority credential.",
-    "The same category of account update now executes because the agent earned T3 again.",
+    "The same category of claims work can execute because the agent earned T3 again.",
   ];
   const actions: ReadonlyArray<readonly [string, string]> = [
     ["Earn T3 with a verified action", "safe-review"],
@@ -252,6 +249,7 @@ function EarnedLifecycleDemo({ session, scenarios, runScenario, resetSession, lo
   const lastTrustEvent = session.trustHistory[0];
   return <section className="guided-demo judge-live-demo">
     <div className="demo-topline"><div><span className="section-label">LIVE BACKEND PROOF</span><p>{session.service.message}</p></div><span className="demo-clock running"><Radio size={14} /> ACTUAL SESSION STATE</span></div>
+     <ClaimsWorkspace cases={session.cases} metrics={session.metrics} activeScenarioId={session.activeScenarioId} runScenario={(id) => runScenario(id, true)} loading={loading} />
     <div className="demo-timeline judge-live-timeline">{stages.map((stage, index) => <button className={`${index < phase ? "complete" : ""} ${index === phase ? "current" : ""} ${index > phase ? "future" : ""}`} disabled key={stage}><span>{index < phase ? <Check size={12} /> : String(index + 1).padStart(2, "0")}</span>{stage}{index < stages.length - 1 && <i />}</button>)}</div>
      <div className="demo-stage-card"><div className="stage-graphic"><div className="stage-ring" />{phase === 5 ? <CelebrationKnight size="normal" /> : <KnightAuthority level={session.trust.autonomy} size="normal" state="deployment" />}<span>{phase === 5 ? "PROOF COMPLETE" : `${session.trust.autonomy} · ${autonomyName(session.trust.autonomy)}`}</span></div><div className="stage-copy"><span className="mini-label">ADAPTIVE AUTHORITY / STEP {phase + 1}</span><h2>{headlines[phase]}</h2><p>{descriptions[phase]}</p>{lastTrustEvent && <div className="transition-callout"><span>OUTCOME</span><ArrowRight size={13} /><b>{lastTrustEvent.from} → {lastTrustEvent.to}</b><ArrowRight size={13} /><span className="outcome-authority">{lastTrustEvent.autonomyFrom} → {lastTrustEvent.autonomyTo}</span></div>}<div className="judge-live-details"><div><span>CURRENT CREDENTIAL</span><b>{session.trust.autonomy} · {autonomyName(session.trust.autonomy)}</b><small>Reliability {session.trust.score}/100 · one decision input</small></div><div><span>VOUCH AUTHORITY</span><b>{current?.decision?.authorization ?? "READY"}</b><small>Fresh deterministic decision</small></div><div><span>CASE RECORD</span><b>{current?.execution?.status ?? "NOT EXECUTED"}</b><small>Server-held claims state mutation</small></div><div><span>VERIFICATION</span><b>{current?.verification?.status ?? "—"}</b><small>{current?.verification ? `${current.verification.expected} / ${current.verification.actual}` : "Expected vs actual"}</small></div><div><span>AGENT RECOMMENDATION</span><b>{current?.agentRecommendation?.recommendation ?? "—"}</b><small>{current?.agentRecommendation?.provider ?? session.service.mode}</small></div><div><span>EVIDENCE PROVENANCE</span><b>{current?.agentRecommendation?.evidenceRefs.length ?? scenario?.evidence.length ?? 0} REFERENCES</b><small>{current?.evidenceVersion ? current.evidenceVersion.slice(0, 12) : "Not evaluated"}</small></div></div></div></div>
     <div className="demo-controls">{nextAction ? <button className="control-button primary-control" onClick={() => void runScenario(nextAction[1], true)} disabled={loading}><Play size={15} />{loading ? "Evaluating…" : nextAction[0]}</button> : <span className="proof-complete"><Check size={15} /> Full earned autonomy lifecycle verified</span>}<button className="control-button" onClick={() => void resetSession()} disabled={loading}><RefreshCw size={15} />Reset proof</button><span className="decision-footnote"><LockKeyhole size={13} /> Driven by API responses and server-held authorization state</span></div>
@@ -265,7 +263,7 @@ function ProfessionalImpact({ metrics, cases }: { metrics: AgentMetrics; cases: 
   const verificationRate = metrics.casesProcessed ? Math.round(metrics.verifiedOutcomes / metrics.casesProcessed * 100) : 0;
   return <section className="professional-impact">
     <div><span className="section-kicker">MEASURED PROFESSIONAL IMPACT</span><h3>Routine work completed.<br /><em>Judgment reserved for exceptions.</em></h3><p>These values come from the current backend session and change as the Claims Resolution Agent processes cases.</p></div>
-    <div className="professional-impact-grid"><Metric label="CASES PROCESSED" value={String(metrics.casesProcessed)} /><Metric label="AUTONOMOUS RATE" value={`${autoRate}%`} /><Metric label="HUMAN ATTENTION" value={String(attention)} /><Metric label="VERIFICATION RATE" value={`${verificationRate}%`} /><Metric label="TIME RETURNED" value={`${metrics.minutesSaved} min`} /></div>
+    <div className="professional-impact-grid"><Metric label="CASES PROCESSED" value={String(metrics.casesProcessed)} /><Metric label="AUTONOMOUS RATE" value={`${autoRate}%`} /><Metric label="HUMAN ATTENTION" value={String(attention)} /><Metric label="VERIFICATION RATE" value={`${verificationRate}%`} /><Metric label="AUTHORITY CHANGES" value={String(metrics.authorityChanges)} /><Metric label="TIME RETURNED" value={`${metrics.minutesSaved} min`} /></div>
   </section>;
 }
 
@@ -280,6 +278,7 @@ function ControlCenter({ data, runScenario, mutateAction, setToast: _setToast, l
      <section className="state-strip"><TrustPanel trust={session.trust} /><div className="state-divider" /><div className="state-meta"><span className="mini-label">RELIABILITY SIGNAL</span><b>{session.trust.score}/100 · {session.trust.verifiedActions} verified</b><p>This informs authority. It is not permission by itself.</p><div className="level-dots"><i className={session.trust.autonomy === "T1" ? "on" : ""}>T1</i><i className={session.trust.autonomy === "T2" ? "on" : ""}>T2</i><i className={session.trust.autonomy === "T3" ? "on" : ""}>T3</i><i className={session.trust.autonomy === "T4" ? "on" : ""}>T4</i></div></div><div className="state-meta state-meta-right"><span className="mini-label">EVALUATION GUARANTEE</span><div className="health-value"><i className="pulse" />Fresh decision per request</div><p>Past success cannot bypass current policy or hard safety limits.</p><div className="health-counters"><span><b>{session.audit.length}</b> audit events</span><span><b>{session.trust.verificationFailures}</b> failures</span></div></div></section>
      <Workflow state={current?.state} />
      <div className="dashboard-grid"><DecisionCard current={current} scenario={scenario} authority={session.trust.autonomy} blocked={blocked} approval={approval} verified={verified} failed={failed} run={run} resolve={() => current && mutateAction(`/api/actions/${current.action.id}/resolve`)} mutateAction={mutateAction} loading={loading} /><ActivityPanel session={session} /></div>
+     {current && <CaseProofPanel session={session} scenario={scenario} />}
      <div className="lower-grid"><EvidencePanel evidence={session.evidence.length ? session.evidence : scenario.evidence} /><TrustHistory trust={session.trust} events={session.trustHistory} /></div>
      <button className="back-to-demo" onClick={() => navigate("demo")}><Play size={14} /> Return to adaptive authority demo</button>
    </div>;
@@ -292,7 +291,7 @@ function ClaimsWorkspace({ cases, metrics, activeScenarioId, runScenario, loadin
   const verificationRate = metrics.casesProcessed ? Math.round((metrics.verifiedOutcomes / metrics.casesProcessed) * 100) : 0;
   return <section className="claims-workspace">
     <div className="claims-summary">
-      <div><span className="section-kicker">LIVE PROFESSIONAL WORK QUEUE</span><h2>{openCases} cases active.<br /><em>{attentionCases} need human attention.</em></h2><p>Each card is a server-held case record. Processing changes the case, creates an audit trail, and verifies the resulting state.</p></div>
+      <div><span className="section-kicker">SEEDED EVALUATION DATASET · POSTGRES-BACKED</span><h2>{openCases} cases active.<br /><em>{attentionCases} need human attention.</em></h2><p>Each card is a durable case record. Processing changes Postgres state, creates an audit trail, then reloads the result for independent verification.</p></div>
       <div className="impact-metrics">
         <Metric label="PROCESSED" value={String(metrics.casesProcessed)} />
         <Metric label="AUTO-RESOLVED" value={`${autoRate}%`} />
@@ -308,10 +307,48 @@ function ClaimsWorkspace({ cases, metrics, activeScenarioId, runScenario, loadin
         <h3>{item.category}</h3><p>{item.summary}</p>
         <div className="case-meta"><span>{item.customer}</span>{item.amount && <span>${item.amount.toLocaleString()}</span>}<span>{item.priority} PRIORITY</span></div>
         {item.lastAction && <small>{item.lastAction}</small>}
-        <button disabled={loading || waiting} onClick={() => void runScenario(item.scenarioId)}>{loading && isActive ? "Processing…" : item.status === "RESOLVED" ? "Run fresh evaluation" : item.status === "BLOCKED" ? "Re-evaluate case" : item.status === "VERIFICATION_FAILED" ? "Re-evaluate at reduced authority" : waiting ? "Open decision below" : "Process case"}<ArrowRight size={13} /></button>
+        <button disabled={loading || waiting || item.status === "RESOLVED"} onClick={() => void runScenario(item.scenarioId)}>{loading && isActive ? "Processing…" : item.status === "RESOLVED" ? "Verified complete" : item.status === "BLOCKED" ? "Re-evaluate case" : item.status === "VERIFICATION_FAILED" ? "Re-evaluate at reduced authority" : waiting ? "Open decision below" : "Process case"}<ArrowRight size={13} /></button>
       </article>;
     })}</div>
     <div className="claims-impact-note"><Users size={15} /><span><b>PROFESSIONAL IMPACT</b> Routine claims move automatically. Professionals receive focused decisions for policy thresholds, conflicts, and failed outcomes.</span></div>
+  </section>;
+}
+
+function CaseProofPanel({ session, scenario }: { session: SessionState; scenario: DemoScenario }) {
+  const record = session.currentAction;
+  if (!record) return null;
+  const workCase = session.cases.find((item) => item.id === record.caseId);
+  const approval = session.approvals.find((item) => item.id === record.approvalId);
+  const policy = scenario.evidence.find((item) => item.sourceType === "policy");
+  const events = session.audit.filter((event) => event.caseId === record.caseId).slice().reverse();
+  const mutationState = record.execution?.status === "EXECUTED" ? "CASE MUTATED" : record.state === "BLOCKED" || record.state === "APPROVAL_REQUIRED" ? "NO MUTATION" : "PENDING";
+  return <section className="case-proof">
+    <div className="case-proof-heading"><div><span className="section-kicker">CASE-LEVEL PROOF · {workCase?.caseNumber}</span><h2>The LLM is not the permission system.</h2></div><span className="durable-chip"><Database size={13} /> DURABLE STATE</span></div>
+    <div className="boundary-sequence">
+      <div><small>STRANDS AGENT</small><b>{record.agentRecommendation?.recommendation ?? "PENDING"}</b><span>Investigates and recommends</span></div><ArrowRight />
+      <div><small>VOUCH AUTHORITY</small><b>{record.decision?.authorization ?? "PENDING"}</b><span>Fresh server decision</span></div><ArrowRight />
+      <div><small>PROTECTED SERVER</small><b>{mutationState}</b><span>{record.execution ? "Postgres write committed" : "Protected state unchanged"}</span></div><ArrowRight />
+      <div><small>INDEPENDENT VERIFY</small><b>{record.verification?.status ?? "PENDING"}</b><span>Fresh Postgres read</span></div>
+    </div>
+    {record.state === "APPROVAL_REQUIRED" && <div className="approval-packet">
+      <div className="approval-title"><LockKeyhole size={18} /><div><span className="mini-label">PROFESSIONAL DECISION REQUIRED</span><h3>{workCase?.caseNumber} · {record.action.title}</h3></div><b>SINGLE-USE</b></div>
+      <div className="approval-grid">
+        <Metric label="CASE" value={`${workCase?.customer ?? "—"} · ${workCase?.category ?? "—"}`} />
+        <Metric label="PROPOSED ACTION" value={record.action.expectedOutcome} />
+        <Metric label="POLICY" value={policy?.finding ?? record.decision?.policy ?? "—"} />
+        <Metric label="RISK / AUTHORITY" value={`${record.action.risk} · ${session.trust.autonomy}`} />
+      </div>
+      <p><b>Why review is required:</b> {record.decision?.reason}</p>
+      <div className="approval-outcomes"><span><Check size={13} /><b>If approved</b> Recheck case, evidence, policy, and authority; consume this approval; then execute once.</span><span><X size={13} /><b>If rejected</b> Cancel the action, leave protected refund state unchanged, and preserve the decision in audit.</span></div>
+      <small>Bound to action {record.action.id} · case version {approval?.caseVersion} · evidence {approval?.evidenceVersion.slice(0, 12)}</small>
+    </div>}
+    {record.verification && <div className={`verification-proof ${record.verification.status.toLowerCase()}`}>
+      <div><span className="mini-label">EXPECTED STATE</span><b>{record.verification.expected}</b></div>
+      <ArrowRight size={16} />
+      <div><span className="mini-label">OBSERVED FROM POSTGRES</span><b>{record.verification.actual}</b></div>
+      <div className="verification-result"><span className="mini-label">VERIFICATION</span><b>{record.verification.status}</b><small>{record.verification.status === "FAIL" ? `Authority consequence: ${session.trustHistory[0]?.autonomyFrom} → ${session.trustHistory[0]?.autonomyTo} · human review created` : "Verified outcome may inform future authority"}</small></div>
+    </div>}
+    <div className="case-replay"><div className="panel-heading"><div><span className="section-label">AUDIT REPLAY</span><p>Actual persisted events · oldest first</p></div><span className="source-count">{events.length} EVENTS</span></div><div className="case-replay-list">{events.map((event) => <div key={event.id}><time>{new Date(event.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}</time><i /><span><b>{event.type.replaceAll("_", " ")}</b><small>{event.result}</small></span><strong>{event.status}</strong></div>)}</div></div>
   </section>;
 }
 

@@ -13,6 +13,7 @@ export function auditFor(session: SessionState, record: ActionRecord, type: stri
     authority: record.decision?.authority ?? "pending",
     result,
     sessionId: session.sessionId,
+    caseId: record.caseId,
     agentRecommendation: record.agentRecommendation,
     authorization: record.decision?.authorization,
     verification: record.verification,

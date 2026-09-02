@@ -56,4 +56,16 @@ describe("Strands + Bedrock adapter", () => {
     expect(result.service).toMatchObject({ mode: "DEMO", available: false });
     expect(result.recommendation.provider).toBe("DEMO");
   });
+
+  it("reports Bedrock quota exhaustion without claiming a live result", async () => {
+    process.env.VOUCH_ENABLE_AWS = "true";
+    process.env.AWS_REGION = "us-east-1";
+    process.env.BEDROCK_MODEL_ID = "test-bedrock-model";
+    const result = await runStrandsEvaluation(scenario.action, scenario.evidence, initialTrust(), false, async () => {
+      throw new Error("Too many tokens per day, please wait before trying again.");
+    });
+    expect(result.service.mode).toBe("DEMO");
+    expect(result.service.message).toContain("quota is currently exhausted");
+    expect(result.recommendation.provider).toBe("DEMO");
+  });
 });

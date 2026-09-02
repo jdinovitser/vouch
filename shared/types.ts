@@ -44,6 +44,8 @@ export interface ActionRequest {
   risk: RiskLevel;
   reversibility: Reversibility;
   expectedOutcome: string;
+  expectedCaseStatus?: ClaimsCaseStatus;
+  expectedRefundAmount?: number;
 }
 
 export interface ActionDecision {
@@ -104,6 +106,7 @@ export interface AuditEvent {
   authority: string;
   result: string;
   sessionId: string;
+  caseId?: string;
   agentRecommendation?: AgentRecommendation;
   authorization?: AuthorizationDecision;
   verification?: VerificationResult;
@@ -149,8 +152,24 @@ export interface ClaimsCase {
   priority: CasePriority;
   status: ClaimsCaseStatus;
   receivedAt: string;
+  version: number;
+  refundAmount: number;
   lastAction?: string;
   resolution?: string;
+  resolutionNote?: string;
+}
+
+export interface ApprovalRecord {
+  id: string;
+  sessionId: string;
+  actionId: string;
+  caseId: string;
+  evidenceVersion: string;
+  caseVersion: number;
+  status: "PENDING" | "APPROVED" | "REJECTED" | "CONSUMED";
+  createdAt: string;
+  decidedAt?: string;
+  consumedAt?: string;
 }
 
 export interface AgentMetrics {
@@ -161,6 +180,7 @@ export interface AgentMetrics {
   verificationFailures: number;
   verifiedOutcomes: number;
   minutesSaved: number;
+  authorityChanges: number;
 }
 
 export interface ActionRecord {
@@ -173,6 +193,9 @@ export interface ActionRecord {
   createdAt: string;
   evidenceVersion: string;
   agentRecommendation?: AgentRecommendation;
+  caseId?: string;
+  caseVersion?: number;
+  approvalId?: string;
 }
 
 export interface SessionState {
@@ -182,7 +205,7 @@ export interface SessionState {
   currentAction?: ActionRecord;
   history: ActionRecord[];
   evidence: EvidenceItem[];
-  approvals: string[];
+  approvals: ApprovalRecord[];
   resolutions: ResolutionRecord[];
   audit: AuditEvent[];
   trustHistory: TrustEvent[];

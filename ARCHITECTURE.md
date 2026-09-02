@@ -15,7 +15,7 @@ Model output cannot grant permission. Server-side policy independently evaluates
 5. **Action** — execution is only reachable through a valid authorization state.
 6. **Verification** — expected post-action state is compared with actual state.
 7. **Trust** — verified success increases trust conservatively; failure reduces trust and authority immediately; monitored recovery evidence can restore a previously earned level.
-8. **Audit** — every consequential decision is appended to the session audit record.
+8. **Audit** — every consequential decision is appended to a durable, case-bound audit record.
 
 ## State machine
 
@@ -39,9 +39,11 @@ Tools expose structured inputs and outputs:
 
 Conflict resolution is represented by a single-use server record bound to session ID, action ID, scenario ID, and a hash of the exact evidence state. Client-supplied resolution flags are ignored. A changed action or changed evidence requires a new resolution.
 
-## Session isolation
+## Durable session isolation
 
-Trust, evidence, approvals, audit records, history, and active scenario state are held in a server-side session map. No mutable action state is shared between session IDs. A production implementation should use a durable, encrypted session store.
+Trust, cases, evidence, recommendations, approvals, executions, verifications, audit records, history, and metrics are stored in a versioned Postgres session document. No mutable action state is shared between session IDs. Protected case mutations are committed first; verification then reloads the resulting case from Postgres and compares observed state with the authorized expectation.
+
+Human approvals are server records bound to one session, action instance, case, case version, and evidence hash. They are consumed after one authorized execution. Changed evidence or case state requires a fresh decision.
 
 ## Adaptive authority feedback loop
 
@@ -51,7 +53,7 @@ The recovery sequence is explicit demo policy, not a generic trust shortcut. It 
 
 ## AWS integration
 
-The optional AWS path instantiates the TypeScript Strands `Agent` with an Amazon Bedrock `BedrockModel`. AWS LIVE status is established only after a successful invocation. AgentCore and CloudWatch remain future deployment/observability work. Authorization outcomes remain deterministic so model output cannot grant permission.
+The primary configured AWS path instantiates the TypeScript Strands `Agent` with an Amazon Bedrock `BedrockModel`. The agent can call only read-only inspection tools and returns a typed recommendation. AWS LIVE status is established only after a successful invocation; quota, access, timeout, and other failures remain honestly labeled fallbacks. Authorization outcomes remain deterministic so model output cannot grant permission.
 
 ## Observability
 

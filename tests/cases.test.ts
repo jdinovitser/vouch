@@ -19,6 +19,7 @@ describe("professional claims work queue", () => {
       verificationFailures: 0,
       verifiedOutcomes: 0,
       minutesSaved: 0,
+      authorityChanges: 0,
     });
   });
 });

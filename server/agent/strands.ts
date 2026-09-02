@@ -19,6 +19,14 @@ type LiveInvoker = (action: ActionRequest, evidence: EvidenceItem[]) => Promise<
   toolCalls: string[];
 }>;
 
+export function describeAwsFailure(error: unknown) {
+  const message = error instanceof Error ? error.message : String(error);
+  if (/too many tokens|quota|throttl/i.test(message)) return "AWS invocation attempted; Bedrock quota is currently exhausted — deterministic fallback used";
+  if (/access|authoriz|permission|credential/i.test(message)) return "AWS invocation attempted; Bedrock access was denied — deterministic fallback used";
+  if (/timeout|timed out|abort/i.test(message)) return "AWS invocation timed out — deterministic fallback used";
+  return "AWS agent unavailable — deterministic VOUCH evaluator used";
+}
+
 function deterministicRecommendation(action: ActionRequest, evidence: EvidenceItem[], recommendation: "APPROVE" | "HOLD" | "REJECT", confidence: number): AgentRecommendation {
   return {
     proposedAction: action.title,
@@ -125,11 +133,11 @@ export async function runStrandsEvaluation(
         message: "AWS LIVE — Strands + Amazon Bedrock",
         lastInvocationAt: new Date().toISOString(),
       };
-    } catch {
+    } catch (error) {
       service = {
         mode: "DEMO",
         available: false,
-        message: "AWS agent unavailable — deterministic VOUCH evaluator used",
+        message: describeAwsFailure(error),
       };
     }
   }

@@ -66,11 +66,15 @@ High-risk and irreversible actions remain approval-required. Conflicted evidence
 
 ## Human authorization
 
-Approval-required actions stop in `APPROVAL_REQUIRED`. Execution is rejected by the server until a human approval is recorded. Rejection cancels and audits the action.
+Approval-required actions stop in `APPROVAL_REQUIRED`. The server creates an approval record bound to the exact session, action instance, case, case version, and evidence hash. Immediately before execution, VOUCH reevaluates policy and authority, then consumes the approval once. Rejection cancels and audits the action.
 
 ## Post-action verification
 
-An API success is not completion. VOUCH compares expected and actual state. Failure stops the workflow, records the result, reduces trust, and may demote autonomy.
+An API success is not completion. The protected server mutation is committed to Postgres, then VOUCH reloads the case and claims-ledger state from Postgres and compares expected with observed values. Failure stops the workflow, creates human review work, records the result, and demotes autonomy.
+
+## Durable professional state
+
+The professional workflow no longer uses an in-memory session map as its source of truth. A versioned Postgres record persists cases, evidence, recommendations, authority decisions, executions, verifications, approvals, trust events, audit events, and metrics across browser refreshes and server restarts.
 
 ## Prompt injection demonstration
 
@@ -84,11 +88,11 @@ Without AWS credentials the complete prototype runs as `DEMO — Deterministic V
 
 ## Demo scenarios
 
-- Safe autonomous action
+- $124 duplicate-charge autonomous resolution
 - Conflicting evidence and resolution
 - Human authorization
 - Untrusted instruction / prompt injection
-- Verification failure and trust demotion
+- Claims-ledger verification failure and trust demotion
 - Monitored recovery and authority restoration
 - Restored autonomous action in the same account-operation class
 
