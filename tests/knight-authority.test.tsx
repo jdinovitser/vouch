@@ -6,9 +6,9 @@ describe("Knight authority progression", () => {
   it("uses the four canonical authority labels", () => {
     expect(authorityKnightLabels).toEqual({
       T1: { label: "TRAINEE", role: "OBSERVE" },
-      T2: { label: "ARMORED APPRENTICE", role: "RECOMMEND" },
-      T3: { label: "ARMED SQUIRE", role: "ACT" },
-      T4: { label: "MOUNTED KNIGHT", role: "DELEGATE" },
+      T2: { label: "SQUIRE", role: "RECOMMEND" },
+      T3: { label: "WARRIOR", role: "ACT" },
+      T4: { label: "KNIGHT", role: "DELEGATE" },
     });
   });
 
@@ -19,25 +19,25 @@ describe("Knight authority progression", () => {
     expect(markup).toContain('data-equipment="unarmored"');
   });
 
-  it("uses the armored apprentice artwork for T2", () => {
+  it("uses the training squire artwork for T2", () => {
     const markup = renderToStaticMarkup(<KnightAuthority level="T2" />);
-    expect(markup).toContain("T2 ARMORED APPRENTICE");
+    expect(markup).toContain("T2 SQUIRE");
     expect(markup).toContain('data-authority-artwork="T2"');
-    expect(markup).toContain('data-equipment="armor"');
+    expect(markup).toContain('data-equipment="training sword shield"');
   });
 
-  it("uses the armed warrior artwork for T3", () => {
+  it("uses the armored warrior artwork for T3", () => {
     const markup = renderToStaticMarkup(<KnightAuthority level="T3" />);
-    expect(markup).toContain("T3 ARMED SQUIRE");
+    expect(markup).toContain("T3 WARRIOR");
     expect(markup).toContain('data-authority-artwork="T3"');
     expect(markup).toContain('data-equipment="armor shield sword"');
   });
 
-  it("uses the mounted knight artwork for T4", () => {
+  it("uses the golden knight artwork for T4", () => {
     const markup = renderToStaticMarkup(<KnightAuthority level="T4" />);
-    expect(markup).toContain("T4 MOUNTED KNIGHT");
+    expect(markup).toContain("T4 KNIGHT");
     expect(markup).toContain('data-authority-artwork="T4"');
-    expect(markup).toContain('data-equipment="mounted full-equipment"');
+    expect(markup).toContain('data-equipment="golden armor shield sword cape"');
   });
 
   it("maps each authority tier to one distinct artwork", () => {
@@ -54,6 +54,7 @@ describe("Knight authority progression", () => {
   it("keeps celebration separate from server authority tiers", () => {
     const markup = renderToStaticMarkup(<CelebrationKnight />);
     expect(markup).toContain('data-authority-artwork="T5"');
+    expect(markup).toContain("vouch-mounted-knight-chibi-final.png");
     expect(markup).toContain("PROOF COMPLETE");
   });
 });
