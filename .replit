@@ -57,3 +57,7 @@ build = ["npm", "run", "build"]
 [userenv.shared]
 BEDROCK_MODEL_ID = "amazon.nova-lite-v1:0"
 VOUCH_ENABLE_AWS = "true"
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 180000

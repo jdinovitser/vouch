@@ -1,0 +1,650 @@
+VOUCH — FINAL TRUST-CENTERED GOOD NEIGHBOR COPY PASS
+
+We have completed the Good Neighbor repositioning of VOUCH.
+
+The current implementation is strong.
+
+This is a FINAL COPY / POSITIONING PASS ONLY.
+
+DO NOT REBUILD ANYTHING
+
+Do NOT change:
+
+backend architecture
+Strands Agents implementation
+Amazon Bedrock integration
+agent behavior
+tools
+authority engine
+trust calculations
+verification
+human authorization
+PostgreSQL
+audit state
+claims workflow
+fallback behavior
+routes unless absolutely necessary for copy
+existing horse mascot
+existing artwork
+existing visual identity
+existing working functionality
+
+Do NOT regenerate artwork.
+
+Do NOT redesign the application.
+
+Do NOT add new features.
+
+Do NOT introduce new infrastructure.
+
+Do NOT change the technical implementation.
+
+The goal is to make one conceptual correction:
+
+VOUCH IS ABOUT TRUST — NOT KEYS
+
+The current Good Neighbor positioning is substantially correct, but some language still frames VOUCH around "keys," access, or control.
+
+That is NOT the fundamental idea.
+
+The fundamental idea is:
+
+People should be able to trust an AI teammate before giving it more responsibility.
+
+VOUCH operationalizes that trust.
+
+The agent proves itself.
+
+Its work is verified.
+
+Successful work can earn greater responsibility.
+
+When something is uncertain or consequential, a person can step in.
+
+When the evidence says the agent should no longer have the same level of responsibility, that responsibility can decrease.
+
+The central concept is:
+
+TRUST IS EARNED THROUGH PROVEN WORK.
+
+THE CORE STORY
+
+Use this mental model throughout the entire product:
+
+THE PEOPLE
+
+A group is trying to help other people.
+
+They have limited time, attention, and capacity.
+
+THE AI TEAMMATE
+
+They bring in an AI agent to take on some of the repetitive work.
+
+THE PROBLEM
+
+The group cannot blindly trust the agent with increasing responsibility.
+
+But they also cannot afford to personally approve every routine task.
+
+VOUCH
+
+VOUCH gives the group a way to build trust in the AI teammate through evidence and verified performance.
+
+The agent starts with limited responsibility.
+
+It proves what it can do.
+
+The work is verified.
+
+Trust can increase.
+
+Risky decisions can come back to people.
+
+Failed performance can reduce responsibility.
+
+THE BENEFIT
+
+The group gets more capacity to focus on the people they are actually trying to help.
+
+That is the Good Neighbor story.
+
+REMOVE "KEYS" LANGUAGE
+
+Search the public-facing experience for phrases such as:
+
+"keep the keys"
+"giving AI the keys"
+"the people keep the keys"
+"handing AI the keys"
+similar metaphors that make the product primarily about access/control
+
+Replace them with language centered on trust and responsibility.
+
+For example:
+
+Instead of:
+
+The group keeps the keys.
+
+Use:
+
+The group decides how much responsibility the agent has earned.
+
+Instead of:
+
+Don't hand AI the keys.
+
+Use:
+
+Don't ask people to blindly trust AI. Let the agent earn trust through what it proves.
+
+Instead of:
+
+The AI shouldn't become your boss.
+
+Use:
+
+Your AI teammate should earn greater responsibility—not simply receive it.
+
+Do not mechanically replace every occurrence.
+
+Rewrite naturally.
+
+HOMEPAGE HERO
+
+Keep:
+
+VOUCH
+The AI that looks out for people.
+
+But strengthen the supporting message so the benefit is clear.
+
+Use:
+
+An AI teammate that earns trust through proven work—so groups can spend more time helping people.
+
+This should make the complete chain obvious:
+
+group → AI teammate → earned trust → more capacity → helping people
+
+The homepage should not feel like a generic AI governance product.
+
+HOMEPAGE HUMAN MISSION
+
+The next major section should lead with the people being helped.
+
+Use a concept like:
+
+Help more people with the people you have.
+
+Supporting copy:
+
+Community teams are often asked to do more with limited time and limited hands. An AI teammate can help take on routine work—but the group needs a way to know when that teammate has earned more responsibility.
+
+Then:
+
+VOUCH turns successful, verified work into earned trust.
+
+This is important.
+
+Do not lead this section with authority terminology.
+
+Lead with:
+
+limited people + more people to help + AI can increase capacity + trust is necessary.
+
+TRUST PROGRESSION
+
+Make this one of the strongest visual stories on the homepage.
+
+Headline:
+
+Trust is earned.
+
+Then:
+
+START SMALL
+
+The AI begins with limited responsibility.
+
+↓
+
+PROVE IT
+
+The agent handles real work.
+
+↓
+
+VERIFY
+
+The result is independently checked.
+
+↓
+
+EARN TRUST
+
+Successful work provides evidence that the agent can handle more.
+
+↓
+
+TAKE ON MORE
+
+The agent can responsibly handle additional work.
+
+↓
+
+STEP IN WHEN IT MATTERS
+
+When the stakes are higher, the group can make the decision.
+
+The visual should feel like an AI teammate gradually becoming more useful to a group.
+
+Not like an administrator configuring permissions.
+
+COMMUNITY TEAM SECTION
+
+Keep the Good Neighbor examples, but make them human situations rather than product verticals.
+
+Headline:
+
+More hands for the people doing the work.
+
+Supporting copy:
+
+A small group shouldn't have to choose between serving more people and protecting their time. A trusted AI teammate can take on routine work while the people stay focused on the decisions and relationships that matter.
+
+Then examples:
+
+Neighborhood teams
+
+More capacity to coordinate requests and support neighbors.
+
+Food pantry teams
+
+Less repetitive work for volunteers, more time serving families.
+
+School and library teams
+
+More help with routine coordination and administrative work.
+
+Small local organizations
+
+An extra set of hands without asking people to blindly trust an AI.
+
+Again: these are intended use cases, not claimed customers.
+
+THE THREE ROLES
+
+Keep the existing role section, but make TRUST the central relationship.
+
+Headline:
+
+Three roles. One shared goal: help people.
+THE GROUP
+
+Sets the boundaries and decides what responsibility the AI should have.
+
+THE AI TEAMMATE
+
+Handles work, gathers evidence, reasons about requests, and proves what it can do.
+
+VOUCH
+
+Turns evidence, verification, risk, and outcomes into a trustworthy way to delegate responsibility.
+
+Then:
+
+The agent earns responsibility through what it proves.
+
+This is better than framing VOUCH as simply "the thing that stops the AI."
+
+CLAIMS DEMO
+
+Keep the claims-resolution demo exactly as a technical demonstration.
+
+Change the framing around it.
+
+Headline:
+
+Watch trust being earned.
+
+Supporting copy:
+
+Our claims-resolution scenario demonstrates how VOUCH lets an AI teammate earn responsibility through successful, verified work—and lose responsibility when the evidence says it should.
+
+Then retain the existing progression:
+
+$250 authority
+
+↓
+
+$124 claim successfully resolved
+
+↓
+
+Result verified
+
+↓
+
+Authority increases to $500
+
+↓
+
+$1,240 exception arrives
+
+↓
+
+Approval required
+
+↓
+
+Human decides
+
+↓
+
+Later verification fails
+
+↓
+
+Authority decreases
+
+The key explanatory sentence should be:
+
+The agent's responsibility changes because its evidence changes.
+
+This is the heart of the demo.
+
+HUMAN DECISION SECTION
+
+Change the framing from "control" toward "trust with judgment."
+
+Headline:
+
+Trust doesn't mean never checking.
+
+Supporting copy:
+
+A trusted teammate still knows when to ask for help. VOUCH keeps higher-stakes decisions with people instead of pretending every decision should be automated.
+
+Then:
+
+Routine + verified
+
+The agent can help.
+
+Higher risk
+
+A person decides.
+
+Unsafe or forbidden
+
+The system stops the action.
+
+End:
+
+The goal isn't maximum autonomy. It's enough trusted autonomy to help people do more.
+
+WHY VOUCH
+
+Reframe the page around this question:
+
+How can a group trust an AI teammate?
+
+Then explain:
+
+Not by assuming the agent is trustworthy. By giving it opportunities to prove itself.
+
+Sections:
+
+PROVEN
+
+The agent's work creates evidence.
+
+VERIFIED
+
+Important outcomes are checked independently.
+
+EARNED
+
+Successful performance can increase responsibility.
+
+ADAPTIVE
+
+Responsibility can change when performance changes.
+
+HUMAN
+
+People can make decisions when the stakes require judgment.
+
+SAFE
+
+Hard boundaries prevent actions the agent should never take.
+
+Closing:
+
+VOUCH gives groups a way to trust AI through evidence instead of blind delegation.
+
+HOW IT WORKS / ARCHITECTURE
+
+Keep all technical content.
+
+Change only the framing.
+
+Headline:
+
+Under the hood: turning evidence into earned trust
+
+Opening:
+
+VOUCH separates what an AI teammate recommends from what the system has evidence to trust it with.
+
+Keep:
+
+Request → Evidence → Risk → Authority → Action → Verification → Trust
+
+Explain that this is the technical mechanism behind the human story.
+
+The important distinction remains:
+
+The agent can recommend an action. It cannot decide how much trust it has earned.
+
+Then show:
+
+ALLOW
+
+APPROVAL_REQUIRED
+
+BLOCK
+
+Explain the actual Strands Agents + Amazon Bedrock implementation.
+
+Do not simplify the technical explanation.
+
+The technical depth is a strength.
+
+JUDGES PAGE
+
+Make the Good Neighbor case extremely explicit.
+
+Headline:
+
+VOUCH — Good Neighbor Agents
+
+Opening:
+
+VOUCH gives groups of people an AI teammate they can learn to trust through proven, verified work.
+
+Then:
+
+WHO IT'S FOR
+
+Groups of people working together to help other people.
+
+Examples:
+
+neighborhood groups
+food pantry teams
+schools
+libraries
+small nonprofits
+local community organizations
+THE PROBLEM
+
+These groups often have more work than their people have time to handle. AI can help—but the group needs to know when it has earned enough trust to take on more responsibility.
+
+THE SOLUTION
+
+VOUCH lets an AI teammate start small, prove its ability, earn greater responsibility through verified work, and return important decisions to people.
+
+WHY IT MATTERS
+
+When routine work can be trusted to an AI teammate, the people doing the work have more capacity to focus on the people they serve.
+
+WHAT MAKES IT DIFFERENT
+
+Trust is dynamic. Successful verified work can increase responsibility. Failed verification can reduce it.
+
+TECHNICAL IMPLEMENTATION
+
+Keep the existing accurate technical summary:
+
+Strands Agents
+Amazon Bedrock
+tools/evidence
+independent server-side authority engine
+risk evaluation
+explicit human authorization
+independent verification
+PostgreSQL persistence
+audit state
+safety boundaries
+
+End:
+
+The agent proves itself.
+The group decides what it has earned.
+NAVIGATION / CTA LANGUAGE
+
+Review the navigation and CTA text for anything that makes VOUCH feel like an administrative governance product.
+
+Prefer:
+
+See VOUCH in action
+
+See trust being earned
+
+How it works
+
+Why VOUCH
+
+For Judges
+
+Avoid unnecessarily technical CTAs such as:
+
+Manage authority
+Configure governance
+Control agents
+Configure policy
+
+Technical concepts can remain inside the technical pages.
+
+BRAND VOICE
+
+The emotional identity should be:
+
+A helpful neighbor who gives a group an extra set of hands—but earns their trust before taking on more.
+
+The site should feel:
+
+human
+warm
+useful
+trustworthy
+optimistic
+community-minded
+technically sophisticated underneath
+
+Do not make it childish.
+
+Do not turn it into a charity website.
+
+Do not make it sound like enterprise governance software.
+
+Do not overuse the word "community."
+
+The actual human story should make the Good Neighbor positioning obvious.
+
+THE MOST IMPORTANT SENTENCES
+
+Make these ideas visible across the site, without mechanically repeating the exact wording everywhere:
+
+Help more people with the people you have.
+
+Your AI teammate should earn your trust.
+
+Trust is earned through proven work.
+
+Successful, verified work can earn greater responsibility.
+
+When the stakes are higher, people decide.
+
+The agent proves itself. The group decides what it has earned.
+
+VOUCH — The AI that looks out for people.
+
+FINAL PRODUCT TEST
+
+After implementation, ask:
+
+If a judge sees only the homepage, can they immediately understand:
+
+WHO:
+A group of people working together to help others.
+
+PROBLEM:
+They need more capacity, but they cannot blindly trust an AI teammate.
+
+SOLUTION:
+VOUCH lets the AI earn greater responsibility through proven and verified work.
+
+BENEFIT:
+The group can spend more of its limited human time helping people.
+
+TECHNOLOGY:
+A real Strands Agents + Amazon Bedrock agent powers the work.
+
+If the answer is yes, stop.
+
+Do not continue changing the product.
+
+VALIDATION
+
+After making this copy-only pass:
+
+run the existing 48 tests
+run TypeScript check
+run production build
+verify homepage
+verify demo
+verify Why VOUCH
+verify Judges
+verify Architecture
+verify responsive layout
+verify navigation
+verify no browser application errors
+verify claims demo still works
+verify human authorization still works
+verify Strands/Bedrock implementation is unchanged
+verify fallback behavior is unchanged
+verify artwork is unchanged
+
+Do not make any additional technical changes.
+
+Do not refactor.
+
+Do not rebuild.
+
+Once those checks pass, freeze the website.
+
+This is the final positioning pass before the Devpost submission and demo video.
