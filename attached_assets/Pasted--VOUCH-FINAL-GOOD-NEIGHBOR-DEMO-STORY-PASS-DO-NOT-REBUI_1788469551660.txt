@@ -1,0 +1,533 @@
+# VOUCH — FINAL GOOD NEIGHBOR DEMO STORY PASS
+
+## DO NOT REBUILD. DO NOT CHANGE THE WORKFLOW. MAKE THE EXISTING DEMO TELL THE RIGHT STORY.
+
+We are making one final, surgical presentation pass on the existing `/demo` page.
+
+**The backend, agent workflow, seeded cases, authority engine, verification, PostgreSQL state, audit trail, AWS/Bedrock integration, deterministic fallback, buttons, and mechanics are already working. DO NOT rebuild or redesign the application.**
+
+The problem is PRESENTATION and STORY.
+
+The current page is technically strong, but it still reads too much like a professional claims-resolution / governance dashboard.
+
+For the AWS Agents for Humans **Good Neighbor Agents** track, the story must be unmistakable:
+
+> **People need help.
+> Community teams need more hands.
+> AI can now be a real teammate.
+> VOUCH makes sure that teammate earns the responsibility to help.**
+
+The demo should make the judge feel:
+
+**“Oh — this is an AI teammate helping people.”**
+
+Then:
+
+**“Whoa — they built a real trust/authority system around it.”**
+
+Then:
+
+**“And I can see exactly why this matters for community organizations.”**
+
+---
+
+# 1. THE CORE STORY
+
+The entire demo should follow this narrative:
+
+### PEOPLE NEED HELP
+
+Small community teams have limited time and resources.
+
+### AI CAN HELP
+
+Modern AI agents can reason, inspect evidence, use tools, and perform real work.
+
+### BUT TRUST MATTERS
+
+If an AI is going to act on behalf of people, the team needs to know when it has earned that responsibility.
+
+### THAT IS VOUCH
+
+VOUCH is the trusted AI teammate.
+
+It lets the AI:
+
+**START SMALL → PROVE IT → EARN TRUST → TAKE ON MORE → KNOW WHEN TO STOP**
+
+The agent does not receive unlimited authority.
+
+It earns responsibility through verified results.
+
+When the task is too risky, outside its earned authority, or violates a hard boundary, VOUCH puts the decision back in human hands.
+
+---
+
+# 2. CHANGE THE TOP OF THE DEMO
+
+Keep:
+
+**Helping people, safely.**
+
+But immediately make the next copy more human and mission-driven.
+
+Use:
+
+**A community team has more people to help than time to do everything themselves.**
+
+Then:
+
+**VOUCH gives them an AI teammate that can take on routine work — and earn more responsibility by proving it can be trusted.**
+
+This is the FIRST thing the judge should understand.
+
+Do not lead with “evaluation dataset,” “professional work queue,” or technical governance language.
+
+---
+
+# 3. MAKE THE MASCOT / AI TREATMENT FEEL LIKE A TEAMMATE
+
+The existing horse/warrior mascot artwork is GOOD.
+
+DO NOT regenerate it.
+
+DO NOT replace it.
+
+DO NOT alter the image asset.
+
+Use the existing mascot as the visual representation of the AI teammate.
+
+Where appropriate, label it:
+
+**VOUCH AI TEAMMATE**
+
+or
+
+**YOUR AI TEAMMATE**
+
+instead of making the page feel like the mascot represents a security product.
+
+The visual message should be:
+
+**“This is the teammate helping the community team.”**
+
+---
+
+# 4. REFRAME THE CASES AS PEOPLE-HELPING WORK
+
+The cases can remain exactly the same technically.
+
+Do NOT change IDs, backend state, actions, authority logic, verification, or seeded data.
+
+Change only the presentation where appropriate.
+
+Introduce the cases with:
+
+## See the AI teammate at work
+
+**These aren't abstract permission checks. They're examples of the kinds of decisions a trusted AI teammate can help a small team handle.**
+
+Then keep the existing cases.
+
+For example:
+
+### #8041 — Help someone get their money back
+
+Duplicate charge · Jordan Lee · $124
+
+Instead of making the user think:
+
+“claims-resolution workflow”
+
+make them understand:
+
+**The AI handled a routine problem for a person.**
+
+### #8042 — A larger refund needs a person
+
+Duplicate charge · Mateo Garcia · $1,240
+
+Message:
+
+**The AI can understand the case — but this decision is bigger than the responsibility it has earned. A person decides.**
+
+### #1192 — Make sure help actually reached someone
+
+Message:
+
+**The AI has to prove the outcome, not just perform the action.**
+
+### #680 — Protect resources meant to help people
+
+Message:
+
+**Conflicting instructions are not trusted just because an AI found them. VOUCH stops and protects the team's resources.**
+
+### #1240 — Stop an unsafe payment
+
+Message:
+
+**Some boundaries are never delegated.**
+
+Again: presentation only. Preserve all existing backend behavior.
+
+---
+
+# 5. REMOVE “PROFESSIONAL IMPACT”
+
+This is important for Good Neighbor positioning.
+
+Change:
+
+**PROFESSIONAL IMPACT**
+
+to:
+
+**COMMUNITY IMPACT**
+
+or preferably:
+
+**WHAT THE TEAM GETS BACK**
+
+Use the second if it fits the design.
+
+The point is not that professionals become more efficient.
+
+The point is:
+
+**Routine work moves to the AI so people can spend more of their limited time helping people.**
+
+The existing time-returned metric is useful.
+
+Frame it as:
+
+### More time for people
+
+**Routine work completed by the AI means more human attention stays available for the people who need it.**
+
+Keep the existing 14-minute seeded estimate, but make it secondary to the human outcome.
+
+---
+
+# 6. REFRAME THE TOP STATUS METRICS
+
+The current metrics are technically useful but feel like an internal operations dashboard.
+
+Keep the data.
+
+Change the hierarchy.
+
+The primary story should be:
+
+**AI HELPED**
+1 routine case resolved
+
+**TRUST EARNED**
+$250 → $500
+
+**HUMAN DECISIONS RESERVED**
+1 case
+
+**SAFETY BOUNDARIES HELD**
+1 blocked
+
+**TIME RETURNED**
+14 min
+
+Do NOT fabricate new numbers.
+
+Use the existing backend values.
+
+The visual hierarchy should make the judge understand:
+
+**The AI helped.
+It earned more responsibility.
+People still made the important decisions.**
+
+---
+
+# 7. REFRAME THE HUMAN APPROVAL SECTION
+
+The current section:
+
+“Let the human make the final call.”
+
+is good.
+
+Make it even more human.
+
+Use:
+
+## When it matters, a person decides.
+
+Supporting copy:
+
+**VOUCH doesn't ask people to approve everything. It asks them to step in when the AI hasn't earned enough responsibility for the decision.**
+
+Then keep the existing approval mechanics exactly as they are.
+
+The judge should see:
+
+AGENT RECOMMENDATION
+→ VOUCH AUTHORITY DECISION
+→ HUMAN AUTHORIZATION
+→ PROTECTED EXECUTION
+→ VERIFICATION
+
+This is a major technical proof point.
+
+---
+
+# 8. KEEP THE TECHNICAL WOW — BUT MOVE IT INTO THE STORY
+
+Do NOT remove the technical sections.
+
+They are one of the strongest parts of this project.
+
+But introduce them with:
+
+## Under the hood: the AI can think. VOUCH decides what it can do.
+
+Then explain visually:
+
+**STRANDS AGENT**
+Reasons over the case and available evidence.
+
+↓
+
+**VOUCH AUTHORITY ENGINE**
+Independently determines what responsibility the AI has actually earned.
+
+↓
+
+**SERVER-SIDE ACTION**
+The application enforces the decision.
+
+↓
+
+**INDEPENDENT VERIFICATION**
+The outcome is checked against durable state.
+
+↓
+
+**TRUST / AUTHORITY UPDATE**
+Verified success can earn more responsibility. Failure can reduce it.
+
+This is where the judge gets the technical “wow.”
+
+The critical sentence should remain prominent:
+
+> **The agent can recommend. It cannot authorize itself.**
+
+And:
+
+> **The LLM is not the permission system.**
+
+These are excellent technical statements.
+
+Do not remove them.
+
+---
+
+# 9. MAKE THE AWS / STRANDS PROOF EASY TO UNDERSTAND
+
+The current page says:
+
+“AWS invocation attempted; Bedrock quota is currently exhausted — deterministic fallback used”
+
+This is honest and should remain.
+
+But visually and rhetorically, don't let the quota message dominate the opening experience.
+
+Use a compact technical status such as:
+
+**AWS / BEDROCK**
+Invocation attempted · quota currently exhausted · transparent deterministic fallback active
+
+Then somewhere near the technical architecture:
+
+**Built with Strands Agents + Amazon Bedrock**
+
+Explain:
+
+**The Strands agent handles the reasoning. VOUCH independently handles authority, authorization, verification, and persistent trust state.**
+
+Do NOT imply that the fallback is an AWS model result.
+
+Do NOT hide the fallback.
+
+Honesty is a strength here.
+
+---
+
+# 10. CHANGE THE “HEART OF THE DEMO”
+
+Current concept:
+
+“The agent's responsibility changes because its evidence changes.”
+
+Keep the technical meaning but make the headline human.
+
+Use:
+
+## Your AI teammate earns responsibility by proving itself.
+
+Supporting copy:
+
+**VOUCH doesn't decide whether an AI is trustworthy once and forget about it. Every important request is evaluated again. Verified success can increase responsibility. Failed verification can reduce it. Hard safety boundaries always hold.**
+
+Then show the existing examples:
+
+**ROUTINE**
+AI helps
+
+**VERIFIED SUCCESS**
+Trust increases
+
+**HIGHER STAKES**
+Human decides
+
+**VERIFICATION FAILURE**
+Responsibility decreases
+
+**UNTRUSTED INSTRUCTION**
+VOUCH stops
+
+This should be one of the strongest visual sections on the page.
+
+---
+
+# 11. CHANGE THE FINAL MESSAGE
+
+The current ending is:
+
+“The AI can help. Responsibility is earned, verified, and bounded by people.”
+
+That is good, but we can end much more emotionally.
+
+Use:
+
+## Give your community another set of hands.
+
+**AI can now do real work. VOUCH helps make sure that work is worthy of trust.**
+
+**The AI can help.
+The people stay responsible.**
+
+Then:
+
+### PROVE. EARN. ACT. VERIFY. ADJUST.
+
+### VOUCH
+
+**AI that looks out for people.**
+
+This should be the final emotional landing point.
+
+---
+
+# 12. IMPORTANT: PRESERVE THE TECHNICAL PROOF
+
+Do NOT remove or weaken:
+
+* Strands Agents
+* Amazon Bedrock
+* structured agent recommendation
+* read-only evidence tools
+* VOUCH Authority Engine
+* server-side authorization
+* human authorization
+* PostgreSQL durable state
+* independent verification
+* authority increases after verified success
+* authority decreases after failed verification
+* hard safety boundaries
+* audit trail
+* fresh-read verification
+* transparent Bedrock fallback
+* existing seeded cases
+* existing proof/reset behavior
+* existing buttons
+* existing backend APIs
+* existing mascot asset
+
+These are the reason the project can score strongly on Technical Implementation.
+
+We are changing the STORY and HIERARCHY, not the engineering.
+
+---
+
+# 13. DO NOT TURN THIS INTO A GENERIC COMMUNITY WEBSITE
+
+This is extremely important.
+
+Do NOT make the page sentimental, cartoonish, or vague.
+
+This is a technically serious AI agent project.
+
+The desired balance is:
+
+**Warm mission + serious technology.**
+
+The judge should simultaneously think:
+
+**“I understand who this helps.”**
+
+and
+
+**“These people actually built something sophisticated.”**
+
+---
+
+# 14. GOOD NEIGHBOR TEST
+
+After making the changes, open `/demo` as if you are a judge who knows nothing about VOUCH.
+
+Within the first 10 seconds, the page must communicate:
+
+1. A community team needs help.
+2. VOUCH is their AI teammate.
+3. The AI can actually do work.
+4. VOUCH makes sure responsibility is earned.
+5. People remain in control.
+
+If the first screen still feels like an enterprise governance dashboard, revise the copy/hierarchy again.
+
+---
+
+# 15. FINAL QUALITY CHECK
+
+After the surgical changes:
+
+* Do NOT rebuild the architecture.
+* Do NOT change the database schema.
+* Do NOT change seeded case behavior.
+* Do NOT change authority calculations.
+* Do NOT change verification behavior.
+* Do NOT regenerate the mascot.
+* Do NOT add fake AWS claims.
+* Do NOT fabricate metrics.
+* Do NOT create fake customer/deployment claims.
+* Do NOT remove technical proof.
+
+Run the existing tests.
+
+Run TypeScript.
+
+Run the production build.
+
+Open `/demo`.
+
+Verify the page visually.
+
+Verify browser console is clean.
+
+Verify the Process / Approve / Decline / Reset flows still work.
+
+Then report exactly what changed.
+
+The goal is NOT “make the dashboard prettier.”
+
+The goal is:
+
+> **Make the judge immediately understand that VOUCH is an AI teammate for people — and then make them excited by the engineering that makes that teammate trustworthy.**
