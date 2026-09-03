@@ -2,7 +2,7 @@
 
 > **The AI that looks out for people.**
 
-VOUCH gives a group of people an AI teammate they can safely delegate to. The agent handles routine work; VOUCH provides a trusted second set of eyes before important actions, brings the group back into the decision when necessary, and verifies what happened afterward.
+VOUCH gives a group of people an AI teammate that earns trust through proven work. Successful verified outcomes can earn greater responsibility; higher-stakes decisions return to people; failed performance can reduce responsibility.
 
 Underneath that human experience, VOUCH turns an agent's verified track record into bounded, revocable authority while evaluating every request again against current evidence, risk, policy, context, and hard safety limits.
 
