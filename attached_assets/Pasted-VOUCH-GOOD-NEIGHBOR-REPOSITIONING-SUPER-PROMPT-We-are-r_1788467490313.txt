@@ -1,0 +1,832 @@
+VOUCH — GOOD NEIGHBOR REPOSITIONING SUPER PROMPT
+
+We are repositioning the EXISTING VOUCH application for the AWS Agents for Humans Hackathon Good Neighbor Agents track.
+
+CRITICAL INSTRUCTION
+
+DO NOT rebuild VOUCH.
+
+DO NOT replace the existing architecture.
+
+DO NOT remove or weaken any working functionality.
+
+DO NOT change the underlying trust, authority, verification, authorization, audit, Strands Agents, Bedrock, PostgreSQL, or claims-resolution functionality.
+
+The application has already been built and tested successfully.
+
+This is a product-story, UX, copy, information architecture, and presentation repositioning.
+
+The goal is to make the existing VOUCH product unmistakably feel like a Good Neighbor Agent product rather than a generic AI governance/control platform.
+
+Preserve the existing visual identity, existing horse mascot/artwork, existing functionality, existing routes where practical, and existing working demo.
+
+Do not regenerate, replace, redesign, or remove the existing horse mascot/artwork.
+
+THE NEW PRODUCT STORY
+
+The primary user is:
+
+A group of people working together to help other people.
+
+Examples include:
+
+a neighborhood group
+a food pantry team
+a school team
+a library team
+a small nonprofit
+a local community organization
+volunteers coordinating together
+
+These are not merely industries VOUCH can serve.
+
+The group is the user.
+
+The group has an AI teammate.
+
+The problem is that the group wants the AI to actually help, but they do not want to hand the AI unlimited authority.
+
+That is the reason VOUCH exists.
+
+The central story should be:
+
+A community can have an AI teammate without giving that teammate the keys.
+
+VOUCH lets the group delegate work gradually.
+
+The agent starts with limited authority.
+
+It proves that it can handle work correctly.
+
+Its results are verified.
+
+Successful work can earn more responsibility.
+
+Risky work comes back to a person.
+
+Unsafe work is blocked.
+
+The people remain in charge.
+
+THE CORE POSITIONING
+
+The website should communicate this idea immediately:
+
+VOUCH
+The AI that looks out for people.
+
+Supporting message:
+
+A trusted AI teammate for groups helping their communities.
+
+Alternative supporting copy that can be used elsewhere:
+
+Let AI help. Keep people in control.
+
+Everyone deserves a little backup.
+
+The agent is the teammate. The group is the user. The people stay in charge.
+
+Do NOT lead with:
+
+governance
+enterprise AI governance
+professional agents
+autonomous enterprise workflows
+compliance
+corporate controls
+agent management
+AI administration
+policy engine
+authorization infrastructure
+
+Those concepts can still exist deeper in the product for technical credibility, but they should NOT define the first impression.
+
+THE EMOTIONAL PROBLEM
+
+The homepage should make a judge understand this within seconds:
+
+A small community team has too much work and too few people.
+
+They want an AI teammate to help.
+
+But everyone in the group needs to be able to trust what that teammate is allowed to do on behalf of the group.
+
+They don't want to approve every tiny task.
+
+They also don't want the AI deciding for itself how much power it should have.
+
+VOUCH is the answer.
+
+The emotional framing should be:
+
+People helping people shouldn't have to choose between doing everything themselves and handing an AI the keys.
+
+This should become one of the strongest messages on the site.
+
+HOMEPAGE REPOSITIONING
+
+Rewrite the homepage so the first screen feels like a product for a community/team, not a technical control platform.
+
+Hero
+
+Use:
+
+VOUCH
+The AI that looks out for people.
+
+Supporting text:
+
+A trusted AI teammate for groups helping their communities. VOUCH lets your team delegate routine work while keeping people in control of the decisions that matter.
+
+Primary CTA:
+
+See VOUCH in action
+
+Secondary CTA:
+
+How it works
+
+Use the existing horse mascot prominently.
+
+Do not create a new mascot.
+
+Do not replace the current artwork.
+
+IMMEDIATELY AFTER THE HERO
+
+Add a strong human-centered section.
+
+Headline:
+
+Your team shouldn't have to do everything itself.
+
+Body:
+
+A few people can only do so much. An AI teammate can take care of repetitive work—but when that teammate acts on behalf of the group, someone still needs to know what it is allowed to do.
+
+Then:
+
+VOUCH lets your group delegate safely.
+
+Use a simple visual progression:
+
+START SMALL
+
+The agent begins with limited responsibility.
+
+↓
+
+PROVE IT
+
+The agent handles real work.
+
+↓
+
+VERIFY
+
+The group can see whether the work was actually successful.
+
+↓
+
+EARN TRUST
+
+Successful verified work can earn more responsibility.
+
+↓
+
+STEP IN
+
+When something is too risky, the decision comes back to a person.
+
+This should feel warm, understandable, and human.
+
+COMMUNITY SCENARIO
+
+Add a section that makes Good Neighbor unmistakable.
+
+Headline:
+
+An AI teammate for the people doing the work.
+
+Body:
+
+Imagine a small community team with more requests than volunteers. The team brings in an AI teammate to handle routine work.
+
+They don't want to approve every task. They also don't want the AI deciding what it can do on its own.
+
+VOUCH gives the group a middle ground: the agent can help, earn responsibility through verified work, and stop when a human needs to decide.
+
+Then show examples such as:
+
+Neighborhood groups
+Coordinate repetitive requests without putting every decision on one volunteer.
+
+Food pantry teams
+Give volunteers more capacity while keeping important decisions with people.
+
+Schools & libraries
+Let an AI teammate handle routine work without letting it overstep.
+
+Small local organizations
+Get another set of hands without giving up control.
+
+IMPORTANT:
+
+These are examples of intended use cases.
+
+Do NOT imply VOUCH is currently deployed by these organizations.
+
+Do NOT invent customers.
+
+Do NOT claim partnerships.
+
+"THE AI IS THE TEAMMATE" SECTION
+
+Create a strong visual section.
+
+Headline:
+
+The agent is the teammate. The group is the user.
+
+Then explain:
+
+VOUCH doesn't replace the people running the work. It helps them delegate.
+
+Use three columns/cards:
+
+THE AGENT
+
+Investigates, reasons, recommends, and handles routine work.
+
+VOUCH
+
+Checks evidence, risk, authority, verification, and safety boundaries.
+
+THE GROUP
+
+Sets the boundaries and makes the decisions that require human judgment.
+
+End with:
+
+The AI can help. The people keep the keys.
+
+This is one of the most important sections on the website.
+
+REFRAME THE EXISTING CLAIMS DEMO
+
+DO NOT remove the claims demo.
+
+It is an important technical demonstration.
+
+But stop presenting it as though VOUCH is fundamentally a claims-management product.
+
+Instead, label it clearly as:
+
+See earned delegation in action
+
+Supporting copy:
+
+Claims resolution is our demonstration scenario for showing how a community-serving team can safely delegate work to an AI teammate.
+
+Then explain:
+
+The scenario shows what happens when an agent earns responsibility, encounters a higher-risk action, requires a human decision, and later loses authority after a failed verification.
+
+The claims scenario is the proof.
+
+It is NOT the identity of the product.
+
+CLAIMS DEMO STORY
+
+Make the existing demo visually communicate:
+
+1. The agent starts small
+
+$250 autonomous authority
+
+2. The agent helps
+
+$124 duplicate-charge claim resolved
+
+3. The result is verified
+
+Successful verified work
+
+4. The agent earns more responsibility
+
+$250 → $500 authority
+
+5. A larger decision arrives
+
+$1,240 refund exception
+
+6. VOUCH stops the agent
+
+APPROVAL REQUIRED
+
+7. A person decides
+
+Human authorization granted for this specific action
+
+8. The agent does NOT receive unlimited power
+
+Authority remains $500
+
+9. Verification later fails
+
+Authority reduced
+
+10. The group remains in control
+
+Previously autonomous work now requires human approval
+
+Make this feel like a story about a teammate earning trust—not like a corporate permissions dashboard.
+
+HUMAN CONTROL SECTION
+
+Create or strengthen a section:
+
+When the decision matters, bring people back in.
+
+Body:
+
+VOUCH isn't designed to keep humans approving every action. It's designed to know when a human should decide.
+
+Show:
+
+Routine + verified → Agent can act
+
+Higher risk → Human approval
+
+Unsafe or forbidden → Block
+
+Then:
+
+The goal isn't maximum autonomy.
+
+The goal is useful autonomy that a group can trust.
+
+TRUST SHOULD FEEL HUMAN
+
+Wherever the current site uses technical terminology, translate it into human language first.
+
+Use:
+
+TRUST
+
+Can we trust what is happening?
+
+AUTHORITY
+
+Is the agent actually allowed to do this?
+
+RISK
+
+What could happen if it gets this wrong?
+
+VERIFICATION
+
+Can we verify that the result was actually successful?
+
+HUMAN APPROVAL
+
+Is this important enough for someone to decide?
+
+Technical terminology can remain in deeper architecture/technical sections.
+
+The public-facing experience should lead with the human meaning.
+
+REFRAME THE LIFECYCLE
+
+Keep the existing lifecycle:
+
+PROVE → EARN → ACT → VERIFY → ADJUST
+
+But introduce it as:
+
+How a group learns to trust its AI teammate
+PROVE
+
+The agent starts by handling limited work.
+
+EARN
+
+Successful verified work builds evidence that it can handle more.
+
+ACT
+
+The agent takes action within the authority the group has entrusted to it.
+
+VERIFY
+
+The result is checked independently.
+
+ADJUST
+
+Authority increases or decreases based on what actually happened.
+
+End with:
+
+Trust isn't a setting. It's something the agent earns.
+
+WHY VOUCH
+
+Rework the existing Why VOUCH page around the human problem.
+
+Headline:
+
+Your AI teammate shouldn't become your boss.
+
+Body:
+
+When a group delegates work to an AI, it needs more than an agent that can act. It needs confidence that the agent will stay within the responsibility the group gave it.
+
+Then explain:
+
+VOUCH provides:
+
+Boundaries
+The agent cannot grant itself authority.
+
+Earned responsibility
+Successful verified work can increase what the agent is trusted to handle.
+
+Human decisions
+Important actions can return to the people.
+
+Verification
+The system checks what actually happened.
+
+Recovery
+Failed verification can reduce authority.
+
+Safety
+Hard boundaries can block actions the agent should never take.
+
+End:
+
+VOUCH gives groups a way to get more help from AI without giving AI control of the group.
+
+ARCHITECTURE PAGE
+
+Keep the existing technical architecture.
+
+Do NOT simplify away the technical substance.
+
+However, change the introduction so it starts with the human problem.
+
+Headline:
+
+Under the hood: keeping the group in control
+
+Opening:
+
+VOUCH separates what an AI teammate recommends from what it is actually allowed to do.
+
+Then show the existing architecture:
+
+Request → Evidence → Risk → Authority → Action → Verification → Trust
+
+Explain the components.
+
+Make the Strands Agents + Amazon Bedrock implementation prominent.
+
+Explain that the Strands agent:
+
+investigates
+gathers evidence
+reasons
+recommends
+requests authority
+
+Then explain that the independent VOUCH authority engine decides whether the action is:
+
+ALLOW
+
+APPROVAL_REQUIRED
+
+BLOCK
+
+Make this distinction extremely clear:
+
+The agent can recommend an action. It cannot authorize itself.
+
+This is a major technical strength and should remain highly visible.
+
+STRANDS / AWS VISIBILITY
+
+Because this is an AWS hackathon, make the real technology easy for judges to find.
+
+Do not hide:
+
+Strands Agents
+
+Amazon Bedrock
+
+PostgreSQL
+
+Server-side authority engine
+
+Independent verification
+
+Human authorization
+
+Use a technical section or architecture callout:
+
+Built with real agentic infrastructure
+
+Strands Agents + Amazon Bedrock power the AI teammate's reasoning and tool use.
+
+VOUCH provides the independent authority and verification layer around that agent.
+
+Do not claim AgentCore unless it is actually implemented.
+
+Do not invent AWS services.
+
+Only describe services that are genuinely present in the current code.
+
+JUDGES PAGE
+
+The judges route should be extremely easy for an AWS hackathon judge to understand.
+
+Headline:
+
+VOUCH for Good Neighbor Agents
+
+Opening:
+
+A group of people should be able to gain the benefits of an AI teammate without handing the teammate unlimited authority.
+
+Then explicitly state:
+
+WHO IT'S FOR
+
+Groups of people working together to help other people.
+
+Examples:
+
+community groups
+nonprofits
+food pantries
+schools
+libraries
+small local organizations
+THE PROBLEM
+
+Small teams have more repetitive work than their people have time to handle.
+
+THE SOLUTION
+
+VOUCH lets a group delegate work to an AI teammate while keeping authority, verification, and important decisions with the people.
+
+WHY IT'S DIFFERENT
+
+The agent's authority is earned through verified performance.
+
+HUMAN CONTROL
+
+The agent cannot authorize itself. Higher-risk work can require a human. Unsafe work can be blocked.
+
+TECHNICAL IMPLEMENTATION
+
+Real Strands Agents + Amazon Bedrock.
+
+Independent server-side authority engine.
+
+PostgreSQL persistence.
+
+Explicit human authorization.
+
+Independent verification.
+
+Then add a compact:
+
+The proof
+
+PROVE → EARN → ACT → VERIFY → ADJUST
+
+with the existing claims demo underneath.
+
+End:
+
+The agent helped.
+The human stayed in control.
+NAVIGATION
+
+Review the main navigation.
+
+The labels should feel like a friendly product rather than a developer platform.
+
+Prefer:
+
+Home
+
+See It Work
+
+Why VOUCH
+
+How It Works
+
+For Judges
+
+Avoid overly technical top-level labels such as:
+
+Governance
+Authority Engine
+Policy
+Infrastructure
+Agent Control
+
+Technical material can remain under How It Works / Architecture.
+
+CTA LANGUAGE
+
+Use human-centered CTAs.
+
+Prefer:
+
+See VOUCH in action
+
+See how trust is earned
+
+See how the agent knows when to stop
+
+How VOUCH works
+
+See the human decision
+
+Avoid:
+
+Launch governance
+
+Configure policy
+
+Manage agent authority
+
+Deploy control framework
+
+TONE
+
+The site should feel:
+
+human
+warm
+reassuring
+clever
+trustworthy
+community-oriented
+technically serious underneath
+confident
+not corporate
+not bureaucratic
+not childish
+
+The horse mascot can provide personality.
+
+Do not make the site overly cute.
+
+The message should feel like:
+
+“We built serious agent technology because people deserve an AI teammate they can trust.”
+
+Not:
+
+“We built an enterprise governance platform.”
+
+IMPORTANT COPY RULE
+
+Every major page should pass this test:
+
+If you removed the word "nonprofit," would the site still clearly be about a group of people working together?
+
+If the answer is no, the copy is too generic.
+
+The group must be the primary user.
+
+Do not merely say:
+
+“VOUCH can help nonprofits.”
+
+Say:
+
+“VOUCH gives a group of people an AI teammate they can safely delegate to.”
+
+DO NOT OVERDO THE COMMUNITY LANGUAGE
+
+Do not put “community” into every sentence.
+
+That will make the repositioning feel artificial.
+
+Instead, establish the story clearly:
+
+A group has an AI teammate.
+
+Then demonstrate why that group needs VOUCH.
+
+The technology should naturally prove the story.
+
+PRESERVE THE EXISTING PRODUCT
+
+Before changing anything:
+
+Inspect the current application.
+Identify existing routes.
+Identify existing demo flows.
+Identify existing Strands/Bedrock integration.
+Identify existing PostgreSQL state.
+Identify existing authorization flow.
+Identify existing mascot/artwork.
+Identify existing judge-facing pages.
+Identify existing architecture page.
+Identify current tests.
+
+Then make the smallest set of changes necessary to accomplish this repositioning.
+
+Do NOT rewrite working code unnecessarily.
+
+Do NOT replace the backend.
+
+Do NOT replace the agent.
+
+Do NOT replace the database.
+
+Do NOT replace the demo.
+
+Do NOT remove existing functionality simply because the copy is changing.
+
+TESTING REQUIREMENTS
+
+After the changes:
+
+run the existing test suite
+run TypeScript checks
+run the production build
+verify the main homepage
+verify the demo
+verify Why VOUCH
+verify Judges
+verify Architecture
+verify responsive/mobile layout
+verify no broken navigation
+verify no browser console errors
+verify the claims demo still works
+verify the human authorization flow still works
+verify the Bedrock/Strands path remains intact
+verify the fallback remains honestly labeled
+verify no secret values are exposed
+
+Do not call external AWS services unnecessarily just to test the copy changes.
+
+Do not change secrets.
+
+Do not change infrastructure unless required for an actual bug.
+
+FINAL SUCCESS TEST
+
+When someone who has never seen VOUCH visits the homepage, they should be able to answer these questions almost immediately:
+
+Who is this for?
+
+A group of people working together to help others.
+
+What is the problem?
+
+They want an AI teammate to take on repetitive work, but they need to trust what that teammate is allowed to do.
+
+What does VOUCH do?
+
+It lets the group delegate responsibility gradually while keeping people in control.
+
+What makes it interesting?
+
+The agent earns authority through verified work and can lose it when the evidence says it should.
+
+What happens when something important happens?
+
+VOUCH stops and puts the decision back with a human.
+
+Is this actually an AWS agent?
+
+Yes. The reasoning agent is built with Strands Agents and Amazon Bedrock.
+
+Can I see it work?
+
+Yes. The existing end-to-end demo demonstrates earned authority, human approval, verification, and adjustment.
+
+If those answers are immediately obvious, the repositioning is successful.
+
+FINAL MESSAGE TO KEEP
+
+The single most important idea across the site is:
+
+A group of people can have an AI teammate without giving that teammate the keys.
+
+And the strongest closing line is:
+
+The agent helped.
+The human stayed in control.
+
+Implement this as a careful repositioning of the existing VOUCH product.
+
+Do not rebuild VOUCH. Make the existing VOUCH story unmistakably Good Neighbor.
