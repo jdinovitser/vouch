@@ -16,14 +16,61 @@ import { approvalAllowsExecution, approvalIsExpired } from "./approval";
 import type { ActionRecord, ApprovalRecord, SessionState, WorkflowState } from "../shared/types";
 
 const app = express();
-app.use(express.json());
+app.set("trust proxy", 1);
+app.use(express.json({ limit: "32kb" }));
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store");
+  res.setHeader("X-Robots-Tag", "noindex, nofollow, noarchive, nosnippet");
   res.setHeader("Access-Control-Allow-Origin", req.headers.origin ?? "*");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Vouch-Session");
   res.setHeader("Access-Control-Expose-Headers", "X-Vouch-Session");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
   if (req.method === "OPTIONS") return res.sendStatus(204);
+  next();
+});
+
+const blockedAutomation = /\b(?:ahrefsbot|amazonbot|baiduspider|bingbot|bytespider|ccbot|claudebot|crawly|dataforseobot|dotbot|facebookexternalhit|google-extended|googlebot|gptbot|headlesschrome|ia_archiver|petalbot|phantomjs|python-requests|semrushbot|slurp|sogou|spider|twitterbot|wget|yandexbot)\b/i;
+const requestBuckets = new Map<string, { startedAt: number; count: number }>();
+const API_WINDOW_MS = 60_000;
+const API_REQUEST_LIMIT = 120;
+const SESSION_WINDOW_MS = 10 * 60_000;
+const SESSION_BOOTSTRAP_LIMIT = 8;
+
+function clientAddress(req: express.Request) {
+  return req.ip || req.socket.remoteAddress || "unknown";
+}
+
+function allowedByRateLimit(key: string, windowMs: number, limit: number) {
+  const now = Date.now();
+  const previous = requestBuckets.get(key);
+  const bucket = !previous || now - previous.startedAt >= windowMs
+    ? { startedAt: now, count: 0 }
+    : previous;
+  bucket.count += 1;
+  requestBuckets.set(key, bucket);
+  if (requestBuckets.size > 10_000) {
+    for (const [bucketKey, value] of requestBuckets) {
+      if (now - value.startedAt >= windowMs) requestBuckets.delete(bucketKey);
+    }
+  }
+  return bucket.count <= limit;
+}
+
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === "production" && req.path !== "/robots.txt" && blockedAutomation.test(req.get("user-agent") ?? "")) {
+    return res.status(403).json({ error: "Automated crawlers are not permitted" });
+  }
+  if (req.method === "OPTIONS" || !req.path.startsWith("/api/")) return next();
+  const address = clientAddress(req);
+  if (!allowedByRateLimit(`api:${address}`, API_WINDOW_MS, API_REQUEST_LIMIT)) {
+    res.setHeader("Retry-After", "60");
+    return res.status(429).json({ error: "Too many requests. Please try again shortly." });
+  }
+  if (req.path === "/api/session" && !req.headers["x-vouch-session"] &&
+      !allowedByRateLimit(`session:${address}`, SESSION_WINDOW_MS, SESSION_BOOTSTRAP_LIMIT)) {
+    res.setHeader("Retry-After", "600");
+    return res.status(429).json({ error: "Too many new demo sessions from this address. Please try again later." });
+  }
   next();
 });
 
