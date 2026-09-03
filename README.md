@@ -1,16 +1,20 @@
 # VOUCH
 
-> **AI agents do not need unlimited autonomy. They need earned authority.**
+> **The AI that looks out for you.**
 
-VOUCH is an adaptive authority engine for AI agents. It turns an agent's verified track record into bounded, revocable authority while evaluating every request again against current evidence, risk, policy, context, and hard safety limits.
+VOUCH helps people and community-serving organizations safely benefit from AI agents. The agent handles routine work; VOUCH provides a trusted second set of eyes before important actions, brings people back into the decision when necessary, and verifies what happened afterward.
+
+Underneath that human experience, VOUCH turns an agent's verified track record into bounded, revocable authority while evaluating every request again against current evidence, risk, policy, context, and hard safety limits.
 
 ## The problem
 
-Agentic systems usually answer “can the model perform this task?” Capability is not the same as permission. Consequential actions need a separate, auditable answer to “has this agent earned enough authority to perform this task now?”
+AI agents can give nonprofits, schools, libraries, local organizations, and other community-serving teams more capacity. But when an agent can act on someone's behalf, people should not have to choose between useful automation and staying in control.
+
+Capability is not the same as permission. Consequential actions need a separate, auditable answer to “should this agent be allowed to perform this task now—and does a person need to decide?”
 
 ## The solution
 
-VOUCH enforces a lifecycle:
+VOUCH gives people that backup through a clear lifecycle:
 
 ```text
 REQUEST → INVESTIGATE → EVIDENCE → RISK → AUTHORITY → ACTION → VERIFY → TRUST
@@ -20,9 +24,9 @@ REQUEST → INVESTIGATE → EVIDENCE → RISK → AUTHORITY → ACTION → VERIF
 
 The outcome of each fresh authorization decision can be:
 
-- **EXECUTE** — policy, evidence, risk, and trust permit autonomous action.
-- **APPROVAL REQUIRED** — evidence supports the recommendation, but human authority is required.
-- **BLOCKED** — evidence is conflicting, untrusted, insufficient, or unsafe.
+- **EXECUTE** — routine work can proceed within the boundaries people established.
+- **APPROVAL REQUIRED** — the agent can help, but a person must make the final decision.
+- **BLOCKED** — the evidence is conflicting, untrusted, insufficient, or unsafe.
 
 ## Architecture
 
@@ -100,10 +104,10 @@ The guided demo is driven by actual backend session state and proves `PROVE → 
 
 ## Product routes
 
-- `/` — enterprise product landing page
-- `/why-vouch` — business problem, value, and ROI mechanics
-- `/how-it-works` — lifecycle and graduated autonomy
-- `/demo` — interactive earned-autonomy lifecycle
+- `/` — human-centered product landing page
+- `/why-vouch` — why people and community-serving groups need a trusted backup
+- `/how-it-works` — human decision lifecycle and graduated autonomy
+- `/demo` — interactive people-in-control lifecycle
 - `/judges` — purpose-built 90-second judging path
 - `/architecture` — technical control boundary
 - `/control` — live product control center

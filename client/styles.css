@@ -103,7 +103,7 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .why { padding: 110px 0 125px; }
 .why h2, .landing-bottom h2 { margin: 14px 0; font: 700 44px var(--display); letter-spacing: -.04em; }
 .section-intro { width: 570px; max-width: 100%; color: var(--muted); line-height: 1.8; }
-.principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 52px; }
+.principles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 52px; }
 .principle { position: relative; overflow: hidden; min-height: 265px; padding: 27px; border: 1px solid var(--line); background: linear-gradient(150deg, #0e1c2d, #091522); border-radius: 9px; }
 .principle-head { display: flex; justify-content: space-between; color: #425870; font: 500 9px var(--mono); }
 .principle-icon { width: 41px; height: 41px; display: grid; place-items: center; border: 1px solid #2a4360; border-radius: 6px; color: var(--blue-bright); background: #102239; }
@@ -112,6 +112,17 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .principle p { margin: 0; max-width: 280px; color: var(--muted); font-size: 13px; line-height: 1.65; }
 .principle-rule { position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--blue); transition: width .3s; }
 .principle:hover .principle-rule { width: 100%; }
+.community-capacity { padding: 105px 0; border-top: 1px solid var(--line-soft); display: grid; grid-template-columns: .82fr 1.18fr; gap: 74px; align-items: start; }
+.community-heading { position: sticky; top: 116px; }
+.community-heading h2 { margin: 15px 0 18px; font: 700 43px/1.08 var(--display); letter-spacing: -.045em; }
+.community-heading h2 em { color: var(--blue-bright); font-style: normal; }
+.community-heading p { max-width: 440px; margin: 0 0 20px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+.community-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.community-grid article { min-height: 225px; padding: 24px; border: 1px solid var(--line); border-radius: 9px; background: linear-gradient(150deg, #0e1c2d, #091522); }
+.community-grid article > span { color: #425870; font: 500 9px var(--mono); }
+.community-grid article > b { display: block; margin-top: 28px; color: var(--blue-bright); font: 500 9px var(--mono); letter-spacing: .1em; }
+.community-grid h3 { margin: 9px 0; font: 700 19px/1.25 var(--display); letter-spacing: -.025em; }
+.community-grid p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.65; }
 .landing-bottom { padding: 70px 0 90px; border-top: 1px solid var(--line-soft); display: flex; justify-content: space-between; align-items: end; }
 .landing-bottom h2 span { color: var(--red); }
 .text-link { border: 0; background: none; color: var(--blue-bright); display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 12px 0; }
@@ -484,6 +495,9 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
   .arch-diagram { grid-template-columns: repeat(2, 1fr); }
   .arch-arrow { display: none; }
   .claims-queue { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .principles { grid-template-columns: repeat(2, 1fr); }
+  .community-capacity { grid-template-columns: 1fr; gap: 38px; }
+  .community-heading { position: static; }
 }
 @media (max-width: 760px) {
   .knight-progression-grid { grid-template-columns:1fr; }.knight-tier-card { min-height:420px; }
@@ -497,7 +511,9 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
   .hero-visual { min-height: 430px; }
   .hero-copy h1 { font-size: 54px; }
   .trust-float { right: 0; }
-  .principles, .scenario-grid { grid-template-columns: 1fr; }
+  .principles, .scenario-grid, .community-grid { grid-template-columns: 1fr; }
+  .community-capacity { padding: 72px 0; }
+  .community-heading h2 { font-size: 35px; }
   .landing-bottom, .page-heading { align-items: flex-start; flex-direction: column; }
   .state-strip { grid-template-columns: 1fr; }
   .state-divider, .state-meta { display: none; }

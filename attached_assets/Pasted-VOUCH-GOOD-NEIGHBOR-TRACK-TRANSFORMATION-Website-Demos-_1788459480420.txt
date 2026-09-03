@@ -1,0 +1,719 @@
+VOUCH — GOOD NEIGHBOR TRACK TRANSFORMATION
+Website + Demos + Why VOUCH + Contest Positioning
+
+We are preparing the existing VOUCH project for the AWS Agents for Humans Hackathon — Good Neighbor Agents track.
+
+The goal is NOT to rebuild VOUCH.
+
+The goal is to make the existing VOUCH product, website, demos, and messaging clearly communicate that VOUCH is built to help people and community-serving groups safely benefit from AI agents.
+
+AWS defines the Good Neighbor track around agents that help groups of people rather than just one individual, including nonprofits, schools, libraries, food banks, neighborhoods, and small local organizations.
+
+Therefore, the PRIMARY STORY must be:
+
+VOUCH helps people and communities use AI safely.
+
+The AI agent is the technology.
+
+The community-serving person or organization is the beneficiary.
+
+VOUCH is the helpful layer that looks out for them.
+
+1. NON-NEGOTIABLE: DO NOT REBUILD VOUCH
+
+Before changing anything, inspect the existing application.
+
+Preserve:
+
+existing architecture
+existing Strands Agents implementation
+existing AWS integration
+existing Bedrock implementation where currently used
+existing tools
+existing agent behavior
+existing trust logic
+existing authority logic
+existing risk logic
+existing verification logic
+existing human authorization logic
+existing audit/outcome functionality
+existing routes
+existing working demo functionality
+
+Do not replace working functionality with mockups.
+
+Do not create a new application.
+
+Do not introduce unnecessary dependencies.
+
+Do not rewrite backend logic simply to change positioning.
+
+This is primarily a story, UX, copy, demo, and information-architecture transformation.
+
+2. ABSOLUTELY NO VISUAL REBRAND
+
+This is critical.
+
+DO NOT:
+
+replace the VOUCH logo
+replace the horse
+redesign the horse
+generate a new mascot
+generate new images
+replace existing images
+edit existing images
+replace existing illustrations
+create a new visual identity
+change existing brand artwork
+
+The current VOUCH imagery and mascot are staying.
+
+We are changing the story around the existing visuals, not the visuals themselves.
+
+You may adjust:
+
+copy
+layout
+hierarchy
+section order
+CTA text
+typography where appropriate
+spacing
+UI emphasis
+
+But do not replace visual assets.
+
+3. THE NEW VOUCH STORY
+
+The old interpretation should NOT be:
+
+VOUCH is an enterprise AI governance platform.
+
+The new interpretation should be:
+
+VOUCH helps people and community-serving organizations safely use AI agents.
+
+The emotional idea:
+
+Everyone deserves a little backup.
+
+AI agents can be incredibly useful.
+
+They can help people and organizations with limited time and resources accomplish more.
+
+But when an AI agent is capable of acting on someone's behalf, people should not have to blindly trust it.
+
+VOUCH provides that second set of eyes.
+
+4. PRIMARY BRAND MESSAGE
+
+Use:
+
+VOUCH
+The AI that looks out for you.
+
+Supporting copy:
+
+AI agents can help people and communities get things done. VOUCH helps make sure those agents act within the trust, authority, and boundaries the people they serve expect.
+
+Then explain simply:
+
+Before an agent takes an important action, VOUCH checks what it wants to do, whether it should be allowed to do it, what could go wrong, and whether a person needs to make the final decision.
+
+This should feel human and useful.
+
+Do not lead with enterprise governance language.
+
+5. HOMEPAGE HERO
+
+The first screen should immediately answer:
+
+Who is this for?
+
+Answer:
+
+People and communities using AI agents.
+
+Recommended hero:
+
+The AI that looks out for you.
+
+Subheadline:
+
+AI agents can help us get things done. But when an agent acts on behalf of people or communities, someone needs to make sure it stays within the right boundaries.
+
+Then:
+
+VOUCH gives people a trusted second set of eyes before AI acts.
+
+Primary CTA:
+
+See VOUCH in Action
+
+Secondary CTA:
+
+Why VOUCH?
+
+The visitor should understand within seconds that this is about helping people, not selling enterprise compliance software.
+
+6. CHANGE THE "WHY VOUCH" SECTION
+
+The existing Why VOUCH section MUST be revised.
+
+Do not leave it as a generic product-benefits section.
+
+It needs to answer:
+
+Why do people need VOUCH?
+
+Recommended framing:
+
+Because AI should help people — not leave them guessing.
+
+Supporting message:
+
+AI agents are becoming capable of doing real work for us. That is exciting, especially for people and organizations that have more needs than time or resources.
+
+But helpful automation creates a new problem: what happens when an agent is about to do something important, risky, or outside what someone intended?
+
+VOUCH is the backup.
+
+Then present the four core questions in HUMAN language:
+
+Is this what we intended?
+
+Trust
+
+Is the agent allowed to do it?
+
+Authority
+
+What happens if it gets it wrong?
+
+Risk
+
+Can we verify what it's relying on?
+
+Verification
+
+Then:
+
+When the answer isn't clear, VOUCH doesn't simply let the agent decide.
+
+It brings the human back into the decision.
+
+This should become one of the strongest sections on the entire website.
+
+7. WHY THIS MATTERS TO COMMUNITIES
+
+Add/rework a section explaining the Good Neighbor value.
+
+Heading:
+
+AI can give communities more capacity.
+
+Copy:
+
+Small organizations and community-serving groups often have big needs and limited time.
+
+AI agents can help with the repetitive work — coordinating information, handling routine tasks, communicating, organizing resources, and more.
+
+But those organizations shouldn't have to choose between getting the benefits of AI and keeping people in control.
+
+VOUCH helps bridge that gap.
+
+Then examples:
+
+Nonprofits
+
+Do more with limited staff time.
+
+Schools
+
+Use AI assistance while keeping people responsible for important decisions.
+
+Libraries
+
+Give people access to useful AI while maintaining human oversight.
+
+Community organizations
+
+Coordinate work and serve people without giving an agent unlimited authority.
+
+Small local organizations
+
+Use powerful agents without needing a massive AI governance department.
+
+These are potential use cases.
+
+Do NOT imply existing customers or deployments unless they actually exist.
+
+8. DEMO #1 — PRIMARY HUMAN/COMMUNITY DEMO
+
+The first demo should be the most emotionally understandable.
+
+The opening should NOT be:
+
+"Here is our AI governance workflow."
+
+It should be:
+
+Someone needs help.
+
+Then introduce a person or community-serving organization with a realistic need.
+
+The AI agent is there to help.
+
+The agent performs useful work.
+
+Then the agent reaches a point where it wants to take an action.
+
+The central question becomes:
+
+Should it?
+
+This is where VOUCH enters.
+
+9. DEMO #1 FLOW
+
+Use this narrative:
+
+1. A person/community organization has a need.
+
+Make it immediately relatable.
+
+2. They ask an AI agent for help.
+
+The agent does real work.
+
+3. The agent proposes or prepares to take an action.
+
+This demonstrates genuine agentic behavior.
+
+4. VOUCH checks.
+
+Show:
+
+TRUST
+
+Is this really what was intended?
+
+AUTHORITY
+
+Is the agent allowed to do this?
+
+RISK
+
+What could happen if it gets this wrong?
+
+VERIFICATION
+
+Can the important information be checked?
+
+5. VOUCH determines whether human involvement is needed.
+
+If appropriate:
+
+HUMAN DECISION NEEDED
+
+Then:
+
+This action could affect the people you're helping. VOUCH wants a human to make the final call.
+
+6. The human decides.
+
+Use the existing authorization mechanism.
+
+7. The agent follows the decision.
+
+Then show the outcome.
+
+8. VOUCH records what happened.
+
+End with:
+
+The agent helped.
+The human stayed in control.
+10. DEMO #2 — COMMUNITY ORGANIZATION DEMO
+
+The second website demo should reinforce the Good Neighbor track more explicitly.
+
+This demo should demonstrate how VOUCH can help a group, not merely one individual.
+
+Use an existing demo capability if possible.
+
+Do not invent backend functionality simply for the story.
+
+Frame the existing functionality around a community-serving organization.
+
+Examples of appropriate contexts:
+
+nonprofit
+school
+library
+community organization
+local organization
+volunteer group
+
+The organization has limited time/resources.
+
+An AI agent is helping handle repetitive work.
+
+The agent eventually encounters an action where authority, risk, or verification matters.
+
+VOUCH intervenes.
+
+The human/community organization gets the final say.
+
+The result:
+
+More work gets done.
+
+People remain accountable.
+
+The agent doesn't silently overstep.
+
+This is the Good Neighbor value proposition.
+
+11. DEMO #2 SHOULD ANSWER "WHY A GROUP?"
+
+The second demo should make clear why this belongs in Good Neighbor rather than Everyday.
+
+The story should demonstrate:
+
+One person isn't the only beneficiary.
+
+The agent is helping a group of people coordinate, serve others, or manage shared work.
+
+The VOUCH layer protects the people who depend on that work.
+
+Do not make this feel like a corporate IT workflow.
+
+The organization should feel like a community-serving group.
+
+12. KEEP THE EXISTING TECHNICAL DEMO DETAILS
+
+Do not hide the technical sophistication.
+
+After the human story, reveal the machinery.
+
+Show the existing agentic architecture.
+
+For example:
+
+Community / Human Need
+→ AI Agent
+→ VOUCH
+→ Trust
+→ Authority
+→ Risk
+→ Verification
+→ Human Decision
+→ Action
+→ Outcome / Accountability
+
+Explain that the system is built with the actual technologies used in VOUCH.
+
+Preserve accurate references to:
+
+Strands Agents
+AWS
+Amazon Bedrock where actually implemented
+tools
+agent loops
+decision logic
+authorization
+auditability
+
+Do not fabricate integrations.
+
+Do not call simulated functionality real.
+
+The goal is:
+
+Simple for people. Sophisticated underneath.
+13. CHANGE TECHNICAL LANGUAGE INTO HUMAN LANGUAGE WHERE POSSIBLE
+
+Instead of immediately saying:
+
+Agent governance
+
+Say:
+
+Helping people stay in control when AI acts for them.
+
+Instead of:
+
+Policy enforcement
+
+Say:
+
+Making sure the agent stays within its boundaries.
+
+Instead of:
+
+Risk management
+
+Say:
+
+Checking what could go wrong.
+
+Instead of:
+
+Authorization workflow
+
+Say:
+
+Knowing when a person needs to decide.
+
+Technical terminology can remain in the technical section.
+
+The main experience should speak to people.
+
+14. ADD A "VOUCH IS THE BACKUP" MOMENT
+
+Create a memorable section:
+
+When AI isn't sure, VOUCH has your back.
+
+Then explain:
+
+The goal isn't to stop AI from helping.
+
+The goal is to let AI handle the routine work while making sure people are brought back into the loop when something actually matters.
+
+This directly aligns the product with the hackathon's central idea: agents should handle routine work and surface when there is a real decision to make.
+
+15. IMPORTANT: VOUCH IS NOT THE HERO — PEOPLE ARE
+
+Throughout every demo and every page:
+
+The hierarchy should be:
+
+PEOPLE
+↓
+Need help
+↓
+AI agent helps
+↓
+VOUCH looks out for them
+↓
+Human decides when necessary
+↓
+Community benefits
+
+Do NOT make the story:
+
+VOUCH
+↓
+AI governance
+↓
+Compliance
+↓
+Enterprise administration
+
+16. CHANGE ALL RELEVANT CTA COPY
+
+Where appropriate, replace generic enterprise/product CTAs with human-centered language.
+
+Examples:
+
+See VOUCH in Action
+
+See How VOUCH Looks Out for People
+
+See the Human Decision
+
+How VOUCH Helps
+
+Why VOUCH
+
+Avoid:
+
+Request Enterprise Demo
+
+Explore Governance
+
+Manage Your Agents
+
+unless those phrases are genuinely required by existing functionality.
+
+17. PRESERVE THE EXISTING IMAGES AND MASCOT
+
+Again, this is non-negotiable.
+
+The current VOUCH horse and all existing imagery stay exactly as they are.
+
+Do not modify their artwork.
+
+Do not generate replacements.
+
+Do not create new visual assets.
+
+If an existing image already works with the new copy, KEEP IT.
+
+The transformation happens through:
+
+words
+layout
+storytelling
+hierarchy
+demo sequencing
+UI copy
+18. MAKE THE WEBSITE'S DEMOS TELL THE SAME STORY AS THE CONTEST VIDEO
+
+The website demo and contest video should feel like the same product experience.
+
+A judge should be able to:
+
+Watch the contest video:
+
+"VOUCH helps people and communities stay in control of AI agents."
+
+Then visit the site:
+
+"Yes. That's exactly what this is."
+
+Do not let the website describe VOUCH as enterprise governance while the video describes it as community-focused.
+
+The messaging must be consistent.
+
+19. GOOD NEIGHBOR POSITIONING
+
+The project should naturally fit:
+
+Good Neighbor Agents
+
+The key phrase:
+
+VOUCH helps groups of people use AI agents without giving up human control.
+
+Examples:
+
+nonprofits
+schools
+libraries
+community organizations
+small local organizations
+volunteer groups
+people serving their communities
+
+The emphasis is:
+
+AI expands what people can accomplish.
+
+VOUCH helps make sure the humans remain responsible for what matters.
+
+20. DO NOT FORCE THE PHRASE "GOOD NEIGHBOR"
+
+Do not repeat "Good Neighbor" everywhere.
+
+The experience should demonstrate the concept.
+
+Use the phrase when appropriate for contest positioning, but don't make every headline:
+
+"Good Neighbor AI..."
+
+The judge should FEEL the Good Neighbor concept through the product.
+
+21. FINAL HOMEPAGE SECTION
+
+End the homepage with:
+
+Let AI help. Keep people in control.
+
+Supporting copy:
+
+VOUCH gives people and community-serving organizations a trusted second set of eyes when AI agents act on their behalf.
+
+Then:
+
+See VOUCH in Action
+
+And:
+
+Because everyone deserves a little backup.
+
+22. FINAL DEMO CLOSING
+
+The strongest closing should be human-centered.
+
+Preferred:
+
+AI can do more for us.
+VOUCH helps make sure it does it with us — not instead of us.
+
+Alternative:
+
+Let AI handle the busywork.
+Let people decide what matters.
+
+Choose whichever fits the existing visual presentation best.
+
+23. CONTEST JUDGE TEST
+
+The finished site must pass this test.
+
+Imagine an AWS judge arrives with no context.
+
+After 5 seconds:
+
+Do they know this is for people?
+
+After 15 seconds:
+
+Do they understand the problem?
+
+After 30 seconds:
+
+Do they understand who benefits?
+
+After the first demo:
+
+Do they see a real AI agent doing useful work?
+
+After VOUCH intervenes:
+
+Do they understand why VOUCH matters?
+
+After the second demo:
+
+Do they understand how groups/community organizations benefit?
+
+After the technical section:
+
+Do they see genuine Strands/AWS implementation?
+
+After leaving:
+
+Can they explain VOUCH to another judge in one sentence?
+
+The ideal answer:
+
+"VOUCH is like a good neighbor for people and communities using AI agents — it lets the agent help while making sure humans stay in control when it matters."
+
+24. FINAL NORTH STAR
+
+Every change must reinforce this story:
+
+PEOPLE NEED HELP.
+AI CAN HELP.
+AI CAN ALSO ACT.
+VOUCH LOOKS OUT FOR THE PEOPLE BEING HELPED.
+WHEN SOMETHING MATTERS, A HUMAN DECIDES.
+THE COMMUNITY BENEFITS.
+
+That is the VOUCH Good Neighbor story.
+
+Do not lose the sophisticated technology.
+
+Do not lose the working agent.
+
+Do not lose the existing functionality.
+
+Do not change the visual identity.
+
+Simply make it unmistakable that the reason VOUCH exists is to help people use powerful AI without having to face its decisions alone.
+
+Before finishing, run the complete application and verify that all existing functionality remains operational.
