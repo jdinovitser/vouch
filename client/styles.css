@@ -438,11 +438,16 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .judges-page .judges-hero { order: 0; min-height: 390px; grid-template-columns: 1.15fr .85fr; gap: 46px; }
 .judges-page .judges-hero h1 { font-size: 58px; }
 .judges-page .judge-stamp { min-height: 250px; }
-.judges-page .judge-brief { order: 1; }
-.judges-page #judges-demo { order: 1; }
+.judges-page .judge-category { order: 1; }
 .judges-page .judge-takeaways { order: 2; }
 .judges-page .judge-watch { order: 3; }
-.judges-page .technical-snapshot { order: 4; }
+.judges-page #judges-demo { order: 4; }
+.judges-page .technical-snapshot { order: 5; }
+.judges-page .judges-enforcement { order: 6; }
+.judges-page .community-capacity { order: 7; }
+.judges-page .judge-criteria { order: 8; }
+.judges-page .judges-difference { order: 9; }
+.judges-page .page-cta { order: 10; }
 .judge-live-demo > .claims-workspace { margin: 18px 0 24px; }
 .judge-brief { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #0a1725; }
 .judge-brief article { min-height: 145px; padding: 22px; border-right: 1px solid var(--line-soft); }

@@ -1,0 +1,479 @@
+VOUCH — JUDGES PAGE FINAL ALIGNMENT PASS
+ALIGN THE JUDGES PAGE WITH THE NEW GOOD NEIGHBOR STORY + UPDATED DEMO
+
+We need a focused update to the existing /judges page.
+
+DO NOT rebuild the page. DO NOT change application functionality. DO NOT change the backend, agent workflow, seeded cases, database, authority engine, or existing technical proof.
+
+The Judges page already exists for a specific purpose: make it extremely easy for an AWS Agents for Humans judge to understand what VOUCH is, why it belongs in Good Neighbor Agents, what was actually built, and where the judging criteria are demonstrated.
+
+The page now needs to align with the new positioning used on /demo and /why.
+
+The central story is:
+
+People need help.
+Community teams need more hands.
+AI can now be a real teammate.
+VOUCH helps that teammate earn responsibility through proven, verified work.
+People remain in control.
+
+The Judges page should make that story obvious while preserving the technical depth that judges need.
+
+1. TOP OF PAGE: MAKE THE CATEGORY OBVIOUS
+
+The opening should immediately establish:
+
+VOUCH — AI that looks out for people.
+A trusted AI teammate for groups helping their communities.
+
+Supporting copy:
+
+Community teams have more people to help than time to do everything themselves. VOUCH gives them another set of hands—an AI teammate that can take on real work while earning responsibility through verified results.
+
+Then explicitly identify:
+
+GOOD NEIGHBOR AGENT
+
+Built for groups of people—not just individuals—including nonprofits, food banks, schools, libraries, neighborhood teams, and small local organizations.
+
+Do not make this sound like an enterprise governance product.
+
+2. ADD A VERY SHORT “WHAT ARE WE JUDGING?” SUMMARY
+
+Use:
+
+The idea in one minute
+
+AI agents are becoming capable of doing real work for us. VOUCH asks a simple question: how does an AI teammate earn the right to do more?
+
+VOUCH lets an agent:
+
+START SMALL → PROVE IT → VERIFY → EARN RESPONSIBILITY → HELP MORE
+
+If it fails, responsibility can decrease.
+
+If the stakes are too high, a person decides.
+
+If a hard boundary is crossed, VOUCH stops the action.
+
+The agent can recommend. It cannot authorize itself.
+
+This should be one of the most visually prominent statements on the page.
+
+3. REPLACE THE EXISTING DEMO SECTION WITH A VERSION THAT MATCHES /DEMO
+
+The Judges page's Demo section should now feel like a condensed version of the actual live /demo story.
+
+Use:
+
+See the AI teammate at work
+Helping people, safely.
+
+A small community team has more work than its people have time to handle.
+
+VOUCH gives its AI teammate room to help—while making sure responsibility is earned before the teammate takes on more.
+
+Then introduce:
+
+Watch responsibility change as the teammate proves itself.
+
+Use the existing proof cases:
+
+$124 DUPLICATE CHARGE
+Routine work is handled autonomously.
+
+VERIFIED SUCCESS
+Authority increases:
+
+$250 → $500
+
+$1,240 REFUND
+The AI can understand the case, but the amount exceeds its earned authority.
+
+HUMAN APPROVAL REQUIRED
+
+VERIFICATION FAILURE
+Responsibility decreases:
+
+$500 → $100
+
+CONFLICTING / UNTRUSTED INSTRUCTION
+VOUCH blocks the unsafe action.
+
+Then make the takeaway prominent:
+
+The AI helps.
+The AI proves itself.
+VOUCH decides what responsibility it has earned.
+People remain in control.
+
+Use the existing demo CTA/button to take the judge directly to /demo.
+
+Do NOT invent new demo results.
+
+Do NOT change the backend cases.
+
+Do NOT describe the demo as a “professional claims-resolution workflow.”
+
+The cases are proof of the trust mechanism, not the identity of VOUCH.
+
+4. MAKE THE TECHNICAL IMPLEMENTATION SECTION JUDGE-FRIENDLY
+
+Use:
+
+Technical Implementation
+A real agent workflow—not a chatbot.
+
+VOUCH uses Strands Agents + Amazon Bedrock to give the AI teammate genuine agentic capabilities.
+
+The workflow is:
+
+REQUEST
+→ EVIDENCE
+→ STRANDS AGENT
+→ STRUCTURED RECOMMENDATION
+→ VOUCH AUTHORITY ENGINE
+→ HUMAN / AUTONOMOUS DECISION
+→ ACTION
+→ INDEPENDENT VERIFICATION
+→ AUTHORITY UPDATE
+
+Then explain the architecture in concise cards:
+
+STRANDS AGENT
+
+The agent receives a structured case, inspects evidence through tools, reasons over the available information, and produces a structured recommendation.
+
+AUTHORITY ENGINE
+
+A separate server-side layer determines what the agent is actually allowed to do.
+
+HUMAN AUTHORIZATION
+
+Higher-stakes actions can require explicit, case-bound human authorization.
+
+INDEPENDENT VERIFICATION
+
+Execution is not treated as proof of success. Outcomes are independently checked against durable state.
+
+POSTGRESQL
+
+Cases, actions, authorizations, verification results, authority, and audit information persist and affect future decisions.
+
+Then emphasize:
+
+The LLM is not the permission system.
+
+and:
+
+The agent can recommend. It cannot authorize itself.
+
+These should be highly visible.
+
+5. ADD “WHAT IS ACTUALLY ENFORCED?”
+
+This is important for Technical Implementation.
+
+Use:
+
+This isn't just a prompt telling the AI to behave.
+
+VOUCH enforces responsibility boundaries at the application/server level.
+
+The agent cannot:
+
+increase its own authority
+authorize its own action
+modify its own trust state
+modify the audit state
+bypass the human authorization path
+turn a recommendation into permission
+
+The architecture—not just the prompt—enforces the boundary.
+
+This is one of the strongest technical differentiators in the project.
+
+6. ADD THE TRUST / VERIFICATION LOOP
+
+Use:
+
+Trust changes what the teammate can actually do.
+
+Show:
+
+PROVE
+The agent handles limited work.
+
+↓
+
+VERIFY
+The result is independently checked.
+
+↓
+
+EARN
+Successful verified work can increase responsibility.
+
+↓
+
+ACT
+The agent can take on more eligible routine work.
+
+↓
+
+ADJUST
+Failures can reduce responsibility; higher-risk decisions return to people.
+
+Supporting line:
+
+Trust isn't a badge. It changes future capability.
+
+7. GOOD NEIGHBOR FIT
+
+Create a clearly labeled section:
+
+Why Good Neighbor Agents?
+
+VOUCH is designed for groups of people helping other people.
+
+Community-serving teams often have limited staff, volunteers, and time. Their AI teammate can absorb routine work while humans remain responsible for the decisions and relationships that matter.
+
+Examples:
+
+NEIGHBORHOOD TEAMS
+Coordinate routine community requests.
+
+FOOD PANTRY TEAMS
+Reduce repetitive administrative work so volunteers can focus on serving families.
+
+SCHOOLS + LIBRARIES
+Lighten routine coordination while keeping people involved in important decisions.
+
+SMALL LOCAL ORGANIZATIONS
+Add capacity without asking the team to blindly trust AI.
+
+Keep the existing disclaimer:
+
+Illustrative use cases—not current customer or deployment claims.
+
+8. POTENTIAL IMPACT
+
+Use:
+
+Potential Impact
+More capacity for people helping people.
+
+VOUCH's potential impact is not simply faster automation.
+
+It is helping small teams redirect limited human attention toward the work that actually requires people.
+
+ROUTINE WORK
+AI can handle more of it.
+
+HUMAN ATTENTION
+People spend more time where judgment and relationships matter.
+
+SAFETY
+Risky or unauthorized actions stop.
+
+ACCOUNTABILITY
+Important decisions and outcomes remain visible and verifiable.
+
+Do not make unsupported claims about real-world customers or deployment.
+
+9. DESIGN / PRODUCT COMPLETENESS
+
+Use:
+
+Design
+Built as a product, not just a technical experiment.
+
+The experience includes:
+
+public product story
+Good Neighbor use cases
+working agent workflow
+durable case state
+human authorization
+independent verification
+adaptive authority
+audit history
+architecture explanation
+live demonstration
+transparent AWS/fallback status
+
+The UI should communicate the same idea throughout:
+
+The AI is the teammate.
+VOUCH is the trust layer that looks out for the people relying on it.
+
+10. CREATIVITY & ORIGINALITY
+
+Use:
+
+Creativity & Originality
+What if an AI teammate had to earn its place on the team?
+
+Most agent experiences focus on what the AI can do.
+
+VOUCH focuses on how much responsibility the AI has earned.
+
+Its authority is not fixed.
+
+Its performance matters.
+
+Its outcomes are verified.
+
+Its responsibility can increase or decrease.
+
+And some decisions remain human no matter how capable the AI becomes.
+
+The novel idea is not simply giving an agent tools. It is making demonstrated trust part of the agent's actual operating capability.
+
+11. PRESENTATION
+
+Use:
+
+Presentation
+The entire project can be understood in one loop:
+
+PEOPLE NEED HELP
+↓
+AI CAN HELP
+↓
+AI EARNS RESPONSIBILITY
+↓
+VOUCH VERIFIES
+↓
+PEOPLE DECIDE WHEN IT MATTERS
+
+Then:
+
+PROVE. EARN. ACT. VERIFY. ADJUST.
+
+The demo provides the working proof.
+
+12. KEEP THE AWS STORY HONEST
+
+Where the existing page mentions the AWS backend, retain accurate wording.
+
+If Bedrock quota is exhausted, clearly label the deterministic fallback.
+
+Use language such as:
+
+AWS / BEDROCK INVOCATION
+AWS invocation attempted · Bedrock quota currently exhausted · transparent deterministic fallback active
+
+Never imply the deterministic fallback is a Bedrock model result.
+
+The transparency is a strength.
+
+13. ADD A “WHY THIS IS DIFFERENT” SECTION
+
+Use:
+
+Why VOUCH is different
+
+Not another chatbot.
+
+The agent actually reasons over structured evidence and participates in a real workflow.
+
+Not blind delegation.
+
+The agent earns responsibility rather than receiving unlimited authority.
+
+Not human approval for everything.
+
+People intervene when their judgment is actually needed.
+
+Not trust by self-report.
+
+Important outcomes are independently verified.
+
+Not permanent autonomy.
+
+Responsibility can increase or decrease based on verified performance.
+
+Then:
+
+AI capability is growing quickly. VOUCH is about making that capability worthy of trust.
+
+14. FINAL JUDGES CTA
+
+End the page with a strong, human-centered conclusion.
+
+Use:
+
+Give a community team another set of hands.
+
+AI can now do real work. VOUCH helps make sure that work is worthy of trust.
+
+The goal isn't to replace the people doing the work.
+
+It's to give them more capacity to help the people who need them.
+
+VOUCH
+
+AI that looks out for people.
+
+PROVE. EARN. ACT. VERIFY. ADJUST.
+
+Then provide the existing Demo CTA:
+
+See VOUCH in action →
+
+15. CRITICAL PAGE-WIDE RULE
+
+The Judges page should NOT become a second technical documentation page.
+
+The technical details are important because they prove the implementation.
+
+But the judge should never lose the human story:
+
+A community team needs help.
+VOUCH gives them an AI teammate.
+The teammate earns responsibility through verified work.
+People remain in control.
+
+Everything else exists to prove that statement.
+
+16. FINAL QA
+
+After the changes:
+
+Preserve all existing functionality.
+Preserve all existing navigation.
+Preserve all existing technical proof.
+Preserve the mascot.
+Preserve the existing demo workflow.
+Preserve seeded data.
+Preserve real Strands/Bedrock integration.
+Preserve transparent fallback behavior.
+Do not fabricate customers.
+Do not fabricate impact.
+Do not change authority calculations.
+Do not change database behavior.
+Do not rebuild the application.
+
+Run:
+
+existing tests
+TypeScript
+production build
+visual inspection of /judges
+visual inspection of /demo
+browser console check
+
+The final /judges page should feel like the judge's shortcut through the entire project:
+
+What is it? → Who is it for? → Why does it matter? → How does it work? → What did you actually build? → Where is the proof? → Why is it different?
+
+Most importantly:
+
+The Demo section on /judges must tell the same story as the newly updated /demo page.
+
+Do not use the old “professional claims resolution” framing.
+
+The claims are evidence.
+
+The product is the trusted AI teammate.
