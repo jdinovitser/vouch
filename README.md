@@ -102,6 +102,11 @@ Without AWS credentials the complete prototype runs as `DEMO — Deterministic V
 
 The guided demo is driven by actual backend session state and proves `PROVE → EARN → ACT → VERIFY → ADJUST`, including authority loss and conditional recovery. It can be reset to the initial T2 state. Presentation controls never grant authority.
 
+
+## Submission video script — Good Neighbor story
+
+This is the five-minute narration for the submission video. The spoken story should follow the same human-first sequence as the `/judges` experience: a community need, useful agent work, a VOUCH decision, and proof of the outcome. Community examples below are potential use cases, not customer claims.
+
 ## Product routes
 
 - `/` — human-centered product landing page
@@ -141,3 +146,69 @@ This is a hackathon prototype. Protected demo actions mutate seeded claims recor
 - Persist trust and append-only audit records in DynamoDB.
 - Add CloudWatch traces for tool calls, decisions, execution, verification, latency, and model usage.
 - Introduce scoped policy packages and cryptographically signed human approvals.
+
+### 3:55–4:35 — Show the safety boundary
+
+“The same boundary applies when evidence is unsafe or unclear. Conflicting evidence stays blocked until a person resolves the conflict. An untrusted attachment that says to ignore policy is treated as data, not authority, and the protected record remains unchanged. Higher trust never overrides current policy, evidence, risk, or hard safety limits.
+
+That gives the team honest outcomes: routine work can execute within bounds, important work can require a human, and unsafe work can be blocked. In every case, the decision and the reason are visible.”
+
+**On screen:** Run the conflicting-evidence or prompt-injection scenario and show `BLOCKED`, `NO MUTATION`, and the audit trail.
+
+
+### 4:35–5:00 — Close on the human benefit
+
+“VOUCH is not asking communities to choose between useful AI and human responsibility. It lets a community-serving team gain capacity while keeping people in control of what matters.
+
+The agent helps. VOUCH checks. A person decides when necessary. The outcome is verified. And over time, the agent can earn carefully bounded authority by proving that its work is reliable.
+
+AI can do more for us. VOUCH helps make sure it does it with us—not instead of us. That is VOUCH: a little backup for people and communities using AI agents.”
+
+
+### 0:00–0:40 — Start with the people
+
+“A community-serving team has more work than its staff can absorb. Maybe a nonprofit is helping families, a school is coordinating support, or a library is connecting people with resources. The details vary, but the need is familiar: people need help, and the team needs more capacity without handing responsibility to a machine.
+
+That is the idea behind VOUCH. AI can help with routine work. But when an agent is about to act on someone’s behalf, nobody should have to face that decision alone. VOUCH is the trusted second set of eyes that looks out for the people being helped.”
+
+**On screen:** Open on the VOUCH landing page, then move to the community-capacity section. Say explicitly that these are potential contexts for the product, not existing customer deployments.
+
+
+### 2:10–3:05 — Let VOUCH have the person’s back
+
+“Now the need is more consequential: a $1,240 refund. The agent may have a recommendation, but that amount exceeds the autonomous authority it has earned. VOUCH has your back. It pauses before changing a shared record and brings a person into the decision.
+
+This is not a rubber stamp and it is not a bypass. The server creates a human-authorization record tied to this exact session, case, action, case version, evidence, and time window. The person can approve or decline. If they decline, the action is not executed and autonomous authority does not change. If they approve, the protected server performs only that exact action once.
+
+The point is not to stop the agent from helping. It is to return an important choice to the person responsible for the people being served.”
+
+**On screen:** Run the human-refund scenario, show `APPROVAL REQUIRED`, approve or decline the action, then show the authorization provenance and audit event.
+
+
+### 3:05–3:55 — Prove what happened
+
+“An API response is not proof that the work succeeded. After a protected mutation, VOUCH reloads the case and claims ledger from Postgres and compares the expected state with the observed state. The durable record includes the case, recommendation, decision, approval, execution, verification, trust event, and audit history.
+
+When the result matches, the outcome is verified. Verified autonomous work can earn more bounded authority for the same kind of work. That authority is revocable and still checked fresh on every request. Human approval helps resolve that case, but it does not expand autonomous authority.
+
+When the result does not match—say the system expected a $124 ledger update but a fresh read finds $0—VOUCH treats that as a failure, creates human review work, records the mismatch, and reduces authority immediately. The agent earns capability through demonstrated results, not through confidence or a permanent whitelist.”
+
+**On screen:** Run the verification-failure scenario, show the expected-versus-actual proof, the trust/authority reduction, and the durable history.
+
+
+### 1:25–2:10 — Show what is real underneath
+
+“The agent path is built with the TypeScript Strands Agents SDK and Amazon Bedrock. Strands has read-only typed inspection tools for the case and its evidence. It can investigate and produce a structured recommendation with evidence references.
+
+But the recommendation is not permission. The important boundary is simple: the agent recommends; VOUCH authorizes. The server independently evaluates current evidence, risk, policy, conflicts, reversibility, and the authority the agent has earned. The model cannot approve its own action, change a claims record, change trust, or write the audit history.”
+
+**On screen:** Show the Strands recommendation and provenance, then the separate VOUCH authority decision. If the real Bedrock call is unavailable, leave the UI’s deterministic evaluator label visible; AWS LIVE appears only after a successful Strands and Bedrock invocation.
+
+
+### 0:40–1:25 — Give the team useful capacity
+
+“For this demonstration, we’ll follow a community-serving team working through repetitive claims cases. This is a seeded evaluation dataset, not a claim about customer results. The team has a queue, an AI agent can investigate the routine cases, and people can spend their limited time on the decisions that actually need judgment.
+
+Here is the first case: a $124 duplicate-charge claim. The agent gathers the case, transaction, customer history, policy, and document evidence. It is doing useful work—not just generating an answer. It recommends a bounded resolution and points back to the evidence it used.”
+
+**On screen:** Open `/judges`, show the claims queue, select the routine duplicate-charge case, and show the evidence references and recommendation panel.

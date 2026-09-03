@@ -283,7 +283,7 @@ function EarnedLifecycleDemo({ session, scenarios, runScenario, mutateAction, re
   ];
   const descriptions = [
     "A community-serving team asks its agent to help with a $124 duplicate charge. The agent gathers evidence and VOUCH independently checks whether the refund may proceed.",
-    "The $1,240 refund may help, but it exceeds the authority the agent has earned. VOUCH pauses before any shared record changes.",
+    "The $1,240 refund may help, but it exceeds the authority the agent has earned. VOUCH has your back: it pauses before any shared record changes and brings a person in.",
     "A person reviews the exact case and chooses. The approval is bound to this session, case, action, evidence, version, and time window.",
     "The command returns, but a fresh Postgres read finds $0 instead of $124. VOUCH protects the people relying on the result by failing verification and reducing authority.",
     "A claim attachment says to ignore policy. VOUCH treats the instruction as data, blocks it, and leaves the protected record unchanged.",
