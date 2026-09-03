@@ -1,0 +1,426 @@
+VOUCH — MISSION-DRIVEN DEMO STORY PASS
+
+We are making ONE focused improvement to the existing VOUCH application.
+
+GOAL
+
+The VOUCH demo mechanics are already working well.
+
+Do NOT rebuild the demos. Do NOT change the underlying logic.
+
+The goal of this pass is to make the existing demo cases clearly communicate the Good Neighbor mission:
+
+Small community teams are trying to help people with limited time, people, and resources. An AI teammate can give them another set of hands—but that teammate needs to earn trust before taking on more responsibility.
+
+The existing claims/case workflow is the technical demonstration of that idea.
+
+We want visitors and hackathon judges to understand the human purpose first, while still seeing the exact same working VOUCH trust/authority/verification mechanics underneath.
+
+The AWS Agents for Humans hackathon's Good Neighbor track is specifically for agents that help groups of people such as nonprofits, food banks, schools, libraries, neighborhoods, and small local organizations.
+
+CRITICAL: PRESERVE THE EXISTING APP
+
+Do NOT:
+
+rebuild the demo
+change the backend
+change Strands Agents
+change Amazon Bedrock
+change tools
+change authority calculations
+change trust calculations
+change verification logic
+change human authorization logic
+change BLOCK / APPROVAL REQUIRED / ALLOW behavior
+change case IDs
+change amounts
+change the existing workflow
+create fake functionality
+create a new claims system
+replace the existing demo
+redesign the entire page
+change the mascot/artwork
+change the architecture
+change database behavior
+
+This is a copy/storytelling pass.
+
+Make the smallest changes necessary.
+
+1. REFRAME THE DEMO
+
+The demo should no longer feel like:
+
+"Here is a claims-management application."
+
+It should feel like:
+
+"Here is a demonstration of how an AI teammate can help a small community team serve people—while VOUCH makes sure that help is trustworthy."
+
+The claims/case workflow is the demonstration vehicle.
+
+Do not pretend VOUCH is literally a food pantry software product.
+
+Instead, establish that these cases demonstrate the underlying mechanism VOUCH can give to community teams.
+
+2. CHANGE THE DEMO INTRO
+
+Find the existing introductory copy above/around the cases.
+
+Make the mission much clearer.
+
+Preferred headline:
+
+Helping People, Safely
+
+Preferred supporting copy:
+
+A small community team is helping people with limited time and resources. VOUCH gives their AI teammate room to help—while making sure trust is earned before it takes on more responsibility.
+
+If the existing layout requires shorter copy, use:
+
+Give community teams another set of hands—without asking them to blindly trust AI.
+
+Do not add a large new section. Use the existing layout.
+
+3. REFRAME CASE #8041
+
+Existing case:
+
+#8041
+Duplicate charge
+
+Jordan Lee
+$124
+LOW PRIORITY
+
+Currently described as:
+
+Two captures appear for the same order; routine refund policy may apply.
+
+Change the human-facing story to:
+
+Help someone get their money back
+
+A community member was charged twice. The team needs to resolve the duplicate and get their money back.
+
+Keep:
+
+Jordan Lee
+$124
+LOW PRIORITY
+existing status
+existing buttons
+existing workflow
+
+After resolution, preserve the existing successful result:
+
+Resolved autonomously and independently verified
+
+This is the first demonstration of routine work the AI teammate has earned enough responsibility to handle.
+
+4. REFRAME CASE #1192
+
+Existing case:
+
+#1192
+Refund verification
+
+Priya Shah
+$124
+MEDIUM PRIORITY
+
+Currently:
+
+A verified $124 duplicate charge is eligible, but the durable ledger must prove the refund was actually recorded.
+
+Change the human-facing description to:
+
+Make sure help actually reached someone
+
+A $124 refund is eligible. Before the team considers the case resolved, VOUCH verifies that the refund was actually recorded.
+
+Keep the existing technical verification behavior completely unchanged.
+
+The point of this case is:
+
+Helping someone is not the same as assuming they were helped. VOUCH verifies the outcome.
+
+Do not add a long explanation. The existing verification UI should do the work.
+
+5. REFRAME CASE #8042
+
+Existing case:
+
+#8042
+Refund exception
+
+Mateo Garcia
+$1,240
+MEDIUM PRIORITY
+
+Currently:
+
+Duplicate charge is confirmed, but the amount exceeds the autonomous refund threshold.
+
+Change the human-facing description to:
+
+A larger refund needs a person
+
+The duplicate charge is confirmed, but this $1,240 refund is beyond the AI teammate's earned responsibility.
+
+Keep all existing mechanics.
+
+When the result is:
+
+APPROVAL REQUIRED
+
+that should clearly communicate:
+
+The AI can help investigate the situation, but a person needs to make the important decision.
+
+Do not change the approval system.
+
+6. REFRAME CASE #680
+
+Existing case:
+
+#680
+Vendor payment
+
+Northstar Supplies
+$680
+HIGH PRIORITY
+
+Currently:
+
+An imported invoice contains an instruction that conflicts with verified payment policy.
+
+Change the human-facing description to:
+
+Protect resources meant to help people
+
+A vendor invoice contains an instruction that conflicts with the team's verified payment policy. VOUCH catches it before money moves.
+
+Keep the existing conflict detection and BLOCK/approval behavior exactly as it is.
+
+The human story is:
+
+Community resources should reach the people they're meant to help.
+
+Do not over-explain.
+
+7. REFRAME CASE #1240
+
+Existing case:
+
+#1240
+Settlement approval
+
+Currently:
+
+A secondary message references an amount above the authoritative approval limit.
+
+Change the human-facing description to:
+
+Stop an unsafe payment
+
+A secondary message requests an amount above the team's authorized limit. VOUCH blocks it.
+
+Keep the existing BLOCKED behavior.
+
+This should be visually and narratively simple.
+
+8. MAKE THE CASE PROGRESSION TELL THE STORY
+
+Do not change the workflow.
+
+The existing cases should collectively communicate this progression:
+
+Routine help
+
+AI can handle something it has earned responsibility for.
+
+Verify the help
+
+VOUCH independently checks that the result actually happened.
+
+Bigger consequence
+
+The AI reaches the boundary of its earned responsibility.
+
+Human decision
+
+A person decides when the stakes are higher.
+
+Protect resources
+
+VOUCH catches conflicting or suspicious instructions.
+
+Hard boundary
+
+Unsafe actions can be blocked.
+
+This should be understandable even if the visitor never reads the technical architecture.
+
+9. USE TRUST LANGUAGE, NOT "KEYS"
+
+Do NOT introduce "keys" language.
+
+VOUCH is fundamentally about:
+
+trust
+earned responsibility
+proven work
+verification
+human judgment
+safe boundaries
+
+Preferred language:
+
+Trust is earned through proven work.
+
+The agent earns responsibility; it does not give itself permission.
+
+When the stakes are higher, people decide.
+
+Avoid:
+
+"the group keeps the keys"
+"access keys"
+"governance platform"
+"enterprise controls"
+"AI permissions management"
+excessive security jargon
+10. KEEP THE MISSION VISIBLE, BUT SUBTLE
+
+Do NOT turn the demo into a giant humanitarian-themed redesign.
+
+The existing product should remain polished and credible.
+
+We only need enough language to answer:
+
+Who is this helping?
+
+→ Small community teams.
+
+What problem are they facing?
+
+→ Too much work and not enough people.
+
+What does AI contribute?
+
+→ Another set of hands for routine work.
+
+What does VOUCH contribute?
+
+→ A way to earn, verify, and adjust the responsibility given to that AI teammate.
+
+Why does it matter?
+
+→ People can spend more time helping people instead of manually handling every routine task.
+
+11. FINAL DEMO MESSAGE
+
+Near the bottom of the demo, if there is an existing explanatory/closing area, use a concise human-centered line.
+
+Preferred:
+
+The AI can help. Responsibility is earned, verified, and bounded by people.
+
+Alternative if space is limited:
+
+More hands for the work that matters.
+
+Do not create a giant new section just for this.
+
+12. IMPORTANT: KEEP THE TECHNICAL STORY INTACT
+
+The mission-driven copy should NOT hide the technical accomplishment.
+
+The existing demo must still visibly demonstrate:
+
+Strands Agents + Amazon Bedrock → evidence → reasoning → VOUCH authority evaluation → ALLOW / APPROVAL REQUIRED / BLOCK → action → independent verification → changed responsibility
+
+The human-facing copy simply explains why that machinery matters.
+
+The demo should make the judge think:
+
+"I understand who this helps."
+
+Then:
+
+"I understand what VOUCH does."
+
+Then:
+
+"I can see that it actually works."
+
+13. DO NOT MAKE UNVERIFIED CLAIMS
+
+Do not say VOUCH is currently deployed by:
+
+a food pantry
+a disaster relief organization
+a school
+a nonprofit
+a neighborhood group
+any real customer
+
+These are the intended Good Neighbor audience/use cases and narrative examples.
+
+The claims cases are the working demonstration.
+
+Keep that distinction honest.
+
+14. VALIDATION
+
+After making the copy changes:
+
+Run the existing test suite.
+Confirm TypeScript passes.
+Confirm production build passes.
+Open the demo.
+Confirm every existing case still works.
+Confirm #8041 still resolves and verifies.
+Confirm #1192 still verifies correctly.
+Confirm #8042 still reaches APPROVAL REQUIRED.
+Confirm #680 still handles the conflicting instruction correctly.
+Confirm #1240 still reaches BLOCKED.
+Confirm no backend or agent behavior changed.
+Confirm responsive layout.
+Confirm browser console is clean.
+
+Then STOP.
+
+Do not make additional improvements.
+
+FINAL QUALITY TEST
+
+Before finishing, read the demo as if you are a hackathon judge who has never seen VOUCH.
+
+Within approximately 20 seconds, can you answer:
+
+Who is this for?
+→ Community teams helping people.
+
+What problem do they have?
+→ They need more capacity and cannot blindly trust AI with important work.
+
+What does VOUCH do?
+→ It lets an AI teammate earn responsibility through proven, verified work while keeping important decisions with people.
+
+Why does it matter?
+→ It gives small teams another set of hands so they can spend more time helping people.
+
+If yes, the copy pass is successful.
+
+If not, make ONLY the smallest copy adjustment necessary.
+
+FREEZE AFTER THIS PASS
+
+The application is already working.
+
+This is the final storytelling polish for the Good Neighbor positioning.
+
+Do not rebuild VOUCH. Make the existing product tell the human story more clearly.

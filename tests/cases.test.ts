@@ -7,7 +7,7 @@ describe("professional claims work queue", () => {
     expect(cases).toHaveLength(5);
     expect(new Set(cases.map((item) => item.id)).size).toBe(cases.length);
     expect(cases.every((item) => item.status === "NEW")).toBe(true);
-    expect(caseForScenario(cases, "safe-review")?.category).toBe("Duplicate charge");
+    expect(caseForScenario(cases, "safe-review")?.category).toBe("Help someone get their money back");
   });
 
   it("starts impact metrics at zero so the UI reports measured session outcomes", () => {
