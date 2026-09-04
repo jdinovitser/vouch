@@ -85,10 +85,12 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .guardian-halo { width: 126px; height: 126px; margin: 0 auto 14px; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle, rgba(92,169,255,.22), rgba(92,169,255,.02) 65%); }
 .guardian-halo .canonical-knight { width: 118px; filter: drop-shadow(0 10px 20px rgba(0,0,0,.45)); }
 .guardian-label { color: var(--blue-bright); font: 500 8px var(--mono); letter-spacing: .15em; }
+.guardian-level { display: block; margin-top: 6px; color: var(--gold); font: 600 11px var(--mono); letter-spacing: .1em; }
 .guardian-card > b { display: block; margin: 10px 0 21px; font: 700 22px/1.25 var(--display); letter-spacing: -.03em; }
 .guardian-scan { padding-top: 14px; border-top: 1px solid var(--line); text-align: left; color: var(--muted); font: 500 8px var(--mono); text-transform: uppercase; }
 .guardian-scan i { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--green); margin-right: 5px; }
 .guardian-scan span { float: right; color: var(--green); }
+.guardian-proof { display: block; margin-top: 8px; text-align: left; color: var(--muted); font-size: 9px; line-height: 1.5; }
 .trust-float { position: absolute; right: -16px; bottom: 30px; width: 180px; padding: 16px; border: 1px solid #273c54; background: rgba(11,26,43,.94); border-radius: 8px; box-shadow: 0 16px 30px rgba(0,0,0,.3); }
 .mini-label { display: block; color: #687e96; font: 500 8px var(--mono); letter-spacing: .12em; }
 .float-score { margin: 4px 0 7px; font: 700 34px var(--display); }
@@ -607,7 +609,7 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .authority-hero { border: 1px solid rgba(214,168,91,.36); background: linear-gradient(135deg, rgba(214,168,91,.10), rgba(9,21,34,.18)); }
 .earned-loop { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:28px; color:var(--authority); font:600 10px var(--mono); letter-spacing:.12em; }
 .earned-loop b { color:var(--text); font-size:11px; letter-spacing:.04em; }
-.earned-loop i { width:26px; height:1px; background:var(--authority); opacity:.7; }
+.earned-loop span { color:var(--authority); font-size:14px; line-height:1; }
 .authority-card { border-color:rgba(214,168,91,.44)!important; box-shadow: inset 0 2px rgba(214,168,91,.65), 0 30px 80px rgba(0,0,0,.42); }
 .authority-card .guardian-label, .authority-card .float-row span { color:var(--authority); }
 .authority-card .float-track i { background:var(--authority); box-shadow:none; }
