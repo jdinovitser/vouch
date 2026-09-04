@@ -110,7 +110,7 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .principle-head { display: flex; justify-content: space-between; color: #425870; font: 500 9px var(--mono); }
 .principle-icon { width: 41px; height: 41px; display: grid; place-items: center; border: 1px solid #2a4360; border-radius: 6px; color: var(--blue-bright); background: #102239; }
 .principle-icon svg { width: 19px; }
-.principle h3 { margin: 62px 0 8px; color: var(--blue-bright); font: 700 20px var(--display); letter-spacing: .11em; }
+.principle h3 { margin: 62px 0 8px; color: var(--blue-bright); font: 650 16px var(--display); letter-spacing: .04em; }
 .principle p { margin: 0; max-width: 280px; color: var(--muted); font-size: 13px; line-height: 1.65; }
 .principle-rule { position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--blue); transition: width .3s; }
 .principle:hover .principle-rule { width: 100%; }
