@@ -168,3 +168,45 @@ mtime_ms = 1788544086737
 storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/04f6af53-b9f0-491d-9ab3-198d12792015/194c9c43-9ada-4f34-8b55-58f2d8a4cda3"
 storage_version_token = "1788544116399562"
 content_type = "video/mp4"
+
+[[outputs]]
+id = "mvaDQ8MJofz9kVi1AQOzo"
+uri = "file://contest-assets/vouch-contest-architecture.png"
+type = "image"
+title = "VOUCH Contest Architecture — PNG"
+description = "Submission-ready 1600×900 architecture graphic for Devpost, slides, and video overlays."
+logical_id = "fc3c6ce8-5433-4510-bad1-413ed36ea36c"
+content_hash = "sha256:cc1a7125b58df37be166807ffcced70f61113a9567561b8d07f105101bf379d3"
+size = 449224
+mtime_ms = 1788544777376
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/fc3c6ce8-5433-4510-bad1-413ed36ea36c/5ba03058-e637-4d25-810e-e4d41b59e5b5"
+storage_version_token = "1788544789190284"
+content_type = "image/png"
+
+[[outputs]]
+id = "8fiVAInD7TRIrC6nOzyXZ"
+uri = "file://contest-assets/vouch-contest-architecture.pdf"
+type = "pdf"
+title = "VOUCH Contest Architecture — PDF"
+description = "Print-ready one-page architecture diagram for contest documentation and presentation decks."
+logical_id = "3417396e-f7d3-4c2e-a9f8-49cc125dafcb"
+content_hash = "sha256:282ca0a7b6c562e4aa2653af4032c363ac8c6f3b2de0ff05e449a59570b985bc"
+size = 9849667
+mtime_ms = 1788544778174
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/3417396e-f7d3-4c2e-a9f8-49cc125dafcb/184b29ae-e40a-4002-a65b-1dd35e41378b"
+storage_version_token = "1788544789942462"
+content_type = "application/pdf"
+
+[[outputs]]
+id = "pBJVTF4U0qszjUaUhhC6k"
+uri = "file://contest-assets/vouch-contest-architecture.svg"
+type = "image"
+title = "VOUCH Contest Architecture — SVG"
+description = "Editable vector master of the VOUCH trustworthy agent architecture."
+logical_id = "ca8a9e07-29d1-41da-9992-9d6cbba5aeda"
+content_hash = "sha256:54b4acc63a797bc7d7b60d3ff9c4e217e5760fa789929684d7ccc3da1a22b4dc"
+size = 9273
+mtime_ms = 1788544769872
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/ca8a9e07-29d1-41da-9992-9d6cbba5aeda/915764a5-f9af-4246-bc7b-bf9a7dc49302"
+storage_version_token = "1788544790555275"
+content_type = "image/svg+xml"

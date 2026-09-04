@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">VOUCH trustworthy agent architecture</title>
+  <desc id="desc">A contest-ready architecture diagram showing Strands and Amazon Bedrock recommendations passing through the deterministic VOUCH authorization gate before action, Postgres verification, trust updates, and audit.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07101c"/>
+      <stop offset="1" stop-color="#0c1d30"/>
+    </linearGradient>
+    <linearGradient id="blueCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#102942"/>
+      <stop offset="1" stop-color="#0b1b2c"/>
+    </linearGradient>
+    <linearGradient id="gateCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#17304c"/>
+      <stop offset="1" stop-color="#102338"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000814" flood-opacity=".4"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10z" fill="#75b9ff"/>
+    </marker>
+    <style>
+      .sans { font-family: Inter, Manrope, Arial, sans-serif; }
+      .mono { font-family: "IBM Plex Mono", "DM Mono", Consolas, monospace; }
+      .card { fill: url(#blueCard); stroke: #294b6d; stroke-width: 2; filter: url(#shadow); }
+      .label { fill: #8ec5ff; font-size: 17px; font-weight: 700; letter-spacing: 2.2px; }
+      .heading { fill: #f3f7fc; font-size: 31px; font-weight: 750; }
+      .copy { fill: #b7c6d8; font-size: 18px; }
+      .small { fill: #a6b8cb; font-size: 15px; }
+      .flow { fill: none; stroke: #75b9ff; stroke-width: 3; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1440" cy="40" r="310" fill="#184b78" opacity=".12"/>
+  <circle cx="80" cy="850" r="280" fill="#1b7155" opacity=".08"/>
+
+  <!-- Header -->
+  <g transform="translate(70 62)">
+    <path d="M0 3 22-5 44 3v24c0 25-17 40-22 43C17 67 0 52 0 27z" fill="none" stroke="#8ec5ff" stroke-width="3"/>
+    <path d="M13 18h18l-9 28z" fill="#8ec5ff"/>
+    <text x="62" y="24" class="sans" fill="#f3f7fc" font-size="27" font-weight="800" letter-spacing="5">VOUCH</text>
+    <text x="62" y="49" class="mono" fill="#9fb2c7" font-size="13" letter-spacing="2.5">TRUSTWORTHY AGENT AUTHORIZATION</text>
+  </g>
+  <text x="1530" y="83" text-anchor="end" class="mono" fill="#8ec5ff" font-size="14" letter-spacing="2">CONTEST ARCHITECTURE · 2026</text>
+
+  <text x="70" y="180" class="sans" fill="#f3f7fc" font-size="48" font-weight="760">The agent recommends.</text>
+  <text x="765" y="180" class="sans" fill="#8ec5ff" font-size="48" font-weight="760">VOUCH authorizes.</text>
+  <text x="70" y="218" class="sans" fill="#b7c6d8" font-size="20">Model intelligence is useful input—not permission to act.</text>
+
+  <!-- Primary flow -->
+  <rect x="70" y="286" width="210" height="174" rx="16" class="card"/>
+  <text x="95" y="322" class="mono label">01 · REQUEST</text>
+  <text x="95" y="354" class="sans" fill="#f3f7fc" font-size="27" font-weight="750">People &amp;</text>
+  <text x="95" y="386" class="sans" fill="#f3f7fc" font-size="27" font-weight="750">community</text>
+  <text x="95" y="418" class="sans" fill="#f3f7fc" font-size="27" font-weight="750">teams</text>
+  <text x="95" y="445" class="sans" fill="#b7c6d8" font-size="14">A real need enters the system</text>
+
+  <path d="M280 373H345" class="flow"/>
+
+  <rect x="350" y="286" width="300" height="174" rx="16" class="card" stroke="#c87848"/>
+  <rect x="350" y="286" width="300" height="5" rx="3" fill="#f08b4f"/>
+  <text x="377" y="322" class="mono label" fill="#f3aa7b">02 · AGENT REASONING</text>
+  <text x="377" y="366" class="sans" fill="#f3f7fc" font-size="28" font-weight="750">Strands Agents SDK</text>
+  <text x="377" y="402" class="sans copy">Amazon Bedrock model path</text>
+  <text x="377" y="434" class="sans small">Typed, read-only investigation tools</text>
+
+  <path d="M650 373H715" class="flow"/>
+  <text x="682" y="343" text-anchor="middle" class="mono" fill="#f0a06f" font-size="10">RECOMMENDATION</text>
+
+  <rect x="720" y="260" width="370" height="226" rx="18" fill="url(#gateCard)" stroke="#75b9ff" stroke-width="3" filter="url(#shadow)"/>
+  <rect x="720" y="260" width="370" height="6" rx="3" fill="#75b9ff"/>
+  <text x="750" y="304" class="mono label">03 · DETERMINISTIC CONTROL</text>
+  <text x="750" y="353" class="sans" fill="#f3f7fc" font-size="37" font-weight="780">VOUCH Gate</text>
+  <text x="750" y="389" class="sans copy">Evidence · risk · policy · context</text>
+  <text x="750" y="419" class="sans copy">earned authority · hard limits</text>
+  <rect x="750" y="440" width="310" height="25" rx="12" fill="#0a1725" stroke="#335a7d"/>
+  <text x="905" y="458" text-anchor="middle" class="mono" fill="#dce9f7" font-size="12" font-weight="700">FRESH SERVER-SIDE DECISION</text>
+
+  <!-- Outcomes -->
+  <path d="M1090 373H1145" class="flow"/>
+  <g transform="translate(1150 272)">
+    <rect width="380" height="64" rx="12" fill="#102d28" stroke="#48d597" stroke-width="2"/>
+    <circle cx="31" cy="32" r="10" fill="#48d597"/>
+    <text x="54" y="28" class="mono" fill="#77e6b2" font-size="15" font-weight="700">EXECUTE</text>
+    <text x="54" y="49" class="sans small">Bounded, reversible work may proceed</text>
+  </g>
+  <g transform="translate(1150 350)">
+    <rect width="380" height="64" rx="12" fill="#302717" stroke="#f5b942" stroke-width="2"/>
+    <circle cx="31" cy="32" r="10" fill="#f5b942"/>
+    <text x="54" y="28" class="mono" fill="#ffd274" font-size="15" font-weight="700">APPROVAL REQUIRED</text>
+    <text x="54" y="49" class="sans small">A person decides this exact action</text>
+  </g>
+  <g transform="translate(1150 428)">
+    <rect width="380" height="64" rx="12" fill="#321d25" stroke="#ff6f7b" stroke-width="2"/>
+    <circle cx="31" cy="32" r="10" fill="#ff6f7b"/>
+    <text x="54" y="28" class="mono" fill="#ff9ca4" font-size="15" font-weight="700">BLOCKED</text>
+    <text x="54" y="49" class="sans small">Unsafe or untrusted input cannot act</text>
+  </g>
+
+  <!-- Verification loop -->
+  <path d="M1338 492V566" class="flow"/>
+  <rect x="1040" y="570" width="490" height="146" rx="16" class="card"/>
+  <text x="1070" y="607" class="mono label">04 · ACTION + INDEPENDENT VERIFICATION</text>
+  <text x="1070" y="649" class="sans heading">Protected server + Postgres</text>
+  <text x="1070" y="683" class="sans copy">Execute, reload fresh state, compare expected ↔ observed</text>
+
+  <path d="M1040 700H975" class="flow" style="marker-end:none;marker-start:url(#arrow)"/>
+
+  <rect x="565" y="570" width="410" height="146" rx="16" class="card"/>
+  <text x="595" y="607" class="mono label">05 · EARNED AUTHORITY</text>
+  <text x="595" y="649" class="sans heading">Trust changes capability</text>
+  <text x="595" y="683" class="sans copy">Verified success earns more · failure revokes it</text>
+
+  <path d="M565 700H500" class="flow" style="marker-end:none;marker-start:url(#arrow)"/>
+
+  <rect x="70" y="570" width="430" height="146" rx="16" class="card"/>
+  <text x="100" y="607" class="mono label">06 · DURABLE ACCOUNTABILITY</text>
+  <text x="100" y="649" class="sans heading">Audit history</text>
+  <text x="100" y="683" class="sans copy">Evidence, decisions, approvals, actions, proof</text>
+
+  <!-- Loop back -->
+  <path d="M285 570V530H905V486" fill="none" stroke="#48d597" stroke-width="3" stroke-dasharray="7 8" marker-end="url(#arrow)"/>
+  <rect x="474" y="508" width="244" height="32" rx="16" fill="#0c2530" stroke="#2d8164"/>
+  <text x="596" y="529" text-anchor="middle" class="mono" fill="#77e6b2" font-size="12" font-weight="700">NEXT ACTION · RE-EVALUATE</text>
+
+  <!-- Footer -->
+  <line x1="70" y1="778" x2="1530" y2="778" stroke="#29425b"/>
+  <g transform="translate(70 814)">
+    <circle cx="10" cy="10" r="5" fill="#f08b4f"/>
+    <text x="26" y="16" class="mono" fill="#d5e0ec" font-size="15" font-weight="700">AI LAYER</text>
+    <text x="122" y="16" class="sans" fill="#a9b9cc" font-size="15">Strands + Bedrock recommend only</text>
+  </g>
+  <g transform="translate(575 814)">
+    <circle cx="10" cy="10" r="5" fill="#75b9ff"/>
+    <text x="26" y="16" class="mono" fill="#d5e0ec" font-size="15" font-weight="700">AUTHORITY LAYER</text>
+    <text x="180" y="16" class="sans" fill="#a9b9cc" font-size="15">Deterministic and server-bound</text>
+  </g>
+  <g transform="translate(1110 814)">
+    <circle cx="10" cy="10" r="5" fill="#48d597"/>
+    <text x="26" y="16" class="mono" fill="#d5e0ec" font-size="15" font-weight="700">PROOF LOOP</text>
+    <text x="128" y="16" class="sans" fill="#a9b9cc" font-size="15">Postgres verification + audit</text>
+  </g>
+  <text x="70" y="872" class="sans" fill="#8fa4ba" font-size="14">Current prototype architecture. Amazon Bedrock AgentCore is not claimed as deployed.</text>
+  <text x="1530" y="872" text-anchor="end" class="mono" fill="#8ec5ff" font-size="15" font-weight="700">TRUST IS EARNED</text>
+</svg>
