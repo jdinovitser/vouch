@@ -154,3 +154,17 @@ mtime_ms = 1788534330214
 storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/2759285e-7782-4e81-a947-a8e941951339/741f9f18-5505-428d-b29b-2316eaa03efb"
 storage_version_token = "1788534343918293"
 content_type = "text/markdown"
+
+[[outputs]]
+id = "Bws2lHxVUN5lsrTk_xAOF"
+uri = "file://Demo%20-%20Raw%20Files/Vouch%203%20-%20tightened%20copy.mp4"
+type = "video"
+title = "Vouch 3 — Tightened Copy"
+description = "A separate edited copy with a subtle 1.06× speed increase and visually inactive dead-air pauses shortened. The original Vouch 3.mp4 was preserved."
+logical_id = "04f6af53-b9f0-491d-9ab3-198d12792015"
+content_hash = "sha256:a309fc52b24d5a467d791faa98f1a8e1b9c81197f1d41234b7f8f6fe8699ca53"
+size = 12893897
+mtime_ms = 1788544086737
+storage_uri = "gcs://replit-rams-assets-worf/rams/assets/repl:0abccab7-72e0-483f-984a-22bee2ef9292/04f6af53-b9f0-491d-9ab3-198d12792015/194c9c43-9ada-4f34-8b55-58f2d8a4cda3"
+storage_version_token = "1788544116399562"
+content_type = "video/mp4"
