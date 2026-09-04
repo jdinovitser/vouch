@@ -1,0 +1,139 @@
+I want one final **HOMEPAGE CLEANUP PASS** on VOUCH.
+
+The homepage is fundamentally working now. **Do NOT redesign it. Do NOT change the visual identity, illustrations, mascot progression, animations, typography, colors, personality, or overall charm.** This is a surgical cleanup of awkward wording, repetition, hierarchy, and unfinished-looking elements.
+
+### 1. REMOVE THE DUPLICATE SECTION
+
+There are currently two identical “TRUST WITH JUDGMENT” sections near the bottom.
+
+Keep only ONE.
+
+### 2. FIX “A GOOD NEIGHBOR AGENT”
+
+“Good neighbor” is a metaphor, not VOUCH's primary tagline.
+
+The section itself is good and should stay, but change the kicker:
+
+“A GOOD NEIGHBOR AGENT”
+
+to something that fits the actual message better, such as:
+
+“AI WITH A HUMAN PURPOSE”
+
+Keep the existing “Give community teams another set of hands.” heading and the warmth of the section.
+
+Do not replace the section with corporate AI-governance language.
+
+### 3. FIX THE HERO MASCOT/RESPONSIBILITY CARD
+
+The T3 Warrior card currently appears somewhat abruptly after the hero CTA.
+
+Make the relationship between the mascot level and earned responsibility immediately understandable.
+
+The important idea is:
+
+**The agent starts small. It proves itself. Verified results earn more responsibility.**
+
+Make the T3 / T2 information visually and verbally coherent so a first-time visitor immediately understands that the level represents earned responsibility—not an arbitrary AI “rank.”
+
+Do not remove the mascot progression. It is one of VOUCH's strongest visual ideas.
+
+### 4. CLEAN UP “WHY PEOPLE NEED A BACKUP”
+
+The phrase “backup” sounds like software infrastructure.
+
+Keep the section's meaning, but rename the kicker/headline framing so it communicates:
+
+AI should help people without leaving people guessing.
+
+The four concepts must remain:
+
+TRUST
+AUTHORITY
+RISK
+VERIFY
+
+Do not make this sound like cybersecurity compliance. This is about responsible help and human judgment.
+
+### 5. TIGHTEN THE COMMUNITY USE-CASE SECTION
+
+Keep the four use cases:
+
+* Neighborhood teams
+* Food pantry teams
+* School + library teams
+* Small local organizations
+
+Keep the warmth and “another set of hands” idea.
+
+Remove any repetitive sentences that simply restate that small teams need more capacity.
+
+The section should feel like:
+**“Here is what this could actually feel like for people doing good work.”**
+
+It should NOT make claims that these are existing customers or deployments. Keep the existing illustrative-use-case disclaimer.
+
+### 6. MAKE “THE THREE ROLES” FEEL HUMAN, NOT DOCUMENTATION-LIKE
+
+Keep the three roles:
+
+THE GROUP
+THE AI TEAMMATE
+VOUCH
+
+But make the relationship immediately clear:
+
+**The group decides what responsibility the AI should have.
+The AI teammate proves what it can do.
+VOUCH turns evidence into earned trust and responsible delegation.**
+
+This is one of the core ideas of the product. Preserve it.
+
+### 7. KEEP THE STRONG LINES
+
+Do NOT remove these ideas/lines unless necessary for layout:
+
+“The AI that looks out for people.”
+
+“An AI teammate that earns trust through proven work—so groups can spend more time helping people.”
+
+“Trust is earned.”
+
+“People need help. AI can help. VOUCH looks out for them.”
+
+“Give community teams another set of hands.”
+
+“The agent earns responsibility through what it proves.”
+
+“Trust doesn't mean never checking.”
+
+“The goal is enough trusted autonomy to help people do more—not maximum autonomy.”
+
+These are part of VOUCH's heart.
+
+### 8. GIVE THE PAGE A BETTER FINAL BEAT
+
+The bottom of the homepage should leave the visitor with the central VOUCH idea:
+
+AI does not get responsibility simply because someone says it is trustworthy.
+
+It earns responsibility through demonstrated, verified behavior.
+
+End on the human purpose:
+**AI helping people do more, while people remain responsible for the decisions that matter.**
+
+Keep this concise and emotionally strong. Do not turn it into a technical architecture summary.
+
+### MOST IMPORTANT
+
+VOUCH should feel like:
+
+**SERIOUS TECHNOLOGY + HUMAN HEART + A LITTLE CHARM**
+
+NOT:
+
+**CORPORATE AI GOVERNANCE + SECURITY JARGON**
+
+The mascot, progression, “another set of hands,” and human language are strengths. Preserve them.
+
+Please make only these targeted changes, then run the existing tests/build and check the homepage visually for awkward spacing, duplicated content, broken hierarchy, or unfinished-looking text.
