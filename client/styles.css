@@ -727,6 +727,15 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .change-row span { color: #566d84; font: 500 7px var(--mono); letter-spacing: .12em; }
 .change-row p { margin: 6px 0; color: #a0afbf; font-size: 10px; line-height: 1.45; }
 .change-row .to p { color: var(--blue-bright); }
+.teammate-journey > div:first-child > small { display: block; max-width: 285px; margin-top: 22px; color: var(--muted); font-size: 10px; line-height: 1.6; }
+.journey-progression { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: stretch; }
+.journey-level { position: relative; min-width: 0; min-height: 270px; padding: 14px 14px 18px; border: 1px solid var(--line); border-radius: 7px; background: linear-gradient(180deg, rgba(92,169,255,.055), transparent 52%), #0b1928; }
+.journey-level > svg { position: absolute; top: 104px; right: -14px; color: #42617f; z-index: 2; }
+.journey-knight { height: 132px; display: grid; place-items: center; }
+.journey-knight .authority-knight { transform: scale(.82); }
+.journey-level > span { display: block; color: var(--blue-bright); font: 500 8px var(--mono); letter-spacing: .1em; }
+.journey-level > b { display: block; margin-top: 10px; color: var(--text); font: 650 15px var(--display); letter-spacing: -.02em; }
+.journey-level > p { margin: 8px 0 0; color: var(--muted); font-size: 9px; line-height: 1.55; }
 .roi-section { padding: 85px 0; border-top: 1px solid var(--line-soft); }
 .roi-heading { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 30px; }
 .roi-heading h2 { margin: 15px 0 0; font: 700 39px/1.12 var(--display); letter-spacing: -.04em; }
@@ -760,14 +769,12 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
 .lifecycle-intro h2, .autonomy-section h2, .trust-product h2 { margin: 15px 0; font: 700 39px/1.12 var(--display); letter-spacing: -.045em; }
 .lifecycle-intro p { max-width: 290px; color: var(--muted); font-size: 12px; line-height: 1.75; }
 .lifecycle-list { position: relative; }
-.lifecycle-row { min-height: 85px; display: grid; grid-template-columns: 31px 35px minmax(0, 1fr) 58px 18px; gap: 13px; align-items: start; position: relative; }
+.lifecycle-row { min-height: 85px; display: grid; grid-template-columns: 31px 35px minmax(0, 1fr) 18px; gap: 13px; align-items: start; position: relative; }
 .lifecycle-row > span { color: #4d6883; font: 500 8px var(--mono); padding-top: 5px; }
 .lifecycle-marker { width: 27px; height: 27px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--green); background: #0d1d2e; }
 .lifecycle-row.authority-row .lifecycle-marker { border-color: var(--blue); color: var(--blue-bright); box-shadow: 0 0 0 4px rgba(92,169,255,.08); }
-.lifecycle-row b { display: block; color: var(--blue-bright); font: 600 11px var(--mono); letter-spacing: .08em; }
-.lifecycle-row p { margin: 7px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
-.lifecycle-knight { align-self: center; justify-self: center; opacity: .88; }
-.lifecycle-knight .guardian-state { display: none; }
+.lifecycle-row b { display: block; color: var(--text); font: 650 15px var(--display); letter-spacing: -.01em; }
+.lifecycle-row p { margin: 6px 0 0; color: #91a4b8; font-size: 11px; line-height: 1.5; }
 .lifecycle-row > svg { color: #38536d; margin-top: 5px; }
 .autonomy-section { padding: 85px 0; border-top: 1px solid var(--line-soft); }
 .autonomy-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 42px; }
@@ -865,12 +872,13 @@ footer { min-height: 84px; padding: 25px 36px; border-top: 1px solid var(--line-
   .roi-ribbon > div { gap: 18px; }.ribbon-message { gap: 10px; font-size: 14px; }.ribbon-kicker { display: none; }
   .story-hero { gap: 25px; }.value-section, .lifecycle, .judge-takeaways, .technical-snapshot { gap: 35px; }
   .trust-product { grid-template-columns: 90px .7fr 1.3fr; }.demo-outcome { gap: 25px; }
+  .journey-level { min-height: 250px; padding-inline: 10px; }.journey-knight { height: 120px; }
 }
 @media (max-width: 760px) {
   .public-nav .nav { left: 12px; right: 12px; }.nav-cta { display: none; }
   .roi-ribbon > div { min-height: 135px; display: block; padding: 21px 0; }.ribbon-message { display: grid; grid-template-columns: 1fr 1fr; margin: 11px 0; }.ribbon-message b:last-child { grid-column: 1 / -1; }.roi-ribbon button { margin: 0; }
   .story-hero, .value-section, .lifecycle, .judge-takeaways, .technical-snapshot { grid-template-columns: 1fr; }.story-hero { padding-top: 58px; }.story-hero-visual { min-height: 310px; }.hero-state-card { right: 4%; bottom: 1%; }.story-hero-visual .guardian { transform: scale(1.1); }
-  .story-section h2, .value-section h2, .why-now h2, .lifecycle-intro h2, .autonomy-section h2, .trust-product h2 { font-size: 31px; }.option-grid, .roi-cards, .autonomy-steps { grid-template-columns: 1fr; }.roi-heading { grid-template-columns: 1fr; }.roi-heading p { justify-self: start; }.automation-ladder { grid-template-columns: 1fr; }.automation-ladder > svg { transform: rotate(90deg); justify-self: center; }.page-cta, .trust-manifesto { align-items: start; flex-direction: column; gap: 22px; }.trust-manifesto h2 { font-size: 31px; }.trust-product { grid-template-columns: 65px 1fr; }.trust-loop { grid-column: 1 / -1; }.autonomy-step > svg { display: none; }.lifecycle-row { grid-template-columns: 26px 29px minmax(0, 1fr) 18px; gap: 9px; }.lifecycle-knight { display: none; }
+  .story-section h2, .value-section h2, .why-now h2, .lifecycle-intro h2, .autonomy-section h2, .trust-product h2 { font-size: 31px; }.option-grid, .roi-cards, .autonomy-steps { grid-template-columns: 1fr; }.roi-heading { grid-template-columns: 1fr; }.roi-heading p { justify-self: start; }.automation-ladder { grid-template-columns: 1fr; }.automation-ladder > svg { transform: rotate(90deg); justify-self: center; }.page-cta, .trust-manifesto { align-items: start; flex-direction: column; gap: 22px; }.trust-manifesto h2 { font-size: 31px; }.trust-product { grid-template-columns: 65px 1fr; }.trust-loop { grid-column: 1 / -1; }.autonomy-step > svg { display: none; }.lifecycle-row { grid-template-columns: 26px 29px minmax(0, 1fr) 18px; gap: 9px; }.journey-progression { grid-template-columns: repeat(2, 1fr); }.journey-level > svg { display: none; }
   .demo-experience { padding-top: 42px; }.demo-hero-heading { min-height: 290px; }.demo-hero-heading h1 { font-size: 45px; }.demo-hero-heading > .guardian,.demo-hero-heading > .authority-knight { transform: scale(.8); margin-right: 0; }.guided-demo { padding: 15px; }.demo-timeline { overflow-x: auto; min-width: 650px; }.demo-timeline button { min-width: 90px; }.demo-stage-card { grid-template-columns: 1fr; }.stage-graphic { min-height: 320px; }.demo-controls, .guided-approval-actions { flex-wrap: wrap; }.guided-approval-label { width: 100%; }.human-authorization-proof { grid-template-columns: 1fr; }.human-proof-steps { grid-template-columns: 1fr; }.presenter-hint { width: 100%; margin: 4px 0 0; }.demo-outcome { grid-template-columns: 1fr; }.scenario-rail { grid-template-columns: 1fr; }
   .judges-hero { grid-template-columns: 1fr; gap: 20px; padding: 55px 0 40px; }.judges-hero h1 { font-size: 61px; }.judge-stamp { min-height: 260px; }.judge-takeaways { padding: 55px 0; }.judge-timeline { grid-template-columns: 1fr; }.judge-watch { grid-template-columns: 1fr; }.watch-panel, .impact-panel { min-height: 0; }.tech-grid { grid-template-columns: 1fr; }.judge-live-details { grid-template-columns: 1fr 1fr; }
 }
