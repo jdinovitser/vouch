@@ -1,0 +1,45 @@
+TIME / WHAT YOU DO	WHAT YOU SHOW	WHAT YOU SAY
+0:00–0:20 — Open /demo	Don't click anything. Let the hero and mascot sit on screen.	“The food pantry is running out of supplies. Disaster relief volunteers are overwhelmed. A neighborhood group has more people asking for help than it has people to answer them.”
+	Point toward the community/team messaging.	“People need help. The people helping them need more hands.”
+0:20–0:40 — Introduce AI teammate	Point to the VOUCH mascot.	“AI can give them those extra hands. It can take on real work and help a small team reach more people.”
+	Pause.	“But adding an AI to your team creates a very human problem: trust.”
+0:40–1:00 — Explain trust	Stay on the main screen.	“Imagine a new member joins your team. You wouldn't hand them the keys to everything on their first day. You'd start them small.”
+	Point to the progression.	“You'd watch them work. You'd check whether they actually did what they said they did. And when they proved themselves, you'd trust them with more.”
+	Point back to mascot.	“VOUCH treats an AI agent the same way.”
+1:00–1:20 — The core idea	Slowly point through Start Small → Prove → Verify → Earn → Step In.	“The AI joins the team with limited responsibility. It helps people. It proves it can do the work. Its results are independently verified. And that evidence earns trust.”
+	Point to “Earn.”	“And that trust isn't just a score. It becomes real responsibility.”
+	Pause.	“The better it proves itself, the more it can responsibly take on.”
+1:20–1:30 — Start demo	Move to Process next case.	“So let's see if our new AI teammate can earn its place on the team.”
+1:30–1:55 — Case #8041	Click Process next case. Show #8041 and its evidence.	“Its first job is routine: someone was charged twice and needs their money back.”
+	Point to evidence/recommendation.	“The AI looks at the evidence, reasons about what should happen, and recommends a refund.”
+	Point to authorization.	“But just like a new team member, making a recommendation doesn't mean it automatically gets to make the decision.”
+1:55–2:15 — Let it help	Execute the case. Then wait for verification.	“This task is within the responsibility we've given it, so VOUCH lets the teammate help.”
+	Point to verification.	“But trust isn't based on what the AI tells us. We independently verify the result.”
+	Show RESOLVED / VERIFIED.	“It did the job. And the result checks out.”
+2:15–2:35 — Trust is earned	Show $250 → $500 authority change.	“Now the teammate has earned something: our trust.”
+	Point directly to the old and new limits.	“Because it successfully completed the work and we verified the outcome, its responsibility increases from 250 dollars to 500.”
+	Pause.	“This is what earned trust means in VOUCH. Trust isn't something we simply give the AI. The AI demonstrates that it's ready for more.”
+2:35–2:55 — Bigger responsibility	Open/process #8042, clearly showing $1,240.	“Now let's see whether earning trust means the AI gets to do absolutely everything.”
+	Point to amount.	“This is a 1,240-dollar refund.”
+	Show APPROVAL REQUIRED.	“No. Our teammate has earned more responsibility—but not this much.”
+	Leave approval state visible.	“Just like a trusted team member may still need a supervisor for an important decision, VOUCH gives this decision back to a person.”
+2:55–3:15 — Trust isn't permanent	Move to #1192.	“And there's another important part of trust: it can be lost.”
+	Process the case.	“This time, the teammate's work doesn't survive verification.”
+	Let the failure appear.	“If this were a real member of our team, we wouldn't ignore that. We'd change what we're comfortable trusting them with.”
+3:15–3:35 — Take responsibility away	Show $500 → $100.	“That's exactly what VOUCH does.”
+	Point to the decrease.	“The teammate's responsibility drops from 500 dollars back to 100.”
+	Pause.	“Trust can be earned. And trust can be taken away.”
+	Point to the team/AI concept.	“The AI is still part of the team. It can still help people. But after failing to prove itself, it has less responsibility until it earns that trust back.”
+3:35–3:55 — Hard boundary	Show #680 or #1240 and the blocked result.	“And there are some responsibilities that aren't earned through performance at all.”
+	Point to conflicting/untrusted instruction.	“This crosses a hard safety boundary.”
+	Show BLOCKED.	“So VOUCH blocks it. Even a highly trusted teammate doesn't get to override a boundary the team has said cannot be crossed.”
+3:55–4:20 — Technical proof	Scroll to Strands / Bedrock / architecture proof.	“And this isn't just a metaphor. We actually enforce the teammate's responsibility in the system.”
+	Point to Strands + Bedrock.	“The agent uses Strands Agents and Amazon Bedrock to reason about the work, use tools, and make recommendations.”
+	Point to Authority Engine.	“But the AI doesn't control its own trust or authority.”
+	Point to The LLM is not the permission system.	“The agent can recommend. It cannot authorize itself.”
+4:20–4:40 — Explain the mechanism	Show authority, verification, PostgreSQL, audit pieces.	“VOUCH keeps responsibility outside the model, persists it, controls execution server-side, and independently verifies the outcome before changing what the AI is trusted to do.”
+	Point through the progression again.	“So the loop is simple: help people, prove the work, verify the result, earn trust, take on more responsibility—and if the evidence changes, responsibility changes too.”
+4:40–4:55 — Return to human impact	Return to hero/mascot and community examples. Stop clicking.	“That's what this gives a small community team: another member of the team who can actually help.”
+	Point to community examples.	“Not an AI that gets unlimited access. Not an AI that needs a human to approve every little thing. A teammate whose responsibility grows with demonstrated trust.”
+4:55–5:00 — Final	Full-screen hero/mascot. Look at camera if possible.	“Because the goal isn't to replace the people doing the work. It's to give them another set of hands they can trust.”
+	Final beat.	“Let the AI earn its place on the team. VOUCH—AI that looks out for people.”
